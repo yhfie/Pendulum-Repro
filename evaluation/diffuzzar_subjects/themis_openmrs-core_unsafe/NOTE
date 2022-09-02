@@ -1,0 +1,21 @@
+This subject is fixed by changing line 65---67 in src/org/openmrs/util/Security.java:
+
+```
+		return hashedPassword.equals(encodeString(passwordToHash))
+		        || hashedPassword.equals(encodeStringSHA1(passwordToHash))
+		        || hashedPassword.equals(incorrectlyEncodeString(passwordToHash));
+```
+
+to
+
+```
+		return Safe.or(hashedPassword.equals(encodeString(passwordToHash)), hashedPassword.equals(encodeStringSHA1(passwordToHash))) || hashedPassword.equals(incorrectlyEncodeString(passwordToHash));
+```
+
+However, my implementation of the fix localization and the fix pattern wrongly assumes that an `InfixExpression` in TBar AST has only three children: lhs, operator, rhs. It thus replaces `lhs || rhs || ...` with `Safe.or(lhs, rhs)`, omitting the third operand. That is, it would produce:
+
+```
+		return Safe.or(hashedPassword.equals(encodeString(passwordToHash)), hashedPassword.equals(encodeStringSHA1(passwordToHash)));
+```
+
+For the purpose of evaluation, I manually add the third operand to the fixed source code. I did not fix the tool implementation. I think we should rewrite the tool with polyglot AST, instead of TBar, if we want it to be robust.

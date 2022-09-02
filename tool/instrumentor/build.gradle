@@ -1,0 +1,32 @@
+apply plugin: 'java'
+
+def version = '0.1'
+jar.archiveFileName = 'kelinci.jar'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations.implementation.setCanBeResolved(true)
+
+dependencies {
+    implementation 'args4j:args4j:2.32'    
+    implementation group: 'org.ow2.asm', name: 'asm', version: '5.2'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
+}
+
+jar {
+
+    manifest {
+        attributes 'Main-Class': "edu.cmu.sv.kelinci.instrumentor.Instrumentor",
+                   'Class-Path': '.',
+                   'Implementation-Title': 'Kelinci',
+                   'Implementation-Version': "$version"
+    }
+
+    from configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) }
+}

@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+jar.archiveFileName = 'pendulum.jar'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked"
+    }
+}
+
+configurations.implementation.setCanBeResolved(true)
+
+dependencies {
+    implementation 'args4j:args4j:2.32'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
+	implementation fileTree(dir: './dependency', include: ['*.jar'])
+	implementation fileTree(dir: '../instrumentor/build/libs', include: ['*.jar'])
+}
+
+jar {
+
+	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    manifest {
+        attributes 'Main-Class': "pendulum.Pendulum",
+                   'Class-Path': '.',
+                   'Implementation-Title': 'Pendulum'
+    }
+
+    from configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) }
+}

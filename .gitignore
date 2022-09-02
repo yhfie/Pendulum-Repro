@@ -1,0 +1,14 @@
+*.DS_Store
+/instrumentor/build/
+/**/.gradle
+/**/gradle/
+/**/.idea/
+/**/gradlew
+/**/gradlew.bat
+/**/*.class
+
+*.classpath
+*.project
+*.settings/
+*/bin/
+tool/sc_fix/bin

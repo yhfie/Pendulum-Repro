@@ -1,0 +1,10 @@
+/*/bin/
+/*/bin-instr/
+/*/fuzzer-out*
+/*/server.log
+#/*/src_fixed/
+/*/bin_fixed/
+/*/bin-instr_fixed/
+/*/server.fix.log
+/*/evosuite-tests-bin
+.vscode/
