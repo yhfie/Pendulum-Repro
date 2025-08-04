@@ -1,0 +1,2 @@
+2024-07-04 21:28:39,285 INFO (main) [root] - Running soot with  -keep-line-number -pp -f jimple -d ./dump -allow-phantom-refs -cp /home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/rt.jar:/home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/jce.jar: -src-prec class -process-path ../verification/bin_fixed
+2024-07-04 21:28:39,624 INFO (main) [root] - Done parsing.

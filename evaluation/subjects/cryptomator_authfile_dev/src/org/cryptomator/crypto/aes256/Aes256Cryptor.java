@@ -121,7 +121,7 @@ public class Aes256Cryptor extends AbstractCryptor implements AesCryptographicCo
 	 * 
 	 * @param prng Fast, possibly insecure PRNG.
 	 */
-	public Aes256Cryptor(Random prng) {  // : changed visibility for fuzz testing
+	public Aes256Cryptor(Random prng) {  // Rhf: changed visibility for fuzz testing
 		byte[] bytes = new byte[AES_KEY_LENGTH_IN_BITS / Byte.SIZE];
 		try {
 			prng.nextBytes(bytes);
@@ -405,7 +405,7 @@ public class Aes256Cryptor extends AbstractCryptor implements AesCryptographicCo
 
 	@Override
 	public boolean authenticateContent(SeekableByteChannel encryptedFile) throws IOException {
-		return false;  // 
+		return false;  // RHf
 		// // read file size:
 		// final Long fileSize = decryptedContentLength(encryptedFile);
 
@@ -474,7 +474,7 @@ public class Aes256Cryptor extends AbstractCryptor implements AesCryptographicCo
 
         // return true;
 
-		// : inline the developer fix
+		// RHf: inline the developer fix
 		return MessageDigest.isEqual(a, a2);
     }
 

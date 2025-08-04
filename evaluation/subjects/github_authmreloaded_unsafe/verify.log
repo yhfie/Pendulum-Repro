@@ -1,0 +1,526 @@
+=> Compiling unsafe and fixed java files
++ make compile
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/QDriver.java -d bin
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/fr/xephi/authme/service/MigrationService.java -d bin
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Greedy.java -d bin
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_KDynamic.java -d bin
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_old.java -d bin
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
++ make compile_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/QDriver.java -d bin_fixed
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/fr/xephi/authme/service/MigrationService.java -d bin_fixed
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/sg/edu/nus/comp/tsunami/safe/Safe.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Greedy.java -d bin_fixed
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_KDynamic.java -d bin_fixed
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_old.java -d bin_fixed
+warning: Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+1 warning
+
+=> Copying class files to verification/
++ mkdir -p verification
++ cp -r bin verification/bin
++ cp -r bin_fixed verification/bin_fixed
+
+=> Removing unchanged class files
++ rm -f verification/bin_fixed/fr/xephi/authme/service/TeleportationService.class verification/bin/fr/xephi/authme/service/TeleportationService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/SessionService.class verification/bin/fr/xephi/authme/service/SessionService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/BackupService.class verification/bin/fr/xephi/authme/service/BackupService.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/service/BackupService$BackupCause.class' 'verification/bin/fr/xephi/authme/service/BackupService$BackupCause.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/service/BackupService$1.class' 'verification/bin/fr/xephi/authme/service/BackupService$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/service/PluginHookService.class verification/bin/fr/xephi/authme/service/PluginHookService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/BukkitService.class verification/bin/fr/xephi/authme/service/BukkitService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/yaml/YamlParseException.class verification/bin/fr/xephi/authme/service/yaml/YamlParseException.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/yaml/YamlFileResourceProvider.class verification/bin/fr/xephi/authme/service/yaml/YamlFileResourceProvider.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/AntiBotService.class verification/bin/fr/xephi/authme/service/AntiBotService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/RecoveryCodeService.class verification/bin/fr/xephi/authme/service/RecoveryCodeService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/CommonService.class verification/bin/fr/xephi/authme/service/CommonService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/HelpTranslationGenerator.class verification/bin/fr/xephi/authme/service/HelpTranslationGenerator.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/ValidationService.class verification/bin/fr/xephi/authme/service/ValidationService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/JoinMessageService.class verification/bin/fr/xephi/authme/service/JoinMessageService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/GeoIpService.class verification/bin/fr/xephi/authme/service/GeoIpService.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/service/AntiBotService$AntiBotStatus.class' 'verification/bin/fr/xephi/authme/service/AntiBotService$AntiBotStatus.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/service/MigrationService.class verification/bin/fr/xephi/authme/service/MigrationService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/PasswordRecoveryService.class verification/bin/fr/xephi/authme/service/PasswordRecoveryService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/bungeecord/MessageType.class verification/bin/fr/xephi/authme/service/bungeecord/MessageType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/bungeecord/BungeeReceiver.class verification/bin/fr/xephi/authme/service/bungeecord/BungeeReceiver.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/bungeecord/BungeeSender.class verification/bin/fr/xephi/authme/service/bungeecord/BungeeSender.class
++ rm -f verification/bin_fixed/fr/xephi/authme/service/SessionState.class verification/bin/fr/xephi/authme/service/SessionState.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/service/ValidationService$ValidationResult.class' 'verification/bin/fr/xephi/authme/service/ValidationService$ValidationResult.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/PlayerPermission.class verification/bin/fr/xephi/authme/permission/PlayerPermission.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/permission/DefaultPermission$3.class' 'verification/bin/fr/xephi/authme/permission/DefaultPermission$3.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/PermissionNode.class verification/bin/fr/xephi/authme/permission/PermissionNode.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/DefaultPermission.class verification/bin/fr/xephi/authme/permission/DefaultPermission.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/permission/DefaultPermission$2.class' 'verification/bin/fr/xephi/authme/permission/DefaultPermission$2.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/PermissionsSystemType.class verification/bin/fr/xephi/authme/permission/PermissionsSystemType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/PermissionsManager.class verification/bin/fr/xephi/authme/permission/PermissionsManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/LuckPermsHandler.class verification/bin/fr/xephi/authme/permission/handlers/LuckPermsHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/VaultHandler.class verification/bin/fr/xephi/authme/permission/handlers/VaultHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/ZPermissionsHandler.class verification/bin/fr/xephi/authme/permission/handlers/ZPermissionsHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/PermissionsExHandler.class verification/bin/fr/xephi/authme/permission/handlers/PermissionsExHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/PermissionHandler.class verification/bin/fr/xephi/authme/permission/handlers/PermissionHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/BPermissionsHandler.class verification/bin/fr/xephi/authme/permission/handlers/BPermissionsHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/handlers/PermissionHandlerException.class verification/bin/fr/xephi/authme/permission/handlers/PermissionHandlerException.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/permission/DefaultPermission$1.class' 'verification/bin/fr/xephi/authme/permission/DefaultPermission$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/AdminPermission.class verification/bin/fr/xephi/authme/permission/AdminPermission.class
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/DebugSectionPermissions.class verification/bin/fr/xephi/authme/permission/DebugSectionPermissions.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/permission/PermissionsManager$1.class' 'verification/bin/fr/xephi/authme/permission/PermissionsManager$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/permission/PlayerStatePermission.class verification/bin/fr/xephi/authme/permission/PlayerStatePermission.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/MessageDigestAlgorithm.class verification/bin/fr/xephi/authme/security/MessageDigestAlgorithm.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/HashAlgorithm.class verification/bin/fr/xephi/authme/security/HashAlgorithm.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/PasswordSecurity.class verification/bin/fr/xephi/authme/security/PasswordSecurity.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Joomla.class verification/bin/fr/xephi/authme/security/crypts/Joomla.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/PhpBB.class verification/bin/fr/xephi/authme/security/crypts/PhpBB.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/PhpFusion.class verification/bin/fr/xephi/authme/security/crypts/PhpFusion.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Argon2.class verification/bin/fr/xephi/authme/security/crypts/Argon2.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Wbb4.class verification/bin/fr/xephi/authme/security/crypts/Wbb4.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Sha256.class verification/bin/fr/xephi/authme/security/crypts/Sha256.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/security/crypts/PhpBB$PhpassSaltedMd5.class' 'verification/bin/fr/xephi/authme/security/crypts/PhpBB$PhpassSaltedMd5.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/SeparateSaltMethod.class verification/bin/fr/xephi/authme/security/crypts/SeparateSaltMethod.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Ipb3.class verification/bin/fr/xephi/authme/security/crypts/Ipb3.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/MyBB.class verification/bin/fr/xephi/authme/security/crypts/MyBB.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/BCryptService.class verification/bin/fr/xephi/authme/security/crypts/BCryptService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Ipb4.class verification/bin/fr/xephi/authme/security/crypts/Ipb4.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/XfBCrypt.class verification/bin/fr/xephi/authme/security/crypts/XfBCrypt.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/HashedPassword.class verification/bin/fr/xephi/authme/security/crypts/HashedPassword.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/DoubleMd5.class verification/bin/fr/xephi/authme/security/crypts/DoubleMd5.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Md5vB.class verification/bin/fr/xephi/authme/security/crypts/Md5vB.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Salted2Md5.class verification/bin/fr/xephi/authme/security/crypts/Salted2Md5.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/TwoFactor.class verification/bin/fr/xephi/authme/security/crypts/TwoFactor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Smf.class verification/bin/fr/xephi/authme/security/crypts/Smf.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Sha1.class verification/bin/fr/xephi/authme/security/crypts/Sha1.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/HexSaltedMethod.class verification/bin/fr/xephi/authme/security/crypts/HexSaltedMethod.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/CrazyCrypt1.class verification/bin/fr/xephi/authme/security/crypts/CrazyCrypt1.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/RoyalAuth.class verification/bin/fr/xephi/authme/security/crypts/RoyalAuth.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Pbkdf2Django.class verification/bin/fr/xephi/authme/security/crypts/Pbkdf2Django.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Sha512.class verification/bin/fr/xephi/authme/security/crypts/Sha512.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/BCrypt.class verification/bin/fr/xephi/authme/security/crypts/BCrypt.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/CmwCrypt.class verification/bin/fr/xephi/authme/security/crypts/CmwCrypt.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/BCrypt2y.class verification/bin/fr/xephi/authme/security/crypts/BCrypt2y.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/UsernameSaltMethod.class verification/bin/fr/xephi/authme/security/crypts/UsernameSaltMethod.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/XAuth.class verification/bin/fr/xephi/authme/security/crypts/XAuth.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/EncryptionMethod.class verification/bin/fr/xephi/authme/security/crypts/EncryptionMethod.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Md5.class verification/bin/fr/xephi/authme/security/crypts/Md5.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Whirlpool.class verification/bin/fr/xephi/authme/security/crypts/Whirlpool.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Wordpress.class verification/bin/fr/xephi/authme/security/crypts/Wordpress.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/SaltedSha512.class verification/bin/fr/xephi/authme/security/crypts/SaltedSha512.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Pbkdf2.class verification/bin/fr/xephi/authme/security/crypts/Pbkdf2.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/description/Usage.class verification/bin/fr/xephi/authme/security/crypts/description/Usage.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/description/AsciiRestricted.class verification/bin/fr/xephi/authme/security/crypts/description/AsciiRestricted.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/description/Recommendation.class verification/bin/fr/xephi/authme/security/crypts/description/Recommendation.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/description/SaltType.class verification/bin/fr/xephi/authme/security/crypts/description/SaltType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/description/HasSalt.class verification/bin/fr/xephi/authme/security/crypts/description/HasSalt.class
++ rm -f verification/bin_fixed/fr/xephi/authme/security/crypts/Wbb3.class verification/bin/fr/xephi/authme/security/crypts/Wbb3.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/security/PasswordSecurity$1.class' 'verification/bin/fr/xephi/authme/security/PasswordSecurity$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/security/HashUtils.class verification/bin/fr/xephi/authme/security/HashUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/JoiningPlayer.class verification/bin/fr/xephi/authme/listener/JoiningPlayer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/EntityListener.class verification/bin/fr/xephi/authme/listener/EntityListener.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener19Spigot.class verification/bin/fr/xephi/authme/listener/PlayerListener19Spigot.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener16.class verification/bin/fr/xephi/authme/listener/PlayerListener16.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/ServerListener.class verification/bin/fr/xephi/authme/listener/ServerListener.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/OnJoinVerifier.class verification/bin/fr/xephi/authme/listener/OnJoinVerifier.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener19.class verification/bin/fr/xephi/authme/listener/PlayerListener19.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener18.class verification/bin/fr/xephi/authme/listener/PlayerListener18.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/BlockListener.class verification/bin/fr/xephi/authme/listener/BlockListener.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/ListenerService.class verification/bin/fr/xephi/authme/listener/ListenerService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener.class verification/bin/fr/xephi/authme/listener/PlayerListener.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/PlayerListener111.class verification/bin/fr/xephi/authme/listener/PlayerListener111.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/FailedVerificationException.class verification/bin/fr/xephi/authme/listener/FailedVerificationException.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/protocollib/InventoryPacketAdapter.class verification/bin/fr/xephi/authme/listener/protocollib/InventoryPacketAdapter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/protocollib/ProtocolLibService.class verification/bin/fr/xephi/authme/listener/protocollib/ProtocolLibService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/listener/protocollib/TabCompletePacketAdapter.class verification/bin/fr/xephi/authme/listener/protocollib/TabCompletePacketAdapter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/login/AsynchronousLogin.class verification/bin/fr/xephi/authme/process/login/AsynchronousLogin.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/login/ProcessSyncPlayerLogin.class verification/bin/fr/xephi/authme/process/login/ProcessSyncPlayerLogin.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/join/AsynchronousJoin.class verification/bin/fr/xephi/authme/process/join/AsynchronousJoin.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/ProcessSyncPasswordRegister.class verification/bin/fr/xephi/authme/process/register/ProcessSyncPasswordRegister.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/RegisterSecondaryArgument.class verification/bin/fr/xephi/authme/process/register/RegisterSecondaryArgument.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/RegistrationType.class verification/bin/fr/xephi/authme/process/register/RegistrationType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/ProcessSyncEmailRegister.class verification/bin/fr/xephi/authme/process/register/ProcessSyncEmailRegister.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/AsyncRegister.class verification/bin/fr/xephi/authme/process/register/AsyncRegister.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/RegistrationExecutor.class verification/bin/fr/xephi/authme/process/register/executors/RegistrationExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/TwoFactorRegisterParams.class verification/bin/fr/xephi/authme/process/register/executors/TwoFactorRegisterParams.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/ApiPasswordRegisterExecutor.class verification/bin/fr/xephi/authme/process/register/executors/ApiPasswordRegisterExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/AbstractPasswordRegisterExecutor.class verification/bin/fr/xephi/authme/process/register/executors/AbstractPasswordRegisterExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/EmailRegisterExecutor.class verification/bin/fr/xephi/authme/process/register/executors/EmailRegisterExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/RegistrationParameters.class verification/bin/fr/xephi/authme/process/register/executors/RegistrationParameters.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/TwoFactorRegisterExecutor.class verification/bin/fr/xephi/authme/process/register/executors/TwoFactorRegisterExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/RegistrationMethod.class verification/bin/fr/xephi/authme/process/register/executors/RegistrationMethod.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/PasswordRegisterParams.class verification/bin/fr/xephi/authme/process/register/executors/PasswordRegisterParams.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/ApiPasswordRegisterParams.class verification/bin/fr/xephi/authme/process/register/executors/ApiPasswordRegisterParams.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/PasswordRegisterExecutor.class verification/bin/fr/xephi/authme/process/register/executors/PasswordRegisterExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/PlayerAuthBuilderHelper.class verification/bin/fr/xephi/authme/process/register/executors/PlayerAuthBuilderHelper.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/AbstractPasswordRegisterParams.class verification/bin/fr/xephi/authme/process/register/executors/AbstractPasswordRegisterParams.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/register/executors/EmailRegisterParams.class verification/bin/fr/xephi/authme/process/register/executors/EmailRegisterParams.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/email/AsyncChangeEmail.class verification/bin/fr/xephi/authme/process/email/AsyncChangeEmail.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/email/AsyncAddEmail.class verification/bin/fr/xephi/authme/process/email/AsyncAddEmail.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/Management.class verification/bin/fr/xephi/authme/process/Management.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/AsynchronousProcess.class verification/bin/fr/xephi/authme/process/AsynchronousProcess.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/logout/ProcessSyncPlayerLogout.class verification/bin/fr/xephi/authme/process/logout/ProcessSyncPlayerLogout.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/logout/AsynchronousLogout.class verification/bin/fr/xephi/authme/process/logout/AsynchronousLogout.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/unregister/AsynchronousUnregister.class verification/bin/fr/xephi/authme/process/unregister/AsynchronousUnregister.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/SyncProcessManager.class verification/bin/fr/xephi/authme/process/SyncProcessManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/quit/ProcessSyncPlayerQuit.class verification/bin/fr/xephi/authme/process/quit/ProcessSyncPlayerQuit.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/quit/AsynchronousQuit.class verification/bin/fr/xephi/authme/process/quit/AsynchronousQuit.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/SynchronousProcess.class verification/bin/fr/xephi/authme/process/SynchronousProcess.class
++ rm -f verification/bin_fixed/fr/xephi/authme/process/changepassword/AsyncChangePassword.class verification/bin/fr/xephi/authme/process/changepassword/AsyncChangePassword.class
++ rm -f verification/bin_fixed/fr/xephi/authme/api/NewAPI.class verification/bin/fr/xephi/authme/api/NewAPI.class
++ rm -f verification/bin_fixed/fr/xephi/authme/api/v3/AuthMeApi.class verification/bin/fr/xephi/authme/api/v3/AuthMeApi.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/DataSource.class verification/bin/fr/xephi/authme/datasource/DataSource.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/MySqlExtensionsFactory$1.class' 'verification/bin/fr/xephi/authme/datasource/mysqlextensions/MySqlExtensionsFactory$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/MySqlExtensionsFactory.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/MySqlExtensionsFactory.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/MySqlExtension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/MySqlExtension.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/XfBcryptExtension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/XfBcryptExtension.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/WordpressExtension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/WordpressExtension.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/Ipb4Extension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/Ipb4Extension.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/NoOpExtension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/NoOpExtension.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/mysqlextensions/PhpBbExtension.class verification/bin/fr/xephi/authme/datasource/mysqlextensions/PhpBbExtension.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/MySqlPreparedStatementGenerator$MySqlPreparedStatementResult.class' 'verification/bin/fr/xephi/authme/datasource/columnshandler/MySqlPreparedStatementGenerator$MySqlPreparedStatementResult.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/ColumnContext.class verification/bin/fr/xephi/authme/datasource/columnshandler/ColumnContext.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/DataSourceColumn.class verification/bin/fr/xephi/authme/datasource/columnshandler/DataSourceColumn.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/PlayerAuthColumn.class verification/bin/fr/xephi/authme/datasource/columnshandler/PlayerAuthColumn.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/AuthMeColumns.class verification/bin/fr/xephi/authme/datasource/columnshandler/AuthMeColumns.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsHandler.class verification/bin/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsFactory.class verification/bin/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsFactory.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/MySqlPreparedStatementGenerator.class verification/bin/fr/xephi/authme/datasource/columnshandler/MySqlPreparedStatementGenerator.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsFactory$ColumnOptions.class' 'verification/bin/fr/xephi/authme/datasource/columnshandler/AuthMeColumnsFactory$ColumnOptions.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/columnshandler/ConnectionSupplier.class verification/bin/fr/xephi/authme/datasource/columnshandler/ConnectionSupplier.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/SQLite.class verification/bin/fr/xephi/authme/datasource/SQLite.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/AbstractSqlDataSource.class verification/bin/fr/xephi/authme/datasource/AbstractSqlDataSource.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/datasource/CacheDataSource$1.class' 'verification/bin/fr/xephi/authme/datasource/CacheDataSource$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/SqlDataSourceUtils.class verification/bin/fr/xephi/authme/datasource/SqlDataSourceUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/MySqlMigrater.class verification/bin/fr/xephi/authme/datasource/MySqlMigrater.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/CacheDataSource.class verification/bin/fr/xephi/authme/datasource/CacheDataSource.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/FlatFile.class verification/bin/fr/xephi/authme/datasource/FlatFile.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/VAuthConverter.class verification/bin/fr/xephi/authme/datasource/converter/VAuthConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/SqliteToSql.class verification/bin/fr/xephi/authme/datasource/converter/SqliteToSql.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/Converter.class verification/bin/fr/xephi/authme/datasource/converter/Converter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/ForceFlatToSqlite.class verification/bin/fr/xephi/authme/datasource/converter/ForceFlatToSqlite.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/XAuthConverter.class verification/bin/fr/xephi/authme/datasource/converter/XAuthConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/AbstractDataSourceConverter.class verification/bin/fr/xephi/authme/datasource/converter/AbstractDataSourceConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/RoyalAuthConverter.class verification/bin/fr/xephi/authme/datasource/converter/RoyalAuthConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/CrazyLoginConverter.class verification/bin/fr/xephi/authme/datasource/converter/CrazyLoginConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/RakamakConverter.class verification/bin/fr/xephi/authme/datasource/converter/RakamakConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/LoginSecurityConverter.class verification/bin/fr/xephi/authme/datasource/converter/LoginSecurityConverter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/converter/MySqlToSqlite.class verification/bin/fr/xephi/authme/datasource/converter/MySqlToSqlite.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/Columns.class verification/bin/fr/xephi/authme/datasource/Columns.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/SqLiteMigrater.class verification/bin/fr/xephi/authme/datasource/SqLiteMigrater.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/MySQL.class verification/bin/fr/xephi/authme/datasource/MySQL.class
++ rm -f verification/bin_fixed/fr/xephi/authme/datasource/DataSourceType.class verification/bin/fr/xephi/authme/datasource/DataSourceType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/ConsoleLogger.class verification/bin/fr/xephi/authme/ConsoleLogger.class
++ rm -f verification/bin_fixed/fr/xephi/authme/AuthMe.class verification/bin/fr/xephi/authme/AuthMe.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/TempbanManager.class verification/bin/fr/xephi/authme/data/TempbanManager.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$2.class' 'verification/bin/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$2.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$4.class' 'verification/bin/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$4.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType.class verification/bin/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/AllowFlightRestoreType$4.class' 'verification/bin/fr/xephi/authme/data/limbo/AllowFlightRestoreType$4.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/LimboPlayer.class verification/bin/fr/xephi/authme/data/limbo/LimboPlayer.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$3.class' 'verification/bin/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$3.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/AllowFlightRestoreType$1.class' 'verification/bin/fr/xephi/authme/data/limbo/AllowFlightRestoreType$1.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/AuthGroupHandler$1.class' 'verification/bin/fr/xephi/authme/data/limbo/AuthGroupHandler$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/AuthGroupHandler.class verification/bin/fr/xephi/authme/data/limbo/AuthGroupHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/LimboPlayerTaskManager.class verification/bin/fr/xephi/authme/data/limbo/LimboPlayerTaskManager.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/AllowFlightRestoreType$3.class' 'verification/bin/fr/xephi/authme/data/limbo/AllowFlightRestoreType$3.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$1.class' 'verification/bin/fr/xephi/authme/data/limbo/WalkFlySpeedRestoreType$1.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/LimboPlayerTaskManager$MessageResult.class' 'verification/bin/fr/xephi/authme/data/limbo/LimboPlayerTaskManager$MessageResult.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/SegmentNameBuilder.class verification/bin/fr/xephi/authme/data/limbo/persistence/SegmentNameBuilder.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/LimboPlayerDeserializer.class verification/bin/fr/xephi/authme/data/limbo/persistence/LimboPlayerDeserializer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/LimboPersistenceType.class verification/bin/fr/xephi/authme/data/limbo/persistence/LimboPersistenceType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/NoOpPersistenceHandler.class verification/bin/fr/xephi/authme/data/limbo/persistence/NoOpPersistenceHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/IndividualFilesPersistenceHandler.class verification/bin/fr/xephi/authme/data/limbo/persistence/IndividualFilesPersistenceHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/SegmentSize.class verification/bin/fr/xephi/authme/data/limbo/persistence/SegmentSize.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/DistributedFilesPersistenceHandler$1.class' 'verification/bin/fr/xephi/authme/data/limbo/persistence/DistributedFilesPersistenceHandler$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/LimboPersistence.class verification/bin/fr/xephi/authme/data/limbo/persistence/LimboPersistence.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/LimboPersistenceHandler.class verification/bin/fr/xephi/authme/data/limbo/persistence/LimboPersistenceHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/DistributedFilesPersistenceHandler.class verification/bin/fr/xephi/authme/data/limbo/persistence/DistributedFilesPersistenceHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/persistence/LimboPlayerSerializer.class verification/bin/fr/xephi/authme/data/limbo/persistence/LimboPlayerSerializer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/AuthGroupType.class verification/bin/fr/xephi/authme/data/limbo/AuthGroupType.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/LimboService.class verification/bin/fr/xephi/authme/data/limbo/LimboService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/AllowFlightRestoreType.class verification/bin/fr/xephi/authme/data/limbo/AllowFlightRestoreType.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/limbo/AllowFlightRestoreType$2.class' 'verification/bin/fr/xephi/authme/data/limbo/AllowFlightRestoreType$2.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/limbo/LimboServiceHelper.class verification/bin/fr/xephi/authme/data/limbo/LimboServiceHelper.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/QuickCommandsProtectionManager.class verification/bin/fr/xephi/authme/data/QuickCommandsProtectionManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/captcha/LoginCaptchaManager.class verification/bin/fr/xephi/authme/data/captcha/LoginCaptchaManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/captcha/CaptchaCodeStorage.class verification/bin/fr/xephi/authme/data/captcha/CaptchaCodeStorage.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/captcha/RegistrationCaptchaManager.class verification/bin/fr/xephi/authme/data/captcha/RegistrationCaptchaManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/captcha/CaptchaManager.class verification/bin/fr/xephi/authme/data/captcha/CaptchaManager.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/auth/PlayerAuth$Builder.class' 'verification/bin/fr/xephi/authme/data/auth/PlayerAuth$Builder.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/auth/PlayerAuth.class verification/bin/fr/xephi/authme/data/auth/PlayerAuth.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/data/auth/PlayerAuth$1.class' 'verification/bin/fr/xephi/authme/data/auth/PlayerAuth$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/data/auth/PlayerCache.class verification/bin/fr/xephi/authme/data/auth/PlayerCache.class
++ rm -f verification/bin_fixed/fr/xephi/authme/data/VerificationCodeManager.class verification/bin/fr/xephi/authme/data/VerificationCodeManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/output/LogFilterHelper.class verification/bin/fr/xephi/authme/output/LogFilterHelper.class
++ rm -f verification/bin_fixed/fr/xephi/authme/output/Log4JFilter.class verification/bin/fr/xephi/authme/output/Log4JFilter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/output/LogLevel.class verification/bin/fr/xephi/authme/output/LogLevel.class
++ rm -f verification/bin_fixed/fr/xephi/authme/output/ConsoleFilter.class verification/bin/fr/xephi/authme/output/ConsoleFilter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/SpawnLoader.class verification/bin/fr/xephi/authme/settings/SpawnLoader.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/CommandSettingsHolder.class verification/bin/fr/xephi/authme/settings/commandconfig/CommandSettingsHolder.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/CommandConfig.class verification/bin/fr/xephi/authme/settings/commandconfig/CommandConfig.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/CommandManager.class verification/bin/fr/xephi/authme/settings/commandconfig/CommandManager.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/CommandMigrationService.class verification/bin/fr/xephi/authme/settings/commandconfig/CommandMigrationService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/OnLoginCommand.class verification/bin/fr/xephi/authme/settings/commandconfig/OnLoginCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/Command.class verification/bin/fr/xephi/authme/settings/commandconfig/Command.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/commandconfig/Executor.class verification/bin/fr/xephi/authme/settings/commandconfig/Executor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/Settings.class verification/bin/fr/xephi/authme/settings/Settings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/SettingsWarner.class verification/bin/fr/xephi/authme/settings/SettingsWarner.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/SettingsMigrationService.class verification/bin/fr/xephi/authme/settings/SettingsMigrationService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/WelcomeMessageConfiguration.class verification/bin/fr/xephi/authme/settings/WelcomeMessageConfiguration.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/EnumSetProperty.class verification/bin/fr/xephi/authme/settings/EnumSetProperty.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/RegistrationSettings.class verification/bin/fr/xephi/authme/settings/properties/RegistrationSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/ProtectionSettings.class verification/bin/fr/xephi/authme/settings/properties/ProtectionSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/EmailSettings.class verification/bin/fr/xephi/authme/settings/properties/EmailSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/SecuritySettings.class verification/bin/fr/xephi/authme/settings/properties/SecuritySettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/HooksSettings.class verification/bin/fr/xephi/authme/settings/properties/HooksSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/LimboSettings.class verification/bin/fr/xephi/authme/settings/properties/LimboSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/AuthMeSettingsRetriever.class verification/bin/fr/xephi/authme/settings/properties/AuthMeSettingsRetriever.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/PurgeSettings.class verification/bin/fr/xephi/authme/settings/properties/PurgeSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/PluginSettings.class verification/bin/fr/xephi/authme/settings/properties/PluginSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/DatabaseSettings.class verification/bin/fr/xephi/authme/settings/properties/DatabaseSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/ConverterSettings.class verification/bin/fr/xephi/authme/settings/properties/ConverterSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/RestrictionSettings.class verification/bin/fr/xephi/authme/settings/properties/RestrictionSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/settings/properties/BackupSettings.class verification/bin/fr/xephi/authme/settings/properties/BackupSettings.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/PasswordEncryptionEvent.class verification/bin/fr/xephi/authme/events/PasswordEncryptionEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/FirstSpawnTeleportEvent.class verification/bin/fr/xephi/authme/events/FirstSpawnTeleportEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/LogoutEvent.class verification/bin/fr/xephi/authme/events/LogoutEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/AbstractTeleportEvent.class verification/bin/fr/xephi/authme/events/AbstractTeleportEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/CustomEvent.class verification/bin/fr/xephi/authme/events/CustomEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/RestoreInventoryEvent.class verification/bin/fr/xephi/authme/events/RestoreInventoryEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/AuthMeTeleportEvent.class verification/bin/fr/xephi/authme/events/AuthMeTeleportEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/AuthMeAsyncPreLoginEvent.class verification/bin/fr/xephi/authme/events/AuthMeAsyncPreLoginEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/UnregisterByAdminEvent.class verification/bin/fr/xephi/authme/events/UnregisterByAdminEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/UnregisterByPlayerEvent.class verification/bin/fr/xephi/authme/events/UnregisterByPlayerEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/LoginEvent.class verification/bin/fr/xephi/authme/events/LoginEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/FailedLoginEvent.class verification/bin/fr/xephi/authme/events/FailedLoginEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/ProtectInventoryEvent.class verification/bin/fr/xephi/authme/events/ProtectInventoryEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/AbstractUnregisterEvent.class verification/bin/fr/xephi/authme/events/AbstractUnregisterEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/EmailChangedEvent.class verification/bin/fr/xephi/authme/events/EmailChangedEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/RestoreSessionEvent.class verification/bin/fr/xephi/authme/events/RestoreSessionEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/events/SpawnTeleportEvent.class verification/bin/fr/xephi/authme/events/SpawnTeleportEvent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/updater/JarMessageSource.class verification/bin/fr/xephi/authme/message/updater/JarMessageSource.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/updater/OldMessageKeysMigrater.class verification/bin/fr/xephi/authme/message/updater/OldMessageKeysMigrater.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/updater/MessageMigraterPropertyReader.class verification/bin/fr/xephi/authme/message/updater/MessageMigraterPropertyReader.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/updater/MigraterYamlFileResource.class verification/bin/fr/xephi/authme/message/updater/MigraterYamlFileResource.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/updater/MessageUpdater.class verification/bin/fr/xephi/authme/message/updater/MessageUpdater.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/HelpMessagesFileHandler.class verification/bin/fr/xephi/authme/message/HelpMessagesFileHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/Messages.class verification/bin/fr/xephi/authme/message/Messages.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/MessagesFileHandler.class verification/bin/fr/xephi/authme/message/MessagesFileHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/AbstractMessageFileHandler.class verification/bin/fr/xephi/authme/message/AbstractMessageFileHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/message/MessageKey.class verification/bin/fr/xephi/authme/message/MessageKey.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/CleanupTask.class verification/bin/fr/xephi/authme/task/CleanupTask.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/purge/PurgeTask.class verification/bin/fr/xephi/authme/task/purge/PurgeTask.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/purge/PurgeExecutor.class verification/bin/fr/xephi/authme/task/purge/PurgeExecutor.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/purge/PurgeService.class verification/bin/fr/xephi/authme/task/purge/PurgeService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/TimeoutTask.class verification/bin/fr/xephi/authme/task/TimeoutTask.class
++ rm -f verification/bin_fixed/fr/xephi/authme/task/MessageTask.class verification/bin/fr/xephi/authme/task/MessageTask.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/ImageGenerator.class verification/bin/fr/xephi/authme/mail/ImageGenerator.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/OAuth2SaslClientFactory.class verification/bin/fr/xephi/authme/mail/OAuth2SaslClientFactory.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/SendMailSsl.class verification/bin/fr/xephi/authme/mail/SendMailSsl.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/EmailService.class verification/bin/fr/xephi/authme/mail/EmailService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/OAuth2SaslClient.class verification/bin/fr/xephi/authme/mail/OAuth2SaslClient.class
++ rm -f verification/bin_fixed/fr/xephi/authme/mail/OAuth2Provider.class verification/bin/fr/xephi/authme/mail/OAuth2Provider.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/ExecutableCommand.class verification/bin/fr/xephi/authme/command/ExecutableCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/help/HelpSection.class verification/bin/fr/xephi/authme/command/help/HelpSection.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/help/HelpMessage.class verification/bin/fr/xephi/authme/command/help/HelpMessage.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/help/HelpMessagesService.class verification/bin/fr/xephi/authme/command/help/HelpMessagesService.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/help/HelpProvider.class verification/bin/fr/xephi/authme/command/help/HelpProvider.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandUtils.class verification/bin/fr/xephi/authme/command/CommandUtils.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/CommandDescription$1.class' 'verification/bin/fr/xephi/authme/command/CommandDescription$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandDescription.class verification/bin/fr/xephi/authme/command/CommandDescription.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandArgumentDescription.class verification/bin/fr/xephi/authme/command/CommandArgumentDescription.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandMapper.class verification/bin/fr/xephi/authme/command/CommandMapper.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandHandler.class verification/bin/fr/xephi/authme/command/CommandHandler.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/PlayerCommand.class verification/bin/fr/xephi/authme/command/PlayerCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/login/LoginCommand.class verification/bin/fr/xephi/authme/command/executable/login/LoginCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/register/RegisterCommand.class verification/bin/fr/xephi/authme/command/executable/register/RegisterCommand.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/AccountsCommand$1.class' 'verification/bin/fr/xephi/authme/command/executable/authme/AccountsCommand$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/AccountsCommand.class verification/bin/fr/xephi/authme/command/executable/authme/AccountsCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/PurgeLastPositionCommand.class verification/bin/fr/xephi/authme/command/executable/authme/PurgeLastPositionCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/GetIpCommand.class verification/bin/fr/xephi/authme/command/executable/authme/GetIpCommand.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/ConverterCommand$1.class' 'verification/bin/fr/xephi/authme/command/executable/authme/ConverterCommand$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/SpawnLocationViewer.class verification/bin/fr/xephi/authme/command/executable/authme/debug/SpawnLocationViewer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/HasPermissionChecker.class verification/bin/fr/xephi/authme/command/executable/authme/debug/HasPermissionChecker.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$1.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/PermissionGroups.class verification/bin/fr/xephi/authme/command/executable/authme/debug/PermissionGroups.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/DataStatistics.class verification/bin/fr/xephi/authme/command/executable/authme/debug/DataStatistics.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/LimboPlayerViewer$InfoDisplayer.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/LimboPlayerViewer$InfoDisplayer.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/TestEmailSender.class verification/bin/fr/xephi/authme/command/executable/authme/debug/TestEmailSender.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/InputValidator$ValidationObject.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/InputValidator$ValidationObject.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger.class verification/bin/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/DebugSection.class verification/bin/fr/xephi/authme/command/executable/authme/debug/DebugSection.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/DebugCommand.class verification/bin/fr/xephi/authme/command/executable/authme/debug/DebugCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/DebugSectionUtils.class verification/bin/fr/xephi/authme/command/executable/authme/debug/DebugSectionUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/CountryLookup.class verification/bin/fr/xephi/authme/command/executable/authme/debug/CountryLookup.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/LimboPlayerViewer.class verification/bin/fr/xephi/authme/command/executable/authme/debug/LimboPlayerViewer.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$Columns.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$Columns.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/PlayerAuthViewer.class verification/bin/fr/xephi/authme/command/executable/authme/debug/PlayerAuthViewer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/InputValidator.class verification/bin/fr/xephi/authme/command/executable/authme/debug/InputValidator.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$Operation.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/MySqlDefaultChanger$Operation.class'
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/debug/HasPermissionChecker$1.class' 'verification/bin/fr/xephi/authme/command/executable/authme/debug/HasPermissionChecker$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/SetEmailCommand.class verification/bin/fr/xephi/authme/command/executable/authme/SetEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/SetFirstSpawnCommand.class verification/bin/fr/xephi/authme/command/executable/authme/SetFirstSpawnCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/UpdateHelpMessagesCommand.class verification/bin/fr/xephi/authme/command/executable/authme/UpdateHelpMessagesCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/ForceLoginCommand.class verification/bin/fr/xephi/authme/command/executable/authme/ForceLoginCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/LastLoginCommand.class verification/bin/fr/xephi/authme/command/executable/authme/LastLoginCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/ReloadCommand.class verification/bin/fr/xephi/authme/command/executable/authme/ReloadCommand.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/AccountsCommand$2.class' 'verification/bin/fr/xephi/authme/command/executable/authme/AccountsCommand$2.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/RecentPlayersCommand.class verification/bin/fr/xephi/authme/command/executable/authme/RecentPlayersCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/AuthMeCommand.class verification/bin/fr/xephi/authme/command/executable/authme/AuthMeCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/SwitchAntiBotCommand.class verification/bin/fr/xephi/authme/command/executable/authme/SwitchAntiBotCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/PurgeCommand.class verification/bin/fr/xephi/authme/command/executable/authme/PurgeCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/VersionCommand.class verification/bin/fr/xephi/authme/command/executable/authme/VersionCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/ChangePasswordAdminCommand.class verification/bin/fr/xephi/authme/command/executable/authme/ChangePasswordAdminCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/FirstSpawnCommand.class verification/bin/fr/xephi/authme/command/executable/authme/FirstSpawnCommand.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/executable/authme/SetEmailCommand$1.class' 'verification/bin/fr/xephi/authme/command/executable/authme/SetEmailCommand$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/PurgeBannedPlayersCommand.class verification/bin/fr/xephi/authme/command/executable/authme/PurgeBannedPlayersCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/GetEmailCommand.class verification/bin/fr/xephi/authme/command/executable/authme/GetEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/SpawnCommand.class verification/bin/fr/xephi/authme/command/executable/authme/SpawnCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/SetSpawnCommand.class verification/bin/fr/xephi/authme/command/executable/authme/SetSpawnCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/UnregisterAdminCommand.class verification/bin/fr/xephi/authme/command/executable/authme/UnregisterAdminCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/ConverterCommand.class verification/bin/fr/xephi/authme/command/executable/authme/ConverterCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/RegisterAdminCommand.class verification/bin/fr/xephi/authme/command/executable/authme/RegisterAdminCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/PurgePlayerCommand.class verification/bin/fr/xephi/authme/command/executable/authme/PurgePlayerCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/authme/BackupCommand.class verification/bin/fr/xephi/authme/command/executable/authme/BackupCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/RecoverEmailCommand.class verification/bin/fr/xephi/authme/command/executable/email/RecoverEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/AddEmailCommand.class verification/bin/fr/xephi/authme/command/executable/email/AddEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/ProcessCodeCommand.class verification/bin/fr/xephi/authme/command/executable/email/ProcessCodeCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/ChangeEmailCommand.class verification/bin/fr/xephi/authme/command/executable/email/ChangeEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/SetPasswordCommand.class verification/bin/fr/xephi/authme/command/executable/email/SetPasswordCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/EmailBaseCommand.class verification/bin/fr/xephi/authme/command/executable/email/EmailBaseCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/email/ShowEmailCommand.class verification/bin/fr/xephi/authme/command/executable/email/ShowEmailCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/captcha/CaptchaCommand.class verification/bin/fr/xephi/authme/command/executable/captcha/CaptchaCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/verification/VerificationCommand.class verification/bin/fr/xephi/authme/command/executable/verification/VerificationCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/logout/LogoutCommand.class verification/bin/fr/xephi/authme/command/executable/logout/LogoutCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/unregister/UnregisterCommand.class verification/bin/fr/xephi/authme/command/executable/unregister/UnregisterCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/HelpCommand.class verification/bin/fr/xephi/authme/command/executable/HelpCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/executable/changepassword/ChangePasswordCommand.class verification/bin/fr/xephi/authme/command/executable/changepassword/ChangePasswordCommand.class
++ rm -f verification/bin_fixed/fr/xephi/authme/command/FoundResultStatus.class verification/bin/fr/xephi/authme/command/FoundResultStatus.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/CommandHandler$1.class' 'verification/bin/fr/xephi/authme/command/CommandHandler$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/FoundCommandResult.class verification/bin/fr/xephi/authme/command/FoundCommandResult.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/command/CommandDescription$CommandBuilder.class' 'verification/bin/fr/xephi/authme/command/CommandDescription$CommandBuilder.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/command/CommandInitializer.class verification/bin/fr/xephi/authme/command/CommandInitializer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/RandomStringUtils.class verification/bin/fr/xephi/authme/util/RandomStringUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/Utils.class verification/bin/fr/xephi/authme/util/Utils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/FileUtils.class verification/bin/fr/xephi/authme/util/FileUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/PlayerUtils.class verification/bin/fr/xephi/authme/util/PlayerUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/TagBuilder.class verification/bin/fr/xephi/authme/util/lazytags/TagBuilder.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/DependentTag.class verification/bin/fr/xephi/authme/util/lazytags/DependentTag.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/util/lazytags/TagReplacer$TagValue.class' 'verification/bin/fr/xephi/authme/util/lazytags/TagReplacer$TagValue.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/SimpleTag.class verification/bin/fr/xephi/authme/util/lazytags/SimpleTag.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/WrappedTagReplacer.class verification/bin/fr/xephi/authme/util/lazytags/WrappedTagReplacer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/Tag.class verification/bin/fr/xephi/authme/util/lazytags/Tag.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/lazytags/TagReplacer.class verification/bin/fr/xephi/authme/util/lazytags/TagReplacer.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/StringUtils.class verification/bin/fr/xephi/authme/util/StringUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/InternetProtocolUtils.class verification/bin/fr/xephi/authme/util/InternetProtocolUtils.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/ExceptionUtils.class verification/bin/fr/xephi/authme/util/ExceptionUtils.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/util/expiring/ExpiringMap$ExpiringEntry.class' 'verification/bin/fr/xephi/authme/util/expiring/ExpiringMap$ExpiringEntry.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/util/expiring/Duration.class verification/bin/fr/xephi/authme/util/expiring/Duration.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/expiring/ExpiringMap.class verification/bin/fr/xephi/authme/util/expiring/ExpiringMap.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/expiring/ExpiringSet.class verification/bin/fr/xephi/authme/util/expiring/ExpiringSet.class
++ rm -f verification/bin_fixed/fr/xephi/authme/util/expiring/TimedCounter.class verification/bin/fr/xephi/authme/util/expiring/TimedCounter.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/DataSourceProvider.class verification/bin/fr/xephi/authme/initialization/DataSourceProvider.class
++ rm -f 'verification/bin_fixed/fr/xephi/authme/initialization/DataSourceProvider$1.class' 'verification/bin/fr/xephi/authme/initialization/DataSourceProvider$1.class'
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/TaskCloser.class verification/bin/fr/xephi/authme/initialization/TaskCloser.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/Reloadable.class verification/bin/fr/xephi/authme/initialization/Reloadable.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/HasCleanup.class verification/bin/fr/xephi/authme/initialization/HasCleanup.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/SettingsProvider.class verification/bin/fr/xephi/authme/initialization/SettingsProvider.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/OnShutdownPlayerSaver.class verification/bin/fr/xephi/authme/initialization/OnShutdownPlayerSaver.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/SettingsDependent.class verification/bin/fr/xephi/authme/initialization/SettingsDependent.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/OnStartupTasks.class verification/bin/fr/xephi/authme/initialization/OnStartupTasks.class
++ rm -f verification/bin_fixed/fr/xephi/authme/initialization/DataFolder.class verification/bin/fr/xephi/authme/initialization/DataFolder.class
++ rm -f verification/bin_fixed/QDriver.class verification/bin/QDriver.class
++ rm -f verification/bin_fixed/Driver_Greedy.class verification/bin/Driver_Greedy.class
++ rm -f verification/bin_fixed/Driver_old.class verification/bin/Driver_old.class
++ rm -f verification/bin_fixed/Driver_KDynamic.class verification/bin/Driver_KDynamic.class
+
+=> Compiling stubs
++ mvn clean compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ my-app ---
+[INFO] Deleting /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/github_authmreloaded_unsafe/stubs/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ my-app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/github_authmreloaded_unsafe/stubs/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ my-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/github_authmreloaded_unsafe/stubs/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.616 s
+[INFO] Finished at: 2024-07-04T21:31:46+08:00
+[INFO] ------------------------------------------------------------------------
+=> Copying stubs over
++ rsync -avz stubs/target/classes/fakejava verification/bin
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+fakejava/lang/String.class
+
+sent 798 bytes  received 66 bytes  1,728.00 bytes/sec
+total size is 1,015  speedup is 1.17
++ rsync -avz stubs/target/classes/fakejava verification/bin_fixed
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+fakejava/lang/String.class
+
+sent 794 bytes  received 66 bytes  1,720.00 bytes/sec
+total size is 1,015  speedup is 1.18
+
+=> Entering directory verification/\n
+=> Translating bytecode to Boogie with jar2bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin unsafe.bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin_fixed fixed.bpl
+
+=> Inferring verification config using Symdiff
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh infer unsafe.bpl fixed.bpl
+
+=> Diffing with Symdiff; results will be dumped to symdiff.log
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh diff unsafe.bpl fixed.bpl verify.cfg -synEq:../SYNTAX_EQ_PROCS -forceCheck:../FORCE_CHECK_PROCS
+Leaving directory verification/
+
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (7,0,0,0,3603)
+
+Verification passed

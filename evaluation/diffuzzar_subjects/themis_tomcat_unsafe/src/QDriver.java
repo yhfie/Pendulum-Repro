@@ -1,4 +1,4 @@
-import pendulum.AbstractQDriver;
+import sg.edu.nus.comp.tsunami.AbstractQDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class QDriver extends AbstractQDriver {
 		char[] tmp = new char[bytes.length];
 		for (int i = 0; i < bytes.length; i++) {
 			char value = (char) bytes[i];
-			/* : avoid single quote */
+			/* Rhf: avoid single quote */
 			tmp[i] = (char) ((value % 87) + 40);
 		}
 		public_user = new String(tmp);
@@ -80,7 +80,7 @@ public class QDriver extends AbstractQDriver {
 			for (int j = 0; j < bytes.length; j++) {
 				char value = (char) bytes[j];
 				/* each char value must be between 0 and 127 and a printable character */
-				/* : avoid single quote */
+				/* Rhf: avoid single quote */
 				char charValue = (char) ((value % 87) + 40);
 				tmp[j] = charValue;
 			}

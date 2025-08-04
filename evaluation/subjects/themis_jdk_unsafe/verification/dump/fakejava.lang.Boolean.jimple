@@ -1,0 +1,46 @@
+public class fakejava.lang.Boolean extends java.lang.Object
+{
+    boolean value;
+
+    public void <init>(boolean)
+    {
+        fakejava.lang.Boolean r0;
+        boolean z0;
+
+        r0 := @this: fakejava.lang.Boolean;
+
+        z0 := @parameter0: boolean;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<fakejava.lang.Boolean: boolean value> = z0;
+
+        return;
+    }
+
+    public static fakejava.lang.Boolean valueOf(boolean)
+    {
+        boolean z0;
+        fakejava.lang.Boolean $r0;
+
+        z0 := @parameter0: boolean;
+
+        $r0 = new fakejava.lang.Boolean;
+
+        specialinvoke $r0.<fakejava.lang.Boolean: void <init>(boolean)>(z0);
+
+        return $r0;
+    }
+
+    public boolean booleanValue()
+    {
+        fakejava.lang.Boolean r0;
+        boolean $z0;
+
+        r0 := @this: fakejava.lang.Boolean;
+
+        $z0 = r0.<fakejava.lang.Boolean: boolean value>;
+
+        return $z0;
+    }
+}

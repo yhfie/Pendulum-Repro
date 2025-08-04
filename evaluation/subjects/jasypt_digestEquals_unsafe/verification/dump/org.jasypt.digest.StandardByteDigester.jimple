@@ -1,0 +1,1451 @@
+public final class org.jasypt.digest.StandardByteDigester extends java.lang.Object implements org.jasypt.digest.ByteDigester
+{
+    public static final java.lang.String DEFAULT_ALGORITHM;
+    public static final int DEFAULT_SALT_SIZE_BYTES;
+    public static final int DEFAULT_ITERATIONS;
+    private java.lang.String algorithm;
+    private int saltSizeBytes;
+    private int iterations;
+    private org.jasypt.salt.SaltGenerator saltGenerator;
+    private java.lang.String providerName;
+    private java.security.Provider provider;
+    private boolean invertPositionOfSaltInMessageBeforeDigesting;
+    private boolean invertPositionOfPlainSaltInEncryptionResults;
+    private boolean useLenientSaltSizeCheck;
+    private org.jasypt.digest.config.DigesterConfig config;
+    private boolean algorithmSet;
+    private boolean saltSizeBytesSet;
+    private boolean iterationsSet;
+    private boolean saltGeneratorSet;
+    private boolean providerNameSet;
+    private boolean providerSet;
+    private boolean invertPositionOfSaltInMessageBeforeDigestingSet;
+    private boolean invertPositionOfPlainSaltInEncryptionResultsSet;
+    private boolean useLenientSaltSizeCheckSet;
+    private boolean initialized;
+    private boolean useSalt;
+    private java.security.MessageDigest md;
+    private int digestLengthBytes;
+
+    public void <init>()
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm> = "MD5";
+
+        r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes> = 8;
+
+        r0.<org.jasypt.digest.StandardByteDigester: int iterations> = 1000;
+
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator> = null;
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName> = null;
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider> = null;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config> = null;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean algorithmSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean saltSizeBytesSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean iterationsSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean saltGeneratorSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean providerNameSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean providerSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigestingSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResultsSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheckSet> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean initialized> = 0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useSalt> = 1;
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md> = null;
+
+        r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes> = 0;
+
+        return;
+    }
+
+    public synchronized void setConfig(org.jasypt.digest.config.DigesterConfig)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        org.jasypt.digest.config.DigesterConfig r1;
+        boolean $z0;
+        org.jasypt.exceptions.AlreadyInitializedException r3;
+        java.lang.Throwable r4;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: org.jasypt.digest.config.DigesterConfig;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotNull(java.lang.Object,java.lang.String)>(r1, "Config cannot be set null");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label1;
+
+        r3 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r3.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r4 = (java.lang.Throwable) r3;
+
+        throw r4;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config> = r1;
+
+        return;
+    }
+
+    public synchronized void setAlgorithm(java.lang.String)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        java.lang.String r1;
+        boolean $z0;
+        org.jasypt.exceptions.AlreadyInitializedException r3;
+        java.lang.Throwable r4;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: java.lang.String;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotEmpty(java.lang.String,java.lang.String)>(r1, "Algorithm cannot be empty");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label1;
+
+        r3 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r3.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r4 = (java.lang.Throwable) r3;
+
+        throw r4;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm> = r1;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean algorithmSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setSaltSizeBytes(int)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        int i0;
+        boolean $z0, $z1, $z2;
+        org.jasypt.exceptions.AlreadyInitializedException r2;
+        java.lang.Throwable r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        i0 := @parameter0: int;
+
+        if i0 < 0 goto label1;
+
+        $z1 = 1;
+
+        goto label2;
+
+     label1:
+        $z1 = 0;
+
+     label2:
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateIsTrue(boolean,java.lang.String)>($z1, "Salt size in bytes must be non-negative");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label3;
+
+        r2 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r2.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r3 = (java.lang.Throwable) r2;
+
+        throw r3;
+
+     label3:
+        r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes> = i0;
+
+        if i0 <= 0 goto label4;
+
+        $z2 = 1;
+
+        goto label5;
+
+     label4:
+        $z2 = 0;
+
+     label5:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useSalt> = $z2;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean saltSizeBytesSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setIterations(int)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        int i0;
+        boolean $z0, $z1;
+        org.jasypt.exceptions.AlreadyInitializedException r2;
+        java.lang.Throwable r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        i0 := @parameter0: int;
+
+        if i0 <= 0 goto label1;
+
+        $z1 = 1;
+
+        goto label2;
+
+     label1:
+        $z1 = 0;
+
+     label2:
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateIsTrue(boolean,java.lang.String)>($z1, "Number of iterations must be greater than zero");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label3;
+
+        r2 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r2.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r3 = (java.lang.Throwable) r2;
+
+        throw r3;
+
+     label3:
+        r0.<org.jasypt.digest.StandardByteDigester: int iterations> = i0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean iterationsSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setSaltGenerator(org.jasypt.salt.SaltGenerator)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        org.jasypt.salt.SaltGenerator r1;
+        boolean $z0;
+        org.jasypt.exceptions.AlreadyInitializedException r3;
+        java.lang.Throwable r4;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: org.jasypt.salt.SaltGenerator;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotNull(java.lang.Object,java.lang.String)>(r1, "Salt generator cannot be set null");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label1;
+
+        r3 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r3.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r4 = (java.lang.Throwable) r3;
+
+        throw r4;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator> = r1;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean saltGeneratorSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setProviderName(java.lang.String)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        java.lang.String r1;
+        boolean $z0;
+        org.jasypt.exceptions.AlreadyInitializedException r3;
+        java.lang.Throwable r4;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: java.lang.String;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotNull(java.lang.Object,java.lang.String)>(r1, "Provider name cannot be set null");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label1;
+
+        r3 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r3.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r4 = (java.lang.Throwable) r3;
+
+        throw r4;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName> = r1;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean providerNameSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setProvider(java.security.Provider)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        java.security.Provider r1;
+        boolean $z0;
+        org.jasypt.exceptions.AlreadyInitializedException r3;
+        java.lang.Throwable r4;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: java.security.Provider;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotNull(java.lang.Object,java.lang.String)>(r1, "Provider cannot be set null");
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 == 0 goto label1;
+
+        r3 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r3.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r4 = (java.lang.Throwable) r3;
+
+        throw r4;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider> = r1;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean providerSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setInvertPositionOfSaltInMessageBeforeDigesting(boolean)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        boolean z0, $z1;
+        org.jasypt.exceptions.AlreadyInitializedException r2;
+        java.lang.Throwable r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        z0 := @parameter0: boolean;
+
+        $z1 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z1 == 0 goto label1;
+
+        r2 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r2.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r3 = (java.lang.Throwable) r2;
+
+        throw r3;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting> = z0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigestingSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setInvertPositionOfPlainSaltInEncryptionResults(boolean)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        boolean z0, $z1;
+        org.jasypt.exceptions.AlreadyInitializedException r2;
+        java.lang.Throwable r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        z0 := @parameter0: boolean;
+
+        $z1 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z1 == 0 goto label1;
+
+        r2 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r2.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r3 = (java.lang.Throwable) r2;
+
+        throw r3;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults> = z0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResultsSet> = 1;
+
+        return;
+    }
+
+    public synchronized void setUseLenientSaltSizeCheck(boolean)
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        boolean z0, $z1;
+        org.jasypt.exceptions.AlreadyInitializedException r2;
+        java.lang.Throwable r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        z0 := @parameter0: boolean;
+
+        $z1 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z1 == 0 goto label1;
+
+        r2 = new org.jasypt.exceptions.AlreadyInitializedException;
+
+        specialinvoke r2.<org.jasypt.exceptions.AlreadyInitializedException: void <init>()>();
+
+        r3 = (java.lang.Throwable) r2;
+
+        throw r3;
+
+     label1:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck> = z0;
+
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheckSet> = 1;
+
+        return;
+    }
+
+    org.jasypt.digest.StandardByteDigester cloneDigester()
+    {
+        org.jasypt.digest.StandardByteDigester r0, r1, $r2;
+        boolean $z0, $z1, $z2, $z3, $z4;
+        java.lang.String $r3, $r5, $r8, $r10;
+        int $i0, $i1;
+        java.security.Provider $r4, $r9;
+        org.jasypt.salt.SaltGenerator $r6, $r7;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 != 0 goto label1;
+
+        virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: void initialize()>();
+
+     label1:
+        $r2 = new org.jasypt.digest.StandardByteDigester;
+
+        specialinvoke $r2.<org.jasypt.digest.StandardByteDigester: void <init>()>();
+
+        r1 = $r2;
+
+        $r3 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        $z1 = staticinvoke <org.jasypt.commons.CommonUtils: boolean isNotEmpty(java.lang.String)>($r3);
+
+        if $z1 == 0 goto label2;
+
+        $r10 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setAlgorithm(java.lang.String)>($r10);
+
+     label2:
+        $z2 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setInvertPositionOfPlainSaltInEncryptionResults(boolean)>($z2);
+
+        $z3 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setInvertPositionOfSaltInMessageBeforeDigesting(boolean)>($z3);
+
+        $i0 = r0.<org.jasypt.digest.StandardByteDigester: int iterations>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setIterations(int)>($i0);
+
+        $r4 = r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider>;
+
+        if $r4 == null goto label3;
+
+        $r9 = r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setProvider(java.security.Provider)>($r9);
+
+     label3:
+        $r5 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName>;
+
+        if $r5 == null goto label4;
+
+        $r8 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setProviderName(java.lang.String)>($r8);
+
+     label4:
+        $r6 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        if $r6 == null goto label5;
+
+        $r7 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setSaltGenerator(org.jasypt.salt.SaltGenerator)>($r7);
+
+     label5:
+        $i1 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setSaltSizeBytes(int)>($i1);
+
+        $z4 = r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck>;
+
+        virtualinvoke r1.<org.jasypt.digest.StandardByteDigester: void setUseLenientSaltSizeCheck(boolean)>($z4);
+
+        return r1;
+    }
+
+    public boolean isInitialized()
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        boolean $z0;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        $z0 = r0.<org.jasypt.digest.StandardByteDigester: boolean initialized>;
+
+        return $z0;
+    }
+
+    public synchronized void initialize()
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        java.lang.Integer r1, r2;
+        org.jasypt.salt.SaltGenerator r3, $r10, $r29, $r33, $r55;
+        java.lang.String r4, $r12, $r13, $r19, $r22, $r23, $r24, $r27, $r35, $r38, r53, $r54, $r56;
+        java.security.Provider r5, $r11, $r26, $r57;
+        java.lang.Boolean r6, r7, r8;
+        boolean $z0, $z1, $z2, $z3, $z4, $z5, $z6, $z7, $z8, $z9, $z10, $z11, $z12, $z13, $z14, $z15, $z16;
+        org.jasypt.digest.config.DigesterConfig $r9, $r40, $r41, $r42, $r43, $r44, $r45, $r46, $r47, $r48;
+        java.security.MessageDigest $r14, $r15, $r25, $r28;
+        int $i0, $i1, $i2, $i3, $i4, $i5;
+        java.lang.StringBuilder $r18, $r20, $r21, $r32, $r36, $r37, r61, r65;
+        java.lang.Class $r34;
+        java.security.NoSuchProviderException $r49, r59;
+        java.security.NoSuchAlgorithmException $r51, r58;
+        org.jasypt.salt.RandomSaltGenerator r60;
+        org.jasypt.exceptions.EncryptionInitializationException r62, r63, r64, r66;
+        java.lang.Throwable r67, r68, r69, r70;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        $z0 = r0.<org.jasypt.digest.StandardByteDigester: boolean initialized>;
+
+        if $z0 != 0 goto label46;
+
+        $r9 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        if $r9 == null goto label36;
+
+        $r40 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r53 = interfaceinvoke $r40.<org.jasypt.digest.config.DigesterConfig: java.lang.String getAlgorithm()>();
+
+        if r53 == null goto label01;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotEmpty(java.lang.String,java.lang.String)>(r53, "Algorithm cannot be empty");
+
+     label01:
+        $r41 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r1 = interfaceinvoke $r41.<org.jasypt.digest.config.DigesterConfig: java.lang.Integer getSaltSizeBytes()>();
+
+        if r1 == null goto label04;
+
+        $i3 = virtualinvoke r1.<java.lang.Integer: int intValue()>();
+
+        if $i3 < 0 goto label02;
+
+        $z12 = 1;
+
+        goto label03;
+
+     label02:
+        $z12 = 0;
+
+     label03:
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateIsTrue(boolean,java.lang.String)>($z12, "Salt size in bytes must be non-negative");
+
+     label04:
+        $r42 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r2 = interfaceinvoke $r42.<org.jasypt.digest.config.DigesterConfig: java.lang.Integer getIterations()>();
+
+        if r2 == null goto label07;
+
+        $i2 = virtualinvoke r2.<java.lang.Integer: int intValue()>();
+
+        if $i2 <= 0 goto label05;
+
+        $z13 = 1;
+
+        goto label06;
+
+     label05:
+        $z13 = 0;
+
+     label06:
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateIsTrue(boolean,java.lang.String)>($z13, "Number of iterations must be greater than zero");
+
+     label07:
+        $r43 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r3 = interfaceinvoke $r43.<org.jasypt.digest.config.DigesterConfig: org.jasypt.salt.SaltGenerator getSaltGenerator()>();
+
+        $r44 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r4 = interfaceinvoke $r44.<org.jasypt.digest.config.DigesterConfig: java.lang.String getProviderName()>();
+
+        if r4 == null goto label08;
+
+        staticinvoke <org.jasypt.commons.CommonUtils: void validateNotEmpty(java.lang.String,java.lang.String)>(r4, "Provider name cannot be empty");
+
+     label08:
+        $r45 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r5 = interfaceinvoke $r45.<org.jasypt.digest.config.DigesterConfig: java.security.Provider getProvider()>();
+
+        $r46 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r6 = interfaceinvoke $r46.<org.jasypt.digest.config.DigesterConfig: java.lang.Boolean getInvertPositionOfSaltInMessageBeforeDigesting()>();
+
+        $r47 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r7 = interfaceinvoke $r47.<org.jasypt.digest.config.DigesterConfig: java.lang.Boolean getInvertPositionOfPlainSaltInEncryptionResults()>();
+
+        $r48 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.digest.config.DigesterConfig config>;
+
+        r8 = interfaceinvoke $r48.<org.jasypt.digest.config.DigesterConfig: java.lang.Boolean getUseLenientSaltSizeCheck()>();
+
+        $z3 = r0.<org.jasypt.digest.StandardByteDigester: boolean algorithmSet>;
+
+        if $z3 != 0 goto label09;
+
+        if r53 != null goto label10;
+
+     label09:
+        $r54 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        goto label11;
+
+     label10:
+        $r54 = r53;
+
+     label11:
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm> = $r54;
+
+        $z4 = r0.<org.jasypt.digest.StandardByteDigester: boolean saltSizeBytesSet>;
+
+        if $z4 != 0 goto label12;
+
+        if r1 != null goto label13;
+
+     label12:
+        $i4 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        goto label14;
+
+     label13:
+        $i4 = virtualinvoke r1.<java.lang.Integer: int intValue()>();
+
+     label14:
+        r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes> = $i4;
+
+        $z5 = r0.<org.jasypt.digest.StandardByteDigester: boolean iterationsSet>;
+
+        if $z5 != 0 goto label15;
+
+        if r2 != null goto label16;
+
+     label15:
+        $i5 = r0.<org.jasypt.digest.StandardByteDigester: int iterations>;
+
+        goto label17;
+
+     label16:
+        $i5 = virtualinvoke r2.<java.lang.Integer: int intValue()>();
+
+     label17:
+        r0.<org.jasypt.digest.StandardByteDigester: int iterations> = $i5;
+
+        $z6 = r0.<org.jasypt.digest.StandardByteDigester: boolean saltGeneratorSet>;
+
+        if $z6 != 0 goto label18;
+
+        if r3 != null goto label19;
+
+     label18:
+        $r55 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        goto label20;
+
+     label19:
+        $r55 = r3;
+
+     label20:
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator> = $r55;
+
+        $z7 = r0.<org.jasypt.digest.StandardByteDigester: boolean providerNameSet>;
+
+        if $z7 != 0 goto label21;
+
+        if r4 != null goto label22;
+
+     label21:
+        $r56 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName>;
+
+        goto label23;
+
+     label22:
+        $r56 = r4;
+
+     label23:
+        r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName> = $r56;
+
+        $z8 = r0.<org.jasypt.digest.StandardByteDigester: boolean providerSet>;
+
+        if $z8 != 0 goto label24;
+
+        if r5 != null goto label25;
+
+     label24:
+        $r57 = r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider>;
+
+        goto label26;
+
+     label25:
+        $r57 = r5;
+
+     label26:
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider> = $r57;
+
+        $z9 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigestingSet>;
+
+        if $z9 != 0 goto label27;
+
+        if r6 != null goto label28;
+
+     label27:
+        $z14 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting>;
+
+        goto label29;
+
+     label28:
+        $z14 = virtualinvoke r6.<java.lang.Boolean: boolean booleanValue()>();
+
+     label29:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting> = $z14;
+
+        $z10 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResultsSet>;
+
+        if $z10 != 0 goto label30;
+
+        if r7 != null goto label31;
+
+     label30:
+        $z15 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults>;
+
+        goto label32;
+
+     label31:
+        $z15 = virtualinvoke r7.<java.lang.Boolean: boolean booleanValue()>();
+
+     label32:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults> = $z15;
+
+        $z11 = r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheckSet>;
+
+        if $z11 != 0 goto label33;
+
+        if r8 != null goto label34;
+
+     label33:
+        $z16 = r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck>;
+
+        goto label35;
+
+     label34:
+        $z16 = virtualinvoke r8.<java.lang.Boolean: boolean booleanValue()>();
+
+     label35:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck> = $z16;
+
+     label36:
+        $r10 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        if $r10 != null goto label37;
+
+        r60 = new org.jasypt.salt.RandomSaltGenerator;
+
+        specialinvoke r60.<org.jasypt.salt.RandomSaltGenerator: void <init>()>();
+
+        r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator> = r60;
+
+     label37:
+        $z1 = r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck>;
+
+        if $z1 == 0 goto label38;
+
+        $r29 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $z2 = interfaceinvoke $r29.<org.jasypt.salt.SaltGenerator: boolean includePlainSaltInEncryptionResults()>();
+
+        if $z2 != 0 goto label38;
+
+        r62 = new org.jasypt.exceptions.EncryptionInitializationException;
+
+        r61 = new java.lang.StringBuilder;
+
+        specialinvoke r61.<java.lang.StringBuilder: void <init>()>();
+
+        $r32 = virtualinvoke r61.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("The configured Salt Generator (");
+
+        $r33 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $r34 = virtualinvoke $r33.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r35 = virtualinvoke $r34.<java.lang.Class: java.lang.String getName()>();
+
+        $r36 = virtualinvoke $r32.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r35);
+
+        $r37 = virtualinvoke $r36.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") does not include plain salt in encryption results, which is not compatiblewith setting the salt size checking behaviour to \"lenient\".");
+
+        $r38 = virtualinvoke $r37.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r62.<org.jasypt.exceptions.EncryptionInitializationException: void <init>(java.lang.String)>($r38);
+
+        r67 = (java.lang.Throwable) r62;
+
+        throw r67;
+
+     label38:
+        $r11 = r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider>;
+
+        if $r11 == null goto label39;
+
+        $r27 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        $r26 = r0.<org.jasypt.digest.StandardByteDigester: java.security.Provider provider>;
+
+        $r28 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String,java.security.Provider)>($r27, $r26);
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md> = $r28;
+
+        goto label41;
+
+     label39:
+        $r12 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName>;
+
+        if $r12 == null goto label40;
+
+        $r24 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        $r23 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String providerName>;
+
+        $r25 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String,java.lang.String)>($r24, $r23);
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md> = $r25;
+
+        goto label41;
+
+     label40:
+        $r13 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        $r14 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>($r13);
+
+        r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md> = $r14;
+
+     label41:
+        goto label44;
+
+     label42:
+        $r51 := @caughtexception;
+
+        r58 = $r51;
+
+        r63 = new org.jasypt.exceptions.EncryptionInitializationException;
+
+        specialinvoke r63.<org.jasypt.exceptions.EncryptionInitializationException: void <init>(java.lang.Throwable)>(r58);
+
+        r68 = (java.lang.Throwable) r63;
+
+        throw r68;
+
+     label43:
+        $r49 := @caughtexception;
+
+        r59 = $r49;
+
+        r64 = new org.jasypt.exceptions.EncryptionInitializationException;
+
+        specialinvoke r64.<org.jasypt.exceptions.EncryptionInitializationException: void <init>(java.lang.Throwable)>(r59);
+
+        r69 = (java.lang.Throwable) r64;
+
+        throw r69;
+
+     label44:
+        $r15 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        $i0 = virtualinvoke $r15.<java.security.MessageDigest: int getDigestLength()>();
+
+        r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes> = $i0;
+
+        $i1 = r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes>;
+
+        if $i1 > 0 goto label45;
+
+        r66 = new org.jasypt.exceptions.EncryptionInitializationException;
+
+        r65 = new java.lang.StringBuilder;
+
+        specialinvoke r65.<java.lang.StringBuilder: void <init>()>();
+
+        $r18 = virtualinvoke r65.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("The configured algorithm (");
+
+        $r19 = r0.<org.jasypt.digest.StandardByteDigester: java.lang.String algorithm>;
+
+        $r20 = virtualinvoke $r18.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r19);
+
+        $r21 = virtualinvoke $r20.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(") or its provider do  not allow knowing the digest length beforehand (getDigestLength() operation), which is not compatiblewith setting the salt size checking behaviour to \"lenient\".");
+
+        $r22 = virtualinvoke $r21.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        specialinvoke r66.<org.jasypt.exceptions.EncryptionInitializationException: void <init>(java.lang.String)>($r22);
+
+        r70 = (java.lang.Throwable) r66;
+
+        throw r70;
+
+     label45:
+        r0.<org.jasypt.digest.StandardByteDigester: boolean initialized> = 1;
+
+     label46:
+        return;
+
+        catch java.security.NoSuchAlgorithmException from label38 to label41 with label42;
+        catch java.security.NoSuchProviderException from label38 to label41 with label43;
+    }
+
+    public byte[] digest(byte[])
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        byte[] r1, $r2, r4;
+        boolean $z0, $z1;
+        int $i0;
+        org.jasypt.salt.SaltGenerator $r3;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: byte[];
+
+        if r1 != null goto label1;
+
+        return null;
+
+     label1:
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 != 0 goto label2;
+
+        virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: void initialize()>();
+
+     label2:
+        r4 = null;
+
+        $z1 = r0.<org.jasypt.digest.StandardByteDigester: boolean useSalt>;
+
+        if $z1 == 0 goto label3;
+
+        $r3 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $i0 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        r4 = interfaceinvoke $r3.<org.jasypt.salt.SaltGenerator: byte[] generateSalt(int)>($i0);
+
+     label3:
+        $r2 = specialinvoke r0.<org.jasypt.digest.StandardByteDigester: byte[] digest(byte[],byte[])>(r1, r4);
+
+        return $r2;
+    }
+
+    private byte[] digest(byte[], byte[])
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        byte[] r1, r2, $r10, $r11, r21;
+        java.security.MessageDigest r3, $r5, $r6, $r7, $r8, $r12, $r13, $r14, $r15, $r16, $r17;
+        java.lang.Throwable r4, $r20, r23;
+        int $i0, $i1, i2;
+        org.jasypt.salt.SaltGenerator $r9;
+        boolean $z0, $z1, $z2;
+        java.lang.Exception $r18;
+        org.jasypt.exceptions.EncryptionOperationNotPossibleException r22;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: byte[];
+
+        r2 := @parameter1: byte[];
+
+     label01:
+        $r5 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        r3 = $r5;
+
+        entermonitor $r5;
+
+     label02:
+        $r6 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r6.<java.security.MessageDigest: void reset()>();
+
+        if r2 == null goto label04;
+
+        $z2 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfSaltInMessageBeforeDigesting>;
+
+        if $z2 != 0 goto label03;
+
+        $r16 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r16.<java.security.MessageDigest: void update(byte[])>(r2);
+
+        $r17 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r17.<java.security.MessageDigest: void update(byte[])>(r1);
+
+        goto label05;
+
+     label03:
+        $r14 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r14.<java.security.MessageDigest: void update(byte[])>(r1);
+
+        $r15 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r15.<java.security.MessageDigest: void update(byte[])>(r2);
+
+        goto label05;
+
+     label04:
+        $r7 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r7.<java.security.MessageDigest: void update(byte[])>(r1);
+
+     label05:
+        $r8 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        r21 = virtualinvoke $r8.<java.security.MessageDigest: byte[] digest()>();
+
+        i2 = 0;
+
+     label06:
+        $i0 = r0.<org.jasypt.digest.StandardByteDigester: int iterations>;
+
+        $i1 = $i0 - 1;
+
+        if i2 >= $i1 goto label07;
+
+        $r12 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        virtualinvoke $r12.<java.security.MessageDigest: void reset()>();
+
+        $r13 = r0.<org.jasypt.digest.StandardByteDigester: java.security.MessageDigest md>;
+
+        r21 = virtualinvoke $r13.<java.security.MessageDigest: byte[] digest(byte[])>(r21);
+
+        i2 = i2 + 1;
+
+        goto label06;
+
+     label07:
+        exitmonitor r3;
+
+     label08:
+        goto label11;
+
+     label09:
+        $r20 := @caughtexception;
+
+        r4 = $r20;
+
+        exitmonitor r3;
+
+     label10:
+        throw r4;
+
+     label11:
+        $r9 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $z0 = interfaceinvoke $r9.<org.jasypt.salt.SaltGenerator: boolean includePlainSaltInEncryptionResults()>();
+
+        if $z0 == 0 goto label15;
+
+        if r2 == null goto label15;
+
+        $z1 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults>;
+
+        if $z1 != 0 goto label13;
+
+        $r11 = staticinvoke <org.jasypt.commons.CommonUtils: byte[] appendArrays(byte[],byte[])>(r2, r21);
+
+     label12:
+        return $r11;
+
+     label13:
+        $r10 = staticinvoke <org.jasypt.commons.CommonUtils: byte[] appendArrays(byte[],byte[])>(r21, r2);
+
+     label14:
+        return $r10;
+
+     label15:
+        return r21;
+
+     label16:
+        $r18 := @caughtexception;
+
+        r22 = new org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+
+        specialinvoke r22.<org.jasypt.exceptions.EncryptionOperationNotPossibleException: void <init>()>();
+
+        r23 = (java.lang.Throwable) r22;
+
+        throw r23;
+
+        catch java.lang.Throwable from label02 to label08 with label09;
+        catch java.lang.Throwable from label09 to label10 with label09;
+        catch java.lang.Exception from label01 to label12 with label16;
+        catch java.lang.Exception from label13 to label14 with label16;
+    }
+
+    public boolean matches(byte[], byte[])
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        byte[] r1, r2;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: byte[];
+
+        r2 := @parameter1: byte[];
+
+        return 0;
+    }
+
+    public boolean matches_unsafe(byte[], byte[])
+    {
+        org.jasypt.digest.StandardByteDigester r0;
+        byte[] r1, r2, r10, r11;
+        boolean $z0, $z1, $z2, $z3, $z4, $z5, $z6;
+        org.jasypt.salt.SaltGenerator $r3, $r4;
+        int $i0, $i1, $i2, $i3, $i4, $i5, $i6, $i7, $i8, $i9, $i10, $i11, $i12, $i13, i14;
+        java.lang.Exception $r8;
+        org.jasypt.exceptions.EncryptionOperationNotPossibleException r13, r14, r15, r16;
+        java.lang.Throwable r17, r18, r19, r20;
+
+        r0 := @this: org.jasypt.digest.StandardByteDigester;
+
+        r1 := @parameter0: byte[];
+
+        r2 := @parameter1: byte[];
+
+        if r1 != null goto label03;
+
+        if r2 != null goto label01;
+
+        $z6 = 1;
+
+        goto label02;
+
+     label01:
+        $z6 = 0;
+
+     label02:
+        return $z6;
+
+     label03:
+        if r2 != null goto label04;
+
+        return 0;
+
+     label04:
+        $z0 = virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: boolean isInitialized()>();
+
+        if $z0 != 0 goto label05;
+
+        virtualinvoke r0.<org.jasypt.digest.StandardByteDigester: void initialize()>();
+
+     label05:
+        r10 = null;
+
+        $z1 = r0.<org.jasypt.digest.StandardByteDigester: boolean useSalt>;
+
+        if $z1 == 0 goto label13;
+
+        $r3 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $z3 = interfaceinvoke $r3.<org.jasypt.salt.SaltGenerator: boolean includePlainSaltInEncryptionResults()>();
+
+        if $z3 == 0 goto label12;
+
+        i14 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        $i1 = r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes>;
+
+        if $i1 <= 0 goto label08;
+
+        $z5 = r0.<org.jasypt.digest.StandardByteDigester: boolean useLenientSaltSizeCheck>;
+
+        if $z5 == 0 goto label07;
+
+        $i11 = lengthof r2;
+
+        $i10 = r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes>;
+
+        if $i11 >= $i10 goto label06;
+
+        r13 = new org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+
+        specialinvoke r13.<org.jasypt.exceptions.EncryptionOperationNotPossibleException: void <init>()>();
+
+        r17 = (java.lang.Throwable) r13;
+
+        throw r17;
+
+     label06:
+        $i13 = lengthof r2;
+
+        $i12 = r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes>;
+
+        i14 = $i13 - $i12;
+
+        goto label09;
+
+     label07:
+        $i9 = lengthof r2;
+
+        $i7 = r0.<org.jasypt.digest.StandardByteDigester: int digestLengthBytes>;
+
+        $i6 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        $i8 = $i7 + $i6;
+
+        if $i9 == $i8 goto label09;
+
+        r14 = new org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+
+        specialinvoke r14.<org.jasypt.exceptions.EncryptionOperationNotPossibleException: void <init>()>();
+
+        r18 = (java.lang.Throwable) r14;
+
+        throw r18;
+
+     label08:
+        $i3 = lengthof r2;
+
+        $i2 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        if $i3 >= $i2 goto label09;
+
+        r15 = new org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+
+        specialinvoke r15.<org.jasypt.exceptions.EncryptionOperationNotPossibleException: void <init>()>();
+
+        r19 = (java.lang.Throwable) r15;
+
+        throw r19;
+
+     label09:
+        $z4 = r0.<org.jasypt.digest.StandardByteDigester: boolean invertPositionOfPlainSaltInEncryptionResults>;
+
+        if $z4 != 0 goto label10;
+
+        r10 = newarray (byte)[i14];
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>(r2, 0, r10, 0, i14);
+
+        goto label11;
+
+     label10:
+        r10 = newarray (byte)[i14];
+
+        $i4 = lengthof r2;
+
+        $i5 = $i4 - i14;
+
+        staticinvoke <java.lang.System: void arraycopy(java.lang.Object,int,java.lang.Object,int,int)>(r2, $i5, r10, 0, i14);
+
+     label11:
+        goto label13;
+
+     label12:
+        $r4 = r0.<org.jasypt.digest.StandardByteDigester: org.jasypt.salt.SaltGenerator saltGenerator>;
+
+        $i0 = r0.<org.jasypt.digest.StandardByteDigester: int saltSizeBytes>;
+
+        r10 = interfaceinvoke $r4.<org.jasypt.salt.SaltGenerator: byte[] generateSalt(int)>($i0);
+
+     label13:
+        r11 = specialinvoke r0.<org.jasypt.digest.StandardByteDigester: byte[] digest(byte[],byte[])>(r1, r10);
+
+        $z2 = staticinvoke <org.jasypt.digest.StandardByteDigester: boolean jdkArraysEquals(byte[],byte[])>(r11, r2);
+
+     label14:
+        return $z2;
+
+     label15:
+        $r8 := @caughtexception;
+
+        r16 = new org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+
+        specialinvoke r16.<org.jasypt.exceptions.EncryptionOperationNotPossibleException: void <init>()>();
+
+        r20 = (java.lang.Throwable) r16;
+
+        throw r20;
+
+        catch java.lang.Exception from label05 to label14 with label15;
+    }
+
+    public static boolean jdkArraysEquals(byte[], byte[])
+    {
+        byte[] r0, r1;
+        int i0, $i1, i6;
+        boolean z0, $z1, z2, z3;
+        java.lang.Boolean $r2, $r3, $r5, $r6, $r7, $r9, $r11, $r12, $r13, $r15;
+        java.lang.Object $r4, $r8, $r10, $r14;
+        byte $b2, $b3;
+        long $l4, $l5;
+
+        r0 := @parameter0: byte[];
+
+        r1 := @parameter1: byte[];
+
+        z2 = 0;
+
+        z3 = 0;
+
+        if r0 != r1 goto label1;
+
+        return 1;
+
+     label1:
+        if r0 == null goto label2;
+
+        if r1 != null goto label3;
+
+     label2:
+        return 0;
+
+     label3:
+        i0 = lengthof r0;
+
+        $i1 = lengthof r1;
+
+        if $i1 == i0 goto label4;
+
+        return 0;
+
+     label4:
+        i6 = 0;
+
+     label5:
+        if i6 >= i0 goto label6;
+
+        $b2 = r0[i6];
+
+        $l5 = (long) $b2;
+
+        $b3 = r1[i6];
+
+        $l4 = (long) $b3;
+
+        z0 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: boolean neq(long,long)>($l5, $l4);
+
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z2);
+
+        $r7 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        $r8 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z3, $r6, $r7);
+
+        $r9 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z2);
+
+        $r10 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r8, $r9);
+
+        $r11 = (java.lang.Boolean) $r10;
+
+        z2 = virtualinvoke $r11.<java.lang.Boolean: boolean booleanValue()>();
+
+        $r12 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z3);
+
+        $r14 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r12, $r13);
+
+        $r15 = (java.lang.Boolean) $r14;
+
+        z3 = virtualinvoke $r15.<java.lang.Boolean: boolean booleanValue()>();
+
+        i6 = i6 + 1;
+
+        goto label5;
+
+     label6:
+        $r2 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z2);
+
+        $r3 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        $r4 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z3, $r2, $r3);
+
+        $r5 = (java.lang.Boolean) $r4;
+
+        $z1 = virtualinvoke $r5.<java.lang.Boolean: boolean booleanValue()>();
+
+        return $z1;
+    }
+
+    public static void <clinit>()
+    {
+        <org.jasypt.digest.StandardByteDigester: int DEFAULT_ITERATIONS> = 1000;
+
+        <org.jasypt.digest.StandardByteDigester: int DEFAULT_SALT_SIZE_BYTES> = 8;
+
+        <org.jasypt.digest.StandardByteDigester: java.lang.String DEFAULT_ALGORITHM> = "MD5";
+
+        return;
+    }
+}

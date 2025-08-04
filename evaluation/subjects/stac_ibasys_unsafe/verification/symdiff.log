@@ -1,0 +1,94 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.lang.StringBuffer$$la$init$ra$$ and fixed.java.lang.StringBuffer$$la$init$ra$$ are equivalent
+Assuming unsafe.ScalrApplyTest$$la$init$ra$$ and fixed.ScalrApplyTest$$la$init$ra$$ are equivalent
+Assuming unsafe.ScalrApplyTest$setup$byte$lp$$rp$ and fixed.ScalrApplyTest$setup$byte$lp$$rp$ are equivalent
+Assuming unsafe.ScalrApplyTest$testApply1$ and fixed.ScalrApplyTest$testApply1$ are equivalent
+Assuming unsafe.java.awt.image.BufferedImage$getWidth$ and fixed.java.awt.image.BufferedImage$getWidth$ are equivalent
+Assuming unsafe.java.awt.image.BufferedImage$getHeight$ and fixed.java.awt.image.BufferedImage$getHeight$ are equivalent
+Assuming unsafe.java.awt.image.BufferedImage$getRGB$int_int_int_int_int$lp$$rp$_int_int and fixed.java.awt.image.BufferedImage$getRGB$int_int_int_int_int$lp$$rp$_int_int are equivalent
+Assuming unsafe.java.nio.ByteBuffer$allocate$int and fixed.java.nio.ByteBuffer$allocate$int are equivalent
+Assuming unsafe.java.nio.ByteBuffer$asIntBuffer$ and fixed.java.nio.ByteBuffer$asIntBuffer$ are equivalent
+Assuming unsafe.java.nio.IntBuffer$put$int$lp$$rp$ and fixed.java.nio.IntBuffer$put$int$lp$$rp$ are equivalent
+Assuming unsafe.java.io.ByteArrayOutputStream$$la$init$ra$$ and fixed.java.io.ByteArrayOutputStream$$la$init$ra$$ are equivalent
+Assuming unsafe.java.nio.ByteBuffer$array$ and fixed.java.nio.ByteBuffer$array$ are equivalent
+Assuming unsafe.java.io.OutputStream$write$byte$lp$$rp$ and fixed.java.io.OutputStream$write$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.io.OutputStream$flush$ and fixed.java.io.OutputStream$flush$ are equivalent
+Assuming unsafe.java.io.ByteArrayOutputStream$close$ and fixed.java.io.ByteArrayOutputStream$close$ are equivalent
+Assuming unsafe.ScalrApplyTest$tearDown$ and fixed.ScalrApplyTest$tearDown$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String are equivalent
+Assuming unsafe.java.lang.Throwable$getMessage$ and fixed.java.lang.Throwable$getMessage$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$ are equivalent
+Assuming unsafe.java.io.PrintStream$println$java.lang.String and fixed.java.io.PrintStream$println$java.lang.String are equivalent
+Assuming unsafe.java.lang.Math$abs$int and fixed.java.lang.Math$abs$int are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.java.lang.StringBuffer$$la$init$ra$$ or fixed.java.lang.StringBuffer$$la$init$ra$$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.ImageMatcherWorker$$la$init$ra$$ and fixed.ImageMatcherWorker$$la$init$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.ImageMatcherWorker$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.162212 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 396ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 396ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	396	0	0	0	1243	8	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.ScalrApplyTest$$la$init$ra$$ or fixed.ScalrApplyTest$$la$init$ra$$: skipping...
+Missing procedure for unsafe.ScalrApplyTest$setup$byte$lp$$rp$ or fixed.ScalrApplyTest$setup$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.ScalrApplyTest$testApply1$ or fixed.ScalrApplyTest$testApply1$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$ or fixed.java.lang.StringBuilder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$java.lang.String or fixed.java.lang.StringBuilder$append$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.Throwable$getMessage$ or fixed.java.lang.Throwable$getMessage$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$toString$ or fixed.java.lang.StringBuilder$toString$: skipping...
+Missing procedure for unsafe.java.io.PrintStream$println$java.lang.String or fixed.java.io.PrintStream$println$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.Math$abs$int or fixed.java.lang.Math$abs$int: skipping...
+Missing procedure for unsafe.java.awt.image.BufferedImage$getWidth$ or fixed.java.awt.image.BufferedImage$getWidth$: skipping...
+Missing procedure for unsafe.java.awt.image.BufferedImage$getHeight$ or fixed.java.awt.image.BufferedImage$getHeight$: skipping...
+Missing procedure for unsafe.java.awt.image.BufferedImage$getRGB$int_int_int_int_int$lp$$rp$_int_int or fixed.java.awt.image.BufferedImage$getRGB$int_int_int_int_int$lp$$rp$_int_int: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$allocate$int or fixed.java.nio.ByteBuffer$allocate$int: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$asIntBuffer$ or fixed.java.nio.ByteBuffer$asIntBuffer$: skipping...
+Missing procedure for unsafe.java.nio.IntBuffer$put$int$lp$$rp$ or fixed.java.nio.IntBuffer$put$int$lp$$rp$: skipping...
+Missing procedure for unsafe.java.io.ByteArrayOutputStream$$la$init$ra$$ or fixed.java.io.ByteArrayOutputStream$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$array$ or fixed.java.nio.ByteBuffer$array$: skipping...
+Missing procedure for unsafe.java.io.OutputStream$write$byte$lp$$rp$ or fixed.java.io.OutputStream$write$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.io.OutputStream$flush$ or fixed.java.io.OutputStream$flush$: skipping...
+Missing procedure for unsafe.java.io.ByteArrayOutputStream$close$ or fixed.java.io.ByteArrayOutputStream$close$: skipping...
+Missing procedure for unsafe.ScalrApplyTest$tearDown$ or fixed.ScalrApplyTest$tearDown$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$ and fixed.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.210015 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 560ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 560ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	560	0	0	0	1862	9	
+ERROR: Failed to add postconditions to unsafe.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block9 and fixed.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block9
+nonmodular mode: Skipping non-root nodes unsafe.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block9, fixed.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block9
+nonmodular mode: Skipping non-root nodes unsafe.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block4, fixed.ImageMatcherWorker$test$byte$lp$$rp$_byte$lp$$rp$_loop_block4
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (2,0,0,0,1863)

@@ -1,0 +1,101 @@
+Added com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$ to forceCheckProcs
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.lang.Object$getClass$ and fixed.java.lang.Object$getClass$ are equivalent
+Assuming unsafe.java.util.Arrays$hashCode$char$lp$$rp$ and fixed.java.util.Arrays$hashCode$char$lp$$rp$ are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.com.acciente.oacc.PasswordCredentials$Impl$$la$init$ra$$char$lp$$rp$, fixed.com.acciente.oacc.PasswordCredentials$Impl$$la$init$ra$$char$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.com.acciente.oacc.PasswordCredentials$$la$init$ra$$, fixed.com.acciente.oacc.PasswordCredentials$$la$init$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.com.acciente.oacc.PasswordCredentials$Impl$getPassword$_EQ_unsafe__xx__fixed
+  [0.153461 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 268ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 268ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	268	0	0	0	688	6	
+Missing procedure for unsafe.java.lang.Object$getClass$ or fixed.java.lang.Object$getClass$: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.com.acciente.oacc.PasswordCredentials$Impl$equals$java.lang.Object and fixed.com.acciente.oacc.PasswordCredentials$Impl$equals$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.com.acciente.oacc.PasswordCredentials$Impl$equals$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.101956 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 262ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 262ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	262	0	0	0	956	9	
+nonmodular mode: Forcing the check of non-root nodes unsafe.com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$, fixed.com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$
+Automatically ignoring $objIndex and new heap allocation for unsafe.com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$ and fixed.com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.com.acciente.oacc.PasswordCredentials$Impl$ArraysIsEquals$char$lp$$rp$_char$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.075889 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 226ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 226ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	226	0	0	0	1191	9	
+Missing procedure for unsafe.java.util.Arrays$hashCode$char$lp$$rp$ or fixed.java.util.Arrays$hashCode$char$lp$$rp$: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.com.acciente.oacc.PasswordCredentials$Impl$hashCode$_EQ_unsafe__xx__fixed
+  [0.021175 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 127ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 127ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	127	0	0	0	1326	9	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Automatically ignoring $objIndex and new heap allocation for unsafe.com.acciente.oacc.PasswordCredentials$newInstance$char$lp$$rp$ and fixed.com.acciente.oacc.PasswordCredentials$newInstance$char$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.com.acciente.oacc.PasswordCredentials$newInstance$char$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.023825 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 139ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 139ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	139	0	0	0	1478	9	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,1480)

@@ -1,0 +1,66 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.Login$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.147056 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 313ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 313ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	313	0	0	0	927	6	
+Automatically ignoring $objIndex and new heap allocation for unsafe.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String and fixed.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String_EQ_unsafe__xx__fixed
+  [0.181639 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 447ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 447ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	447	0	0	0	1384	9	
+Automatically ignoring $objIndex and new heap allocation for unsafe.Login$retrieve$java.lang.String and fixed.Login$retrieve$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.Login$retrieve$java.lang.String_EQ_unsafe__xx__fixed
+  [0.03348 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 200ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 200ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	200	0	0	0	1645	9	
+ERROR: Failed to add postconditions to unsafe.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String_loop_block6 and fixed.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String_loop_block6
+nonmodular mode: Skipping non-root nodes unsafe.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String_loop_block6, fixed.Login$login_unsafe$byte$lp$$rp$_byte$lp$$rp$_java.lang.String_loop_block6
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (3,0,0,0,1646)

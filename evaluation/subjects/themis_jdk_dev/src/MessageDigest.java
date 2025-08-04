@@ -22,7 +22,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
     //     return true;
     // }
 
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     public static boolean /*isEqual_safe*/isEqual_unsafe(byte[] digesta, byte[] digestb) {
         if (digesta.length != digestb.length) {
             return false;

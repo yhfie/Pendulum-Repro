@@ -1,0 +1,101 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$$la$init$ra$$int, fixed.java.lang.Integer$$la$init$ra$$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$valueOf$int, fixed.java.lang.Integer$valueOf$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$intValue$, fixed.java.lang.Integer$intValue$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$compareTo$java.lang.Integer, fixed.java.lang.Integer$compareTo$java.lang.Integer
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Integer$compareTo$java.lang.Object and fixed.java.lang.Integer$compareTo$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$compareTo$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.151183 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 283ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 283ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	283	0	0	0	696	7	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.MoreSanity$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.018489 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 125ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 125ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	125	0	0	0	830	7	
+Automatically ignoring $objIndex and new heap allocation for unsafe.MoreSanity$array_unsafe$int$lp$$rp$_int and fixed.MoreSanity$array_unsafe$int$lp$$rp$_int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.MoreSanity$array_unsafe$int$lp$$rp$_int_EQ_unsafe__xx__fixed
+  [0.068328 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 224ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 224ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	224	0	0	0	1064	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.MoreSanity$loopAndbranch_safe$int_int_EQ_unsafe__xx__fixed
+  [0.027193 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 157ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 157ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	157	0	0	0	1229	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.MoreSanity$loopAndbranch_unsafe$int_int_EQ_unsafe__xx__fixed
+  [0.027799 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 148ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 148ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	148	0	0	0	1387	8	
+ERROR: Failed to add postconditions to unsafe.MoreSanity$array_unsafe$int$lp$$rp$_int_loop_block10 and fixed.MoreSanity$array_unsafe$int$lp$$rp$_int_loop_block9
+nonmodular mode: Skipping non-root nodes unsafe.MoreSanity$array_unsafe$int$lp$$rp$_int_loop_block10, fixed.MoreSanity$array_unsafe$int$lp$$rp$_int_loop_block9
+Could not find the procedure unsafe.MoreSanity$loopAndbranch_safe$int_int_loop_block15 in the config file....skipping
+nonmodular mode: Skipping non-root nodes unsafe.MoreSanity$loopAndbranch_safe$int_int_loop_block18, fixed.MoreSanity$loopAndbranch_safe$int_int_loop_block18
+Could not find the procedure unsafe.MoreSanity$loopAndbranch_safe$int_int_loop_block20 in the config file....skipping
+Could not find the procedure unsafe.MoreSanity$loopAndbranch_unsafe$int_int_loop_block23 in the config file....skipping
+nonmodular mode: Skipping non-root nodes unsafe.MoreSanity$loopAndbranch_unsafe$int_int_loop_block26, fixed.MoreSanity$loopAndbranch_unsafe$int_int_loop_block26
+Could not find the procedure unsafe.MoreSanity$loopAndbranch_unsafe$int_int_loop_block28 in the config file....skipping
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,1387)

@@ -1,0 +1,285 @@
+=> Compiling unsafe and fixed java files
++ make compile
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/NotAuthenticatedException.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/NotAuthorizedException.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/normalizer/TextNormalizer.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/ResourceCreatePermissions.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/ResourceClassInfo.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/Credentials.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/Resources.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/PasswordCredentials.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/DomainPermissions.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/encryptor/jasypt/DecodedPassword.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/encryptor/jasypt/JasyptPasswordEncryptor.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/encryptor/jasypt/LegacyJasyptPasswordEncryptor.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/encryptor/bcrypt/BCryptPasswordEncryptor.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/encryptor/TransitioningPasswordEncryptor.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/AuthenticationException.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/UnsupportedCredentialsException.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/AuthenticationProvider.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/sql/SQLAccessControlContextFactory.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/sql/internal/encryptor/PasswordEncryptors.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/sql/internal/SQLAccessControlSystemInitializer.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/com/acciente/oacc/sql/SQLAccessControlSystemInitializer.java -d bin
+Note: src/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/QDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Greedy.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_KDynamic.java -d bin
++ make compile_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/NotAuthenticatedException.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/NotAuthorizedException.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/normalizer/TextNormalizer.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/ResourceCreatePermissions.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/ResourceClassInfo.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/Credentials.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/Resources.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/PasswordCredentials.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/DomainPermissions.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/encryptor/jasypt/DecodedPassword.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/encryptor/jasypt/JasyptPasswordEncryptor.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/encryptor/jasypt/LegacyJasyptPasswordEncryptor.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/encryptor/bcrypt/BCryptPasswordEncryptor.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/encryptor/TransitioningPasswordEncryptor.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/AuthenticationException.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/UnsupportedCredentialsException.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/AuthenticationProvider.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/sql/SQLAccessControlContextFactory.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/sql/internal/encryptor/PasswordEncryptors.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/sql/internal/SQLAccessControlSystemInitializer.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/com/acciente/oacc/sql/SQLAccessControlSystemInitializer.java -d bin_fixed
+Note: src_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/QDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/sg/edu/nus/comp/tsunami/safe/Safe.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Greedy.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_KDynamic.java -d bin_fixed
+
+=> Copying class files to verification/
++ mkdir -p verification
++ cp -r bin verification/bin
++ cp -r bin_fixed verification/bin_fixed
+
+=> Removing unchanged class files
++ rm -f verification/bin_fixed/com/acciente/oacc/SysPermission.class verification/bin/com/acciente/oacc/SysPermission.class
++ rm -f verification/bin_fixed/com/acciente/oacc/normalizer/TextNormalizer.class verification/bin/com/acciente/oacc/normalizer/TextNormalizer.class
++ rm -f verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/Normalizer2Factory.class verification/bin/com/acciente/oacc/normalizer/icu4j/Normalizer2Factory.class
++ rm -f verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer.class verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer$1.class' 'verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer$1.class'
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer$1.class' 'verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer$1.class'
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer$LazyInitSingletonHolder.class' 'verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer$LazyInitSingletonHolder.class'
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer$LazyInitSingletonHolder.class' 'verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv46TextNormalizer$LazyInitSingletonHolder.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.class verification/bin/com/acciente/oacc/normalizer/icu4j/ICU4Jv26TextNormalizer.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer$1.class' 'verification/bin/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer$1.class'
++ rm -f 'verification/bin_fixed/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer$LazyInitSingletonHolder.class' 'verification/bin/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer$LazyInitSingletonHolder.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer.class verification/bin/com/acciente/oacc/normalizer/jdk/JDKTextNormalizer.class
++ rm -f verification/bin_fixed/com/acciente/oacc/DomainPermission.class verification/bin/com/acciente/oacc/DomainPermission.class
++ rm -f verification/bin_fixed/com/acciente/oacc/Credentials.class verification/bin/com/acciente/oacc/Credentials.class
++ rm -f verification/bin_fixed/com/acciente/oacc/OaccException.class verification/bin/com/acciente/oacc/OaccException.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/Resources$ResourceImpl.class' 'verification/bin/com/acciente/oacc/Resources$ResourceImpl.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/AccessControlContext.class verification/bin/com/acciente/oacc/AccessControlContext.class
++ rm -f verification/bin_fixed/com/acciente/oacc/ResourcePermissions.class verification/bin/com/acciente/oacc/ResourcePermissions.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/DomainCreatePermissions$1.class' 'verification/bin/com/acciente/oacc/DomainCreatePermissions$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/ResourceCreatePermission.class verification/bin/com/acciente/oacc/ResourceCreatePermission.class
++ rm -f verification/bin_fixed/com/acciente/oacc/AuthenticationException.class verification/bin/com/acciente/oacc/AuthenticationException.class
++ rm -f verification/bin_fixed/com/acciente/oacc/DomainCreatePermission.class verification/bin/com/acciente/oacc/DomainCreatePermission.class
++ rm -f verification/bin_fixed/com/acciente/oacc/Resources.class verification/bin/com/acciente/oacc/Resources.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/DomainPermissions$DomainPermissionImpl.class' 'verification/bin/com/acciente/oacc/DomainPermissions$DomainPermissionImpl.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/IncorrectCredentialsException.class verification/bin/com/acciente/oacc/IncorrectCredentialsException.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/ResourcePermissions$ResourcePermissionImpl.class' 'verification/bin/com/acciente/oacc/ResourcePermissions$ResourcePermissionImpl.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/AuthorizationException.class verification/bin/com/acciente/oacc/AuthorizationException.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/ResourcePermissions$1.class' 'verification/bin/com/acciente/oacc/ResourcePermissions$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/AuthenticationProvider.class verification/bin/com/acciente/oacc/AuthenticationProvider.class
++ rm -f verification/bin_fixed/com/acciente/oacc/InvalidCredentialsException.class verification/bin/com/acciente/oacc/InvalidCredentialsException.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/JasyptPasswordEncryptor.class verification/bin/com/acciente/oacc/encryptor/jasypt/JasyptPasswordEncryptor.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/DecodedPassword$1.class' 'verification/bin/com/acciente/oacc/encryptor/jasypt/DecodedPassword$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/DecodedPassword.class verification/bin/com/acciente/oacc/encryptor/jasypt/DecodedPassword.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/LegacyJasyptPasswordEncryptor.class verification/bin/com/acciente/oacc/encryptor/jasypt/LegacyJasyptPasswordEncryptor.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/PasswordEncoderDecoder.class verification/bin/com/acciente/oacc/encryptor/jasypt/PasswordEncoderDecoder.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/DecodedPassword$Builder.class' 'verification/bin/com/acciente/oacc/encryptor/jasypt/DecodedPassword$Builder.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/jasypt/StandardByteDigesterPool.class verification/bin/com/acciente/oacc/encryptor/jasypt/StandardByteDigesterPool.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/PasswordEncryptor.class verification/bin/com/acciente/oacc/encryptor/PasswordEncryptor.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/bcrypt/BCryptPasswordEncryptor.class verification/bin/com/acciente/oacc/encryptor/bcrypt/BCryptPasswordEncryptor.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/bcrypt/PasswordEncoderDecoder.class verification/bin/com/acciente/oacc/encryptor/bcrypt/PasswordEncoderDecoder.class
++ rm -f verification/bin_fixed/com/acciente/oacc/encryptor/TransitioningPasswordEncryptor.class verification/bin/com/acciente/oacc/encryptor/TransitioningPasswordEncryptor.class
++ rm -f verification/bin_fixed/com/acciente/oacc/ResourcePermission.class verification/bin/com/acciente/oacc/ResourcePermission.class
++ rm -f verification/bin_fixed/com/acciente/oacc/ResourceCreatePermissions.class verification/bin/com/acciente/oacc/ResourceCreatePermissions.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/ResourceCreatePermissions$ResourceCreatePermissionImpl.class' 'verification/bin/com/acciente/oacc/ResourceCreatePermissions$ResourceCreatePermissionImpl.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/CredentialsException.class verification/bin/com/acciente/oacc/CredentialsException.class
++ rm -f verification/bin_fixed/com/acciente/oacc/NotAuthorizedException.class verification/bin/com/acciente/oacc/NotAuthorizedException.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/DomainPermissions$1.class' 'verification/bin/com/acciente/oacc/DomainPermissions$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/SQLProfile.class verification/bin/com/acciente/oacc/sql/SQLProfile.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/SQLAccessControlContextFactory.class verification/bin/com/acciente/oacc/sql/SQLAccessControlContextFactory.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/SQLAccessControlSystemInitializer.class verification/bin/com/acciente/oacc/sql/SQLAccessControlSystemInitializer.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/ResourceClassInternalInfo.class verification/bin/com/acciente/oacc/sql/internal/ResourceClassInternalInfo.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/PasswordUtils.class verification/bin/com/acciente/oacc/sql/internal/PasswordUtils.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/SQLAccessControlContext.class verification/bin/com/acciente/oacc/sql/internal/SQLAccessControlContext.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/SQLAccessControlSystemInitializer.class verification/bin/com/acciente/oacc/sql/internal/SQLAccessControlSystemInitializer.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/encryptor/PasswordEncryptors.class verification/bin/com/acciente/oacc/sql/internal/encryptor/PasswordEncryptors.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/SchemaNameValidator.class verification/bin/com/acciente/oacc/sql/internal/SchemaNameValidator.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/SQLStrings.class verification/bin/com/acciente/oacc/sql/internal/persister/SQLStrings.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantGlobalResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantGlobalResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantDomainCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantDomainCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/DialectSpecificSQLGenerator.class verification/bin/com/acciente/oacc/sql/internal/persister/DialectSpecificSQLGenerator.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantDomainCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantDomainCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/ResourcePasswordPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/ResourcePasswordPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveResourcePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveResourcePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantGlobalResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantGlobalResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonResourcePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonResourcePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/ResourceClassPermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/ResourceClassPermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantGlobalResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantGlobalResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/id/ResourcePermissionId.class verification/bin/com/acciente/oacc/sql/internal/persister/id/ResourcePermissionId.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/id/ResourceClassId.class verification/bin/com/acciente/oacc/sql/internal/persister/id/ResourceClassId.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/id/ResourceId.class verification/bin/com/acciente/oacc/sql/internal/persister/id/ResourceId.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/id/Id.class verification/bin/com/acciente/oacc/sql/internal/persister/id/Id.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/id/DomainId.class verification/bin/com/acciente/oacc/sql/internal/persister/id/DomainId.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionPostCreatePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionPostCreatePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursivePersisterHelper.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursivePersisterHelper.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveDomainPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveDomainPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantDomainPermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantDomainPermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantGlobalResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantGlobalResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/ResourceClassPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/ResourceClassPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionPostCreatePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionPostCreatePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonDomainPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonDomainPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainPermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantDomainPermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantGlobalResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantGlobalResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantGlobalResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantGlobalResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantDomainCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantDomainCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantDomainCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantDomainCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveDomainPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveDomainPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/SQLStatement.class verification/bin/com/acciente/oacc/sql/internal/persister/SQLStatement.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/DomainPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/DomainPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantResourceCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantGlobalResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantGlobalResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionPostCreatePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionPostCreatePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/Persister.class verification/bin/com/acciente/oacc/sql/internal/persister/Persister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveResourcePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveResourcePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantDomainPermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantDomainPermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/CommonGrantResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/CommonGrantResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/SQLConnection.class verification/bin/com/acciente/oacc/sql/internal/persister/SQLConnection.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/ResourcePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/ResourcePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantGlobalResourcePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantGlobalResourcePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/SQLResult.class verification/bin/com/acciente/oacc/sql/internal/persister/SQLResult.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainPermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainPermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/SQLPasswordStrings.class verification/bin/com/acciente/oacc/sql/internal/persister/SQLPasswordStrings.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/sql/internal/persister/DialectSpecificSQLGenerator$1.class' 'verification/bin/com/acciente/oacc/sql/internal/persister/DialectSpecificSQLGenerator$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantResourceCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantResourcePermissionPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantResourcePermissionPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionPostCreatePersister.class verification/bin/com/acciente/oacc/sql/internal/persister/NonRecursiveGrantResourceCreatePermissionPostCreatePersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/GrantResourceCreatePermissionSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainCreatePermissionPostCreateSysPersister.class verification/bin/com/acciente/oacc/sql/internal/persister/RecursiveGrantDomainCreatePermissionPostCreateSysPersister.class
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/internal/SQLPasswordAuthenticationProvider.class verification/bin/com/acciente/oacc/sql/internal/SQLPasswordAuthenticationProvider.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/sql/SQLProfile$Builder.class' 'verification/bin/com/acciente/oacc/sql/SQLProfile$Builder.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/sql/SQLDialect.class verification/bin/com/acciente/oacc/sql/SQLDialect.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/sql/SQLProfile$1.class' 'verification/bin/com/acciente/oacc/sql/SQLProfile$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/DomainCreatePermissions.class verification/bin/com/acciente/oacc/DomainCreatePermissions.class
++ rm -f verification/bin_fixed/com/acciente/oacc/UnsupportedCredentialsException.class verification/bin/com/acciente/oacc/UnsupportedCredentialsException.class
++ rm -f verification/bin_fixed/com/acciente/oacc/Resource.class verification/bin/com/acciente/oacc/Resource.class
++ rm -f verification/bin_fixed/com/acciente/oacc/DomainPermissions.class verification/bin/com/acciente/oacc/DomainPermissions.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/Resources$1.class' 'verification/bin/com/acciente/oacc/Resources$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/ResourceClassInfo.class verification/bin/com/acciente/oacc/ResourceClassInfo.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/ResourceCreatePermissions$1.class' 'verification/bin/com/acciente/oacc/ResourceCreatePermissions$1.class'
++ rm -f verification/bin_fixed/com/acciente/oacc/NotAuthenticatedException.class verification/bin/com/acciente/oacc/NotAuthenticatedException.class
++ rm -f 'verification/bin_fixed/com/acciente/oacc/DomainCreatePermissions$DomainCreatePermissionImpl.class' 'verification/bin/com/acciente/oacc/DomainCreatePermissions$DomainCreatePermissionImpl.class'
++ rm -f verification/bin_fixed/Driver.class verification/bin/Driver.class
++ rm -f verification/bin_fixed/QDriver.class verification/bin/QDriver.class
++ rm -f verification/bin_fixed/Driver_Greedy.class verification/bin/Driver_Greedy.class
++ rm -f verification/bin_fixed/Driver_KDynamic.class verification/bin/Driver_KDynamic.class
+
+=> Compiling stubs
++ mvn clean compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ my-app ---
+[INFO] Deleting /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/themis_oacc_unsafe/stubs/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ my-app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/themis_oacc_unsafe/stubs/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ my-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/themis_oacc_unsafe/stubs/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.622 s
+[INFO] Finished at: 2024-07-04T21:33:55+08:00
+[INFO] ------------------------------------------------------------------------
+=> Copying stubs over
++ rsync -avz stubs/target/classes/fakejava verification/bin
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+
+sent 527 bytes  received 47 bytes  1,148.00 bytes/sec
+total size is 530  speedup is 0.92
++ rsync -avz stubs/target/classes/fakejava verification/bin_fixed
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+
+sent 527 bytes  received 47 bytes  1,148.00 bytes/sec
+total size is 530  speedup is 0.92
+
+=> Entering directory verification/\n
+=> Translating bytecode to Boogie with jar2bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin unsafe.bpl -noExtractLoops
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin_fixed fixed.bpl -noExtractLoops
+
+=> Inferring verification config using Symdiff
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh infer unsafe.bpl fixed.bpl
+
+=> Diffing with Symdiff; results will be dumped to symdiff.log
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh diff unsafe.bpl fixed.bpl verify.cfg -forceCheck:../FORCE_CHECK_PROCS
+Leaving directory verification/
+
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,1480)
+
+Verification passed

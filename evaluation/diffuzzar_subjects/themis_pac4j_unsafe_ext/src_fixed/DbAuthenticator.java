@@ -1,6 +1,6 @@
 // import Pac4jConstants.PASSWORD;
 // import Pac4jConstants.USERNAME;
-import static org.pac4j.core.context.Pac4jConstants.*;  // : to make DifFuzzAR compile
+import static org.pac4j.core.context.Pac4jConstants.*;  // Rhf: to make DifFuzzAR compile
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.skife.jdbi.v2.Handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// : to make DifFuzzAR compile
+// Rhf: to make DifFuzzAR compile
 import org.pac4j.core.context.Pac4jConstants;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.exception.*;
@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
-// : importing done.
+// Rhf: importing done.
 
 
 public class DbAuthenticator extends AbstractUsernamePasswordAuthenticator {

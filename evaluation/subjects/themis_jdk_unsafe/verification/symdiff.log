@@ -1,0 +1,41 @@
+Added MessageDigest$$la$init$ra$$ to syntacticEqProcs
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.security.MessageDigestSpi$$la$init$ra$$ and fixed.java.security.MessageDigestSpi$$la$init$ra$$ are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.java.security.MessageDigestSpi$$la$init$ra$$ or fixed.java.security.MessageDigestSpi$$la$init$ra$$: skipping...
+Syntactically equivalent:: Skipping procedure MessageDigest$$la$init$ra$$...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$ and fixed.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.267235 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 499ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 499ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	499	0	0	0	1064	8	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+ERROR: Failed to add postconditions to unsafe.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block3 and fixed.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block3
+nonmodular mode: Skipping non-root nodes unsafe.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block3, fixed.MessageDigest$isEqual_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block3
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (1,0,0,0,1064)

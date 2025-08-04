@@ -1,0 +1,139 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.142382 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 245ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 245ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	245	0	0	0	624	4	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$charAt$int, fixed.java.lang.String$charAt$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Boolean$valueOf$boolean and fixed.java.lang.Boolean$valueOf$boolean
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$valueOf$boolean_EQ_unsafe__xx__fixed
+  [0.028077 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 126ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 126ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	126	0	0	0	757	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$booleanValue$_EQ_unsafe__xx__fixed
+  [0.019347 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 106ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 106ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	106	0	0	0	870	8	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$$la$init$ra$$int, fixed.java.lang.Integer$$la$init$ra$$int
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Integer$valueOf$int and fixed.java.lang.Integer$valueOf$int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$valueOf$int_EQ_unsafe__xx__fixed
+  [0.021623 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 122ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 122ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	122	0	0	0	1001	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$intValue$_EQ_unsafe__xx__fixed
+  [0.019081 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 115ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 115ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	115	0	0	0	1122	8	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$compareTo$java.lang.Integer, fixed.java.lang.Integer$compareTo$java.lang.Integer
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Integer$compareTo$java.lang.Object and fixed.java.lang.Integer$compareTo$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$compareTo$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.033919 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 140ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 140ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	140	0	0	0	1271	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.Credential$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.019452 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 118ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 118ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	118	0	0	0	1396	8	
+Automatically ignoring $objIndex and new heap allocation for unsafe.Credential$stringEquals_original$java.lang.String_java.lang.String and fixed.Credential$stringEquals_original$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.Credential$stringEquals_original$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [0.06032 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 200ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 200ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	200	0	0	0	1606	8	
+ERROR: Failed to add postconditions to unsafe.Credential$stringEquals_original$java.lang.String_java.lang.String_loop_block17 and fixed.Credential$stringEquals_original$java.lang.String_java.lang.String_loop_block68
+nonmodular mode: Skipping non-root nodes unsafe.Credential$stringEquals_original$java.lang.String_java.lang.String_loop_block17, fixed.Credential$stringEquals_original$java.lang.String_java.lang.String_loop_block68
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (8,0,0,0,1606)

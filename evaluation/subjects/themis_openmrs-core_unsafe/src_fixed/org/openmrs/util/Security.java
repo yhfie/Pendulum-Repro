@@ -9,7 +9,7 @@
  */
 package org.openmrs.util;
 
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 
 

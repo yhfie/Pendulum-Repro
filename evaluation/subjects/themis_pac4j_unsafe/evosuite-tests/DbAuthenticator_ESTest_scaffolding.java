@@ -74,8 +74,8 @@ public class DbAuthenticator_ESTest_scaffolding {
  
     java.lang.System.setProperties((java.util.Properties) defaultProperties.clone()); 
     java.lang.System.setProperty("file.encoding", "UTF-8"); 
-    java.lang.System.setProperty("user.home", "/tmp"); 
-    java.lang.System.setProperty("user.dir", "/tmp/sc-fix/evaluation/subjects/themis_pac4j_unsafe"); 
+    java.lang.System.setProperty("user.home", "/home/haifeng"); 
+    java.lang.System.setProperty("user.dir", "/home/haifeng/files/sc-fix/evaluation/subjects/themis_pac4j_unsafe"); 
     java.lang.System.setProperty("java.io.tmpdir", "/tmp"); 
   }
 

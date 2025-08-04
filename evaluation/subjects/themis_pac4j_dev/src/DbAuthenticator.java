@@ -45,7 +45,7 @@ public class DbAuthenticator extends AbstractUsernamePasswordAuthenticator {
        validate_unsafe(arg0);
     }
 
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     public void /*validate_safe*/validate_unsafe(UsernamePasswordCredentials credentials) throws HttpAction {
 
         Handle h = null;

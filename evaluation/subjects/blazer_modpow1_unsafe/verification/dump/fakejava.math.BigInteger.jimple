@@ -1,0 +1,364 @@
+public class fakejava.math.BigInteger extends java.lang.Object
+{
+    long value;
+    public static fakejava.math.BigInteger ONE;
+    public static fakejava.math.BigInteger ZERO;
+
+    public void <init>(long)
+    {
+        fakejava.math.BigInteger r0;
+        long l0;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        l0 := @parameter0: long;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<fakejava.math.BigInteger: long value> = l0;
+
+        return;
+    }
+
+    public static fakejava.math.BigInteger valueOf(long)
+    {
+        long l0;
+        fakejava.math.BigInteger $r0;
+
+        l0 := @parameter0: long;
+
+        $r0 = new fakejava.math.BigInteger;
+
+        specialinvoke $r0.<fakejava.math.BigInteger: void <init>(long)>(l0);
+
+        return $r0;
+    }
+
+    public fakejava.math.BigInteger multiply(fakejava.math.BigInteger)
+    {
+        fakejava.math.BigInteger r0, r1, $r2;
+        long $l0, $l1, $l2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        r1 := @parameter0: fakejava.math.BigInteger;
+
+        $r2 = new fakejava.math.BigInteger;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l0 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l2 = $l1 * $l0;
+
+        specialinvoke $r2.<fakejava.math.BigInteger: void <init>(long)>($l2);
+
+        return $r2;
+    }
+
+    public fakejava.math.BigInteger shiftRight(int)
+    {
+        fakejava.math.BigInteger r0, $r1;
+        int i0;
+        long $l1, $l2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        i0 := @parameter0: int;
+
+        $r1 = new fakejava.math.BigInteger;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l2 = $l1 >> i0;
+
+        specialinvoke $r1.<fakejava.math.BigInteger: void <init>(long)>($l2);
+
+        return $r1;
+    }
+
+    public fakejava.math.BigInteger shiftLeft(int)
+    {
+        fakejava.math.BigInteger r0, $r1;
+        int i0;
+        long $l1, $l2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        i0 := @parameter0: int;
+
+        $r1 = new fakejava.math.BigInteger;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l2 = $l1 << i0;
+
+        specialinvoke $r1.<fakejava.math.BigInteger: void <init>(long)>($l2);
+
+        return $r1;
+    }
+
+    public fakejava.math.BigInteger subtract(fakejava.math.BigInteger)
+    {
+        fakejava.math.BigInteger r0, r1, $r2;
+        long $l0, $l1, $l2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        r1 := @parameter0: fakejava.math.BigInteger;
+
+        $r2 = new fakejava.math.BigInteger;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l0 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l2 = $l1 - $l0;
+
+        specialinvoke $r2.<fakejava.math.BigInteger: void <init>(long)>($l2);
+
+        return $r2;
+    }
+
+    public fakejava.math.BigInteger add(fakejava.math.BigInteger)
+    {
+        fakejava.math.BigInteger r0, r1, $r2;
+        long $l0, $l1, $l2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        r1 := @parameter0: fakejava.math.BigInteger;
+
+        $r2 = new fakejava.math.BigInteger;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l0 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l2 = $l1 + $l0;
+
+        specialinvoke $r2.<fakejava.math.BigInteger: void <init>(long)>($l2);
+
+        return $r2;
+    }
+
+    public fakejava.math.BigInteger mod(fakejava.math.BigInteger)
+    {
+        fakejava.math.BigInteger r0, r1, $r2, $r3;
+        long $l0, $l2, $l4, $l5, $l6, $l7, $l8, $l9, $l10, $l11, $l12, $l13, $l14;
+        byte $b1, $b3;
+        java.lang.ArithmeticException $r4;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        r1 := @parameter0: fakejava.math.BigInteger;
+
+        $l0 = r1.<fakejava.math.BigInteger: long value>;
+
+        $b1 = $l0 cmp 0L;
+
+        if $b1 > 0 goto label1;
+
+        $r4 = new java.lang.ArithmeticException;
+
+        specialinvoke $r4.<java.lang.ArithmeticException: void <init>()>();
+
+        throw $r4;
+
+     label1:
+        $l2 = r0.<fakejava.math.BigInteger: long value>;
+
+        $b3 = $l2 cmp 0L;
+
+        if $b3 < 0 goto label2;
+
+        $r3 = new fakejava.math.BigInteger;
+
+        $l13 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l12 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l14 = $l13 % $l12;
+
+        specialinvoke $r3.<fakejava.math.BigInteger: void <init>(long)>($l14);
+
+        return $r3;
+
+     label2:
+        $r2 = new fakejava.math.BigInteger;
+
+        $l8 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l4 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l6 = neg $l4;
+
+        $l5 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l7 = $l6 % $l5;
+
+        $l10 = $l8 - $l7;
+
+        $l9 = r1.<fakejava.math.BigInteger: long value>;
+
+        $l11 = $l10 % $l9;
+
+        specialinvoke $r2.<fakejava.math.BigInteger: void <init>(long)>($l11);
+
+        return $r2;
+    }
+
+    public int bitLength()
+    {
+        fakejava.math.BigInteger r0;
+        long $l0, $l2, $l4, $l6, l7;
+        byte $b1, $b3, $b5;
+        int i8;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        $l0 = r0.<fakejava.math.BigInteger: long value>;
+
+        $b1 = $l0 cmp 0L;
+
+        if $b1 != 0 goto label1;
+
+        return 1;
+
+     label1:
+        $l2 = r0.<fakejava.math.BigInteger: long value>;
+
+        $b3 = $l2 cmp 0L;
+
+        if $b3 <= 0 goto label2;
+
+        $l6 = r0.<fakejava.math.BigInteger: long value>;
+
+        goto label3;
+
+     label2:
+        $l4 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l6 = neg $l4;
+
+     label3:
+        l7 = $l6;
+
+        i8 = 0;
+
+     label4:
+        $b5 = l7 cmp 0L;
+
+        if $b5 <= 0 goto label5;
+
+        i8 = i8 + 1;
+
+        l7 = l7 >> 1;
+
+        goto label4;
+
+     label5:
+        return i8;
+    }
+
+    public boolean testBit(int)
+    {
+        fakejava.math.BigInteger r0;
+        int i0, $i1;
+        long $l2, $l3, $l4;
+        byte $b5;
+        boolean $z0;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        i0 := @parameter0: int;
+
+        $l3 = r0.<fakejava.math.BigInteger: long value>;
+
+        $i1 = 1 << i0;
+
+        $l2 = (long) $i1;
+
+        $l4 = $l3 & $l2;
+
+        $b5 = $l4 cmp 0L;
+
+        if $b5 == 0 goto label1;
+
+        $z0 = 1;
+
+        goto label2;
+
+     label1:
+        $z0 = 0;
+
+     label2:
+        return $z0;
+    }
+
+    public boolean equals(java.lang.Object)
+    {
+        fakejava.math.BigInteger r0, r2;
+        java.lang.Object r1;
+        java.lang.Class $r3, $r4;
+        long $l0, $l1;
+        byte $b2;
+
+        r0 := @this: fakejava.math.BigInteger;
+
+        r1 := @parameter0: java.lang.Object;
+
+        if r0 != r1 goto label1;
+
+        return 1;
+
+     label1:
+        if r1 != null goto label2;
+
+        return 0;
+
+     label2:
+        $r3 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r4 = virtualinvoke r1.<java.lang.Object: java.lang.Class getClass()>();
+
+        if $r3 == $r4 goto label3;
+
+        return 0;
+
+     label3:
+        r2 = (fakejava.math.BigInteger) r1;
+
+        $l1 = r0.<fakejava.math.BigInteger: long value>;
+
+        $l0 = r2.<fakejava.math.BigInteger: long value>;
+
+        $b2 = $l1 cmp $l0;
+
+        if $b2 == 0 goto label4;
+
+        return 0;
+
+     label4:
+        return 1;
+    }
+
+    static void <clinit>()
+    {
+        fakejava.math.BigInteger $r0, $r1;
+
+        $r0 = new fakejava.math.BigInteger;
+
+        specialinvoke $r0.<fakejava.math.BigInteger: void <init>(long)>(1L);
+
+        <fakejava.math.BigInteger: fakejava.math.BigInteger ONE> = $r0;
+
+        $r1 = new fakejava.math.BigInteger;
+
+        specialinvoke $r1.<fakejava.math.BigInteger: void <init>(long)>(0L);
+
+        <fakejava.math.BigInteger: fakejava.math.BigInteger ZERO> = $r1;
+
+        return;
+    }
+}

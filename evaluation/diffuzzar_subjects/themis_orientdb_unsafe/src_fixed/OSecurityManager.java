@@ -1,6 +1,6 @@
 // import OGlobalConfiguration.SECURITY_USER_PASSWORD_SALT_CACHE_SIZE;
 // import OGlobalConfiguration.SECURITY_USER_PASSWORD_SALT_ITERATIONS;
-import static com.orientechnologies.orient.core.config.OGlobalConfiguration.*;  // : to make DifFuzzAR compile
+import static com.orientechnologies.orient.core.config.OGlobalConfiguration.*;  // Rhf: to make DifFuzzAR compile
 import com.orientechnologies.common.collection.OLRUCache;
 import com.orientechnologies.common.exception.OException;
 import com.orientechnologies.common.log.OLogManager;

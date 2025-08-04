@@ -22,7 +22,7 @@ public class Login {
     //     return true;
     // }
 
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static boolean /*login_safe*/login_unsafe(byte[] real_password, byte[] guess, String username) {
         boolean unused;
         boolean matches = true;

@@ -103,7 +103,7 @@ public class SaltedPasswordEncryptor implements PasswordEncryptor {
     public boolean equalsIgnoreCase(String thisString, String anotherString) {
         // return (thisString == anotherString) ? true : (anotherString != null) && (anotherString.length() == thisString.length()) && regionMatches(thisString, true, 0, anotherString, 0, thisString.length());
 
-        /* : inline PasswordUtil.secureCompare() */
+        /* RHf: inline PasswordUtil.secureCompare() */
         int limit = 1024;
         String input = thisString;
         String password = anotherString;

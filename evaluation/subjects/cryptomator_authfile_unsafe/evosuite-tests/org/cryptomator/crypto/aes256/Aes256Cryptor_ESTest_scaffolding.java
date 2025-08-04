@@ -74,7 +74,7 @@ public class Aes256Cryptor_ESTest_scaffolding {
   public static void setSystemProperties() {
  
     java.lang.System.setProperties((java.util.Properties) defaultProperties.clone()); 
-    java.lang.System.setProperty("user.dir", "/tmp/sc-fix/evaluation/subjects/cryptomator_authfile_unsafe"); 
+    java.lang.System.setProperty("user.dir", "/home/haifeng/files/sc-fix/evaluation/subjects/cryptomator_authfile_unsafe"); 
     java.lang.System.setProperty("java.io.tmpdir", "/tmp"); 
   }
 

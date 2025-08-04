@@ -17,7 +17,7 @@ class PasswordEncoderUtils {
      * @param actual
      * @return
      */
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     static boolean /*equals_safe*/equals_unsafe(String expected, String actual) {
         byte[] expectedBytes = bytesUtf8(expected);
         byte[] actualBytes = bytesUtf8(actual);

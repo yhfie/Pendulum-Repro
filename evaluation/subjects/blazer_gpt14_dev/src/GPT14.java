@@ -6,7 +6,7 @@ public class GPT14 {
  * this example was extracted from D. Genkin, I. Pipman, and E. J. Tromer. "Get your hands off my laptop: physical side-channel key-extraction attacks on PCs". 2014
  */
 
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static BigInteger /*modular_exponentiation_safe*/modular_exponentiation_inline_unsafe(BigInteger a, BigInteger b, BigInteger p) {
         BigInteger m = BigInteger.valueOf(1);
         int n = b.bitLength();

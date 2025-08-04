@@ -1,0 +1,181 @@
+class MoreSanity extends java.lang.Object
+{
+
+    void <init>()
+    {
+        MoreSanity r0;
+
+        r0 := @this: MoreSanity;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static boolean array_unsafe(int[], int)
+    {
+        int[] r0;
+        int i0, $i2, $i3, $i4, $i5, i6, i7;
+        boolean z0;
+        long $l1;
+        java.lang.Integer $r1, $r2, $r4, $r5, $r6, $r8;
+        java.lang.Object $r3, $r7;
+        byte b8;
+
+        r0 := @parameter0: int[];
+
+        i0 := @parameter1: int;
+
+        i6 = 0;
+
+        $l1 = (long) i0;
+
+        z0 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: boolean lt(long,long)>($l1, 0L);
+
+        $i2 = lengthof r0;
+
+        i7 = $i2 - 1;
+
+     label1:
+        if i7 < 0 goto label2;
+
+        $i5 = r0[i7];
+
+        $r5 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i5);
+
+        $r6 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i6);
+
+        $r7 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r5, $r6);
+
+        $r8 = (java.lang.Integer) $r7;
+
+        i6 = virtualinvoke $r8.<java.lang.Integer: int intValue()>();
+
+        i7 = i7 + -1;
+
+        goto label1;
+
+     label2:
+        b8 = 0;
+
+        $r1 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>(i6);
+
+        $i3 = r0[b8];
+
+        $i4 = $i3 / 2;
+
+        $r2 = staticinvoke <java.lang.Integer: java.lang.Integer valueOf(int)>($i4);
+
+        $r3 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r1, $r2);
+
+        $r4 = (java.lang.Integer) $r3;
+
+        virtualinvoke $r4.<java.lang.Integer: int intValue()>();
+
+        return 0;
+    }
+
+    public static boolean loopAndbranch_safe(int, int)
+    {
+        int i0, i1, i2, i3, i4, i5;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        i2 = i0;
+
+        if i1 >= 0 goto label2;
+
+     label1:
+        if i2 <= 0 goto label7;
+
+        i2 = i2 + -1;
+
+        goto label1;
+
+     label2:
+        i3 = i1 + 10;
+
+        if i3 < 10 goto label5;
+
+        i4 = i0;
+
+     label3:
+        if i4 <= 0 goto label4;
+
+        i4 = i4 + -1;
+
+        goto label3;
+
+     label4:
+        goto label7;
+
+     label5:
+        if i0 >= 0 goto label7;
+
+        i5 = i0;
+
+     label6:
+        if i5 <= 0 goto label7;
+
+        i5 = i5 + -1;
+
+        goto label6;
+
+     label7:
+        return 1;
+    }
+
+    public static boolean loopAndbranch_unsafe(int, int)
+    {
+        int i0, i1, i2, i3, i4, i5;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        i2 = i0;
+
+        if i1 >= 0 goto label2;
+
+     label1:
+        if i2 <= 0 goto label7;
+
+        i2 = i2 + -1;
+
+        goto label1;
+
+     label2:
+        i3 = i1 - 10;
+
+        if i3 < 10 goto label5;
+
+        i4 = i0;
+
+     label3:
+        if i4 <= 0 goto label4;
+
+        i4 = i4 + -1;
+
+        goto label3;
+
+     label4:
+        goto label7;
+
+     label5:
+        if i0 >= 0 goto label7;
+
+        i5 = i0;
+
+     label6:
+        if i5 <= 0 goto label7;
+
+        i5 = i5 + -1;
+
+        goto label6;
+
+     label7:
+        return 1;
+    }
+}

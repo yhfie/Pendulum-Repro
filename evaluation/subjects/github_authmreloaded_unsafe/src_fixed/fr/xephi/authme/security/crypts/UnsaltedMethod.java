@@ -1,6 +1,6 @@
 package fr.xephi.authme.security.crypts;
 
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 
 

@@ -1,0 +1,11554 @@
+var fixed.$heap: $heap_type;
+
+var fixed.$intArrayType: javaType;
+
+var fixed.$charArrayType: javaType;
+
+var fixed.$boolArrayType: javaType;
+
+var fixed.$byteArrayType: javaType;
+
+var fixed.$longArrayType: javaType;
+
+var fixed.$arrSizeHeap: [ref]int;
+
+var fixed.$stringSizeHeap: [ref]int;
+
+var fixed.$boolArrHeap: boolArrHeap_type;
+
+var fixed.$refArrHeap: refArrHeap_type;
+
+var fixed.$realArrHeap: realArrHeap_type;
+
+var fixed.$intArrHeap: intArrHeap_type;
+
+var fixed.$objIndex: int;
+
+var fixed.boolean$java.lang.Boolean$value0: Field int;
+
+const unique fixed.$type: Field javaType;
+
+const unique fixed.$alloc: Field bool;
+
+const unique fixed.$null: ref;
+
+const {:sourceloc "Boolean.java", -1, -1, -1, -1} unique fixed.java.lang.Object: javaType extends complete;
+
+const {:sourceloc "Boolean.java", -1, -1, -1, -1} unique fixed.java.lang.Boolean: javaType extends unique fixed.java.lang.Object complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.PWCheck: javaType extends unique fixed.java.lang.Object complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.io.Serializable: javaType extends complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.Throwable: javaType extends unique fixed.java.lang.Object, fixed.java.io.Serializable complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.Exception: javaType extends unique fixed.java.lang.Throwable complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.RuntimeException: javaType extends unique fixed.java.lang.Exception complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.NullPointerException: javaType extends unique fixed.java.lang.RuntimeException complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.IndexOutOfBoundsException: javaType extends unique fixed.java.lang.RuntimeException complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.ArrayIndexOutOfBoundsException: javaType extends unique fixed.java.lang.IndexOutOfBoundsException complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.sg.edu.nus.comp.tsunami.safe.Safe: javaType extends unique fixed.java.lang.Object complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.Comparable: javaType extends complete;
+
+const {:sourceloc "PWCheck.java", -1, -1, -1, -1} unique fixed.java.lang.ClassCastException: javaType extends unique fixed.java.lang.RuntimeException complete;
+
+function fixed.$arrayType(t: javaType) : javaType;
+
+function fixed.$intToReal(x: int) : real;
+
+function fixed.$intToBool(x: int) : bool;
+
+function fixed.$refToBool(x: ref) : bool;
+
+function fixed.$boolToInt(x: bool) : int;
+
+function fixed.$cmpBool(x: bool, y: bool) : int;
+
+function fixed.$cmpRef(x: ref, y: ref) : int;
+
+function fixed.$cmpReal(x: real, y: real) : int;
+
+function fixed.$cmpInt(x: int, y: int) : int;
+
+function fixed.$bitOr(x: int, y: int) : int;
+
+function fixed.$bitAnd(x: int, y: int) : int;
+
+function fixed.$xorInt(x: int, y: int) : int;
+
+function fixed.$shlInt(x: int, y: int) : int;
+
+function fixed.$ushrInt(x: int, y: int) : int;
+
+function fixed.$shrInt(x: int, y: int) : int;
+
+function fixed.$mulInt(x: int, y: int) : int;
+
+function fixed.$divInt(x: int, y: int) : int;
+
+function fixed.$modInt(x: int, y: int) : int;
+
+function fixed.$intToRef(id: int) : ref;
+
+axiom (forall x: int :: 
+  { fixed.$intToBool(x): bool } 
+  fixed.$intToBool(x): bool <==> (if x == 0 then false else true));
+
+axiom (forall x: ref :: 
+  { fixed.$refToBool(x): bool } 
+  fixed.$refToBool(x): bool <==> (if x == fixed.$null then false else true));
+
+axiom (forall x: bool :: 
+  { fixed.$boolToInt(x): int } 
+  fixed.$boolToInt(x): int == (if x <==> true then 1 else 0));
+
+axiom (forall x: real, y: real :: 
+  { fixed.$cmpReal(x, y): int } 
+  fixed.$cmpReal(x, y): int == (if x > y then 1 else (if x < y then -1 else 0)));
+
+axiom (forall x: int, y: int :: 
+  { fixed.$cmpInt(x, y): int } 
+  fixed.$cmpInt(x, y): int == (if x > y then 1 else (if x < y then -1 else 0)));
+
+axiom (forall index: int :: fixed.$intToRef(index) != fixed.$null);
+
+axiom (forall i1: int, i2: int :: 
+  i1 == i2 <==> fixed.$intToRef(i1) == fixed.$intToRef(i2));
+
+procedure {:prefix "fixed"} fixed.$new(obj_type: javaType) returns ($obj: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures fixed.$heap
+   == old(fixed.$heap)[$obj, fixed.$alloc := true][$obj, fixed.$type := obj_type];
+  free ensures $obj == fixed.$intToRef(old(fixed.$objIndex));
+  free ensures $obj != fixed.$null;
+  free ensures !old(fixed.$heap[$obj, fixed.$alloc]);
+  free ensures fixed.$objIndex == old(fixed.$objIndex) + 1;
+
+
+
+procedure {:prefix "fixed"} fixed.java.lang.Object$java.lang.Object$clone$43($this: ref) returns ($other: ref);
+  free ensures $other != fixed.$null;
+  free ensures fixed.$heap[$other, fixed.$type] == fixed.$heap[$this, fixed.$type];
+  free ensures fixed.$heap[$other, fixed.$alloc] <==> true;
+
+
+
+procedure {:prefix "fixed"} fixed.int$java.lang.String$compareTo$87($this: ref, $other: ref) returns ($return: int);
+
+
+
+procedure {:prefix "fixed"} fixed.java.lang.Boolean$$la$init$ra$$boolean($this: ref, $in_parameter__0: int) returns ($exception: ref);
+  modifies fixed.$heap;
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_$exception($this, 
+    $in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_fixed.$heap($this, 
+    $in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "fixed"} fixed.java.lang.Object$$la$init$ra$$($this: ref) returns ($exception: ref);
+  free ensures $exception == _uf_fixed.java.lang.Object$$la$init$ra$$_$exception($this);
+
+
+
+procedure {:prefix "fixed"} fixed.java.lang.Boolean$valueOf$boolean($in_parameter__0: int) returns ($return: ref, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_$return($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_$exception($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$objIndex
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$objIndex($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$heap($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "fixed"} fixed.java.lang.Boolean$booleanValue$($this: ref) returns ($return: int, $exception: ref);
+  free ensures $return
+   == _uf_fixed.java.lang.Boolean$booleanValue$_$return($this, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$booleanValue$_$exception($this, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "fixed"} fixed.PWCheck$$la$init$ra$$($this: ref) returns ($exception: ref);
+  free ensures $exception
+   == _uf_fixed.PWCheck$$la$init$ra$$_$exception($this, old(fixed.$heap), old(fixed.$arrSizeHeap), old(fixed.$stringSizeHeap));
+
+
+
+procedure {:prefix "fixed"} fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$objIndex
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object($in_parameter__0: int, $in_parameter__1: ref, $in_parameter__2: ref)
+   returns ($return: ref, $exception: ref);
+
+
+
+procedure {:inline 1} fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures $exception
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures fixed.$objIndex
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures fixed.$heap
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$$la$init$ra$$($this: ref) returns ($exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$not$boolean($in_parameter__0: int) returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$and$boolean_boolean($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$or$boolean_boolean($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$gt$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$lt$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$ge$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$le$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$gt$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$lt$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$ge$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$le$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$java.lang.Object_java.lang.Object($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$java.lang.Object_java.lang.Object($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+
+
+
+procedure {:prefix "fixed"} fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6(in_$return: int, 
+    in_$exception: ref, 
+    in_$fakelocal_8: ref, 
+    in_$r9: ref, 
+    in_$fakelocal_5: ref, 
+    in_$i2: int, 
+    in_$r8: ref, 
+    in_$r15: ref, 
+    in_r1: ref, 
+    in_$r10: ref, 
+    in_z0: int, 
+    in_z3: int, 
+    in_$b3: int, 
+    in_$r13: ref, 
+    in_$l6: int, 
+    in_$fakelocal_7: ref, 
+    in_$fakelocal_6: ref, 
+    in_$r6: ref, 
+    in_$r11: ref, 
+    in_r0: ref, 
+    in_$r14: ref, 
+    in_$fakelocal_4: ref, 
+    in_$r12: ref, 
+    in_$fakelocal_2: ref, 
+    in_$l5: int, 
+    in_$r7: ref, 
+    in_$b4: int, 
+    in_$fakelocal_3: ref, 
+    in_i7: int, 
+    in_z2: int)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$fakelocal_8: ref, 
+    out_$r9: ref, 
+    out_$fakelocal_5: ref, 
+    out_$i2: int, 
+    out_$r8: ref, 
+    out_$r15: ref, 
+    out_$r10: ref, 
+    out_z0: int, 
+    out_z3: int, 
+    out_$b3: int, 
+    out_$r13: ref, 
+    out_$l6: int, 
+    out_$fakelocal_7: ref, 
+    out_$fakelocal_6: ref, 
+    out_$r6: ref, 
+    out_$r11: ref, 
+    out_$r14: ref, 
+    out_$fakelocal_4: ref, 
+    out_$r12: ref, 
+    out_$fakelocal_2: ref, 
+    out_$l5: int, 
+    out_$r7: ref, 
+    out_$b4: int, 
+    out_$fakelocal_3: ref, 
+    out_i7: int, 
+    out_z2: int);
+  modifies fixed.$objIndex, fixed.$heap;
+
+
+
+procedure {:prefix "fixed"} fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10(in_$return: int, 
+    in_$exception: ref, 
+    in_$fakelocal_2: ref, 
+    in_z0: int, 
+    in_$fakelocal_3: ref, 
+    in_$b5: int, 
+    in_r0: ref, 
+    in_r1: ref, 
+    in_$b4: int, 
+    in_$i2: int, 
+    in_i6: int, 
+    in_$fakelocal_4: ref, 
+    in_$i3: int, 
+    in_$fakelocal_5: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$fakelocal_2: ref, 
+    out_z0: int, 
+    out_$fakelocal_3: ref, 
+    out_$b5: int, 
+    out_$b4: int, 
+    out_$i2: int, 
+    out_i6: int, 
+    out_$fakelocal_4: ref, 
+    out_$i3: int, 
+    out_$fakelocal_5: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+
+
+
+implementation fixed.java.lang.Boolean$$la$init$ra$$boolean($this: ref, $in_parameter__0: int) returns ($exception: ref)
+{
+  var r0: ref;
+  var z0: int;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    $exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[r0, fixed.boolean$java.lang.Boolean$value0 := z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto block1;
+
+  block1:
+    return;
+}
+
+
+
+implementation fixed.java.lang.Boolean$valueOf$boolean($in_parameter__0: int) returns ($return: ref, $exception: ref)
+{
+  var $fakelocal_0: ref;
+  var z0: int;
+  var $r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[$return, fixed.$type] <: fixed.java.lang.Boolean;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    $r0 := $fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this := $r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0 := z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return:
+    $exception := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    $return := $r0;
+    goto block2;
+
+  block2:
+    return;
+}
+
+
+
+implementation fixed.java.lang.Boolean$booleanValue$($this: ref) returns ($return: int, $exception: ref)
+{
+  var $z0: int;
+  var r0: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    $z0 := fixed.$heap[r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    $return := $z0;
+    goto block3;
+
+  block3:
+    return;
+}
+
+
+
+implementation fixed.PWCheck$$la$init$ra$$($this: ref) returns ($exception: ref)
+{
+  var r0: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "PWCheck.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.PWCheck;
+    assume {:sourceloc "PWCheck.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    $exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} true;
+    goto block4;
+
+  block4:
+    return;
+}
+
+
+
+implementation fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var $fakelocal_8: ref;
+  var $r9: ref;
+  var $fakelocal_5: ref;
+  var $r5: ref;
+  var $i2: int;
+  var $fakelocal_9: ref;
+  var $r8: ref;
+  var $r15: ref;
+  var r1: ref;
+  var $r10: ref;
+  var z0: int;
+  var z3: int;
+  var $i0: int;
+  var $r4: ref;
+  var $b3: int;
+  var $r13: ref;
+  var $l6: int;
+  var $fakelocal_7: ref;
+  var $fakelocal_1: ref;
+  var $z1: int;
+  var $fakelocal_6: ref;
+  var $r6: ref;
+  var $i1: int;
+  var $r11: ref;
+  var r0: ref;
+  var $r14: ref;
+  var $fakelocal_4: ref;
+  var $r12: ref;
+  var $r3: ref;
+  var $fakelocal_2: ref;
+  var $l5: int;
+  var $r7: ref;
+  var $b4: int;
+  var $fakelocal_3: ref;
+  var $fakelocal_10: ref;
+  var i7: int;
+  var $r2: ref;
+  var z2: int;
+  var $fakelocal_0: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap: $heap_type;
+  var inline$java.lang.Boolean$booleanValue$$0$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$0$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$0$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$0$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$0$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$1$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$1$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$1$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$2$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$2$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$3$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$3$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$4$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$4$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$5$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$5$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$6$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$6$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$7$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$7$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$2$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$2$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$2$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$2$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$2$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$8$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$8$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$9$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$9$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$3$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$3$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$10$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$10$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$10$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$10$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$10$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$11$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$11$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$11$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$11$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$11$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$4$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$4$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$4$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$4$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$4$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 5, -1, -1, -1} true;
+    z2 := 0;
+    assert {:sourceloc "PWCheck.java", 6, -1, -1, -1} true;
+    z3 := 0;
+    assert {:sourceloc "PWCheck.java", 7, -1, -1, -1} true;
+    goto anon40_Then, anon40_Else;
+
+  anon40_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_0;
+    return;
+
+  anon40_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon3;
+
+  anon3:
+    $i1 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 7, -1, -1, -1} true;
+    goto anon41_Then, anon41_Else;
+
+  anon41_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_1;
+    return;
+
+  anon41_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon6;
+
+  anon6:
+    $i0 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 7, -1, -1, -1} true;
+    goto anon42_Then, anon42_Else;
+
+  anon42_Else:
+    assume {:partition} $i1 != $i0;
+    assert {:sourceloc "PWCheck.java", 7, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon9;
+
+  anon9:
+    assert {:sourceloc "PWCheck.java", 8, -1, -1, -1} true;
+    $return := 0;
+    goto block8;
+
+  block8:
+    return;
+
+  anon42_Then:
+    assume {:partition} $i1 == $i0;
+    assert {:sourceloc "PWCheck.java", 7, -1, -1, -1} {:comment "thenblock"} true;
+    goto block5;
+
+  block5:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    i7 := 0;
+    goto block6;
+
+  block6:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return := $return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception := $exception;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8 := $fakelocal_8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9 := $r9;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5 := $fakelocal_5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2 := $i2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8 := $r8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15 := $r15;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1 := r1;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10 := $r10;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0 := z0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3 := z3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3 := $b3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13 := $r13;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6 := $l6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7 := $fakelocal_7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6 := $fakelocal_6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6 := $r6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11 := $r11;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0 := r0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14 := $r14;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4 := $fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12 := $r12;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2 := $fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5 := $l5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7 := $r7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4 := $b4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3 := $fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7 := i7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2 := z2;
+    havoc inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33:
+    goto inline$java.lang.Boolean$booleanValue$$0$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$0$Entry:
+    inline$java.lang.Boolean$booleanValue$$0$$this := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15;
+    havoc inline$java.lang.Boolean$booleanValue$$0$$z0, inline$java.lang.Boolean$booleanValue$$0$r0, inline$java.lang.Boolean$booleanValue$$0$$return, inline$java.lang.Boolean$booleanValue$$0$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$0$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$0$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$r0 := inline$java.lang.Boolean$booleanValue$$0$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$0$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$$return := inline$java.lang.Boolean$booleanValue$$0$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$0$block3;
+
+  inline$java.lang.Boolean$booleanValue$$0$block3:
+    goto inline$java.lang.Boolean$booleanValue$$0$Return;
+
+  inline$java.lang.Boolean$booleanValue$$0$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3 := inline$java.lang.Boolean$booleanValue$$0$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$booleanValue$$0$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33$1:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+   + 1;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33_dummy;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14;
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8 := fixed.$new(fixed.java.lang.RuntimeException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Then:
+    assume {:partition} fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27:
+    goto inline$java.lang.Boolean$booleanValue$$1$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$1$Entry:
+    inline$java.lang.Boolean$booleanValue$$1$$this := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11;
+    havoc inline$java.lang.Boolean$booleanValue$$1$$z0, inline$java.lang.Boolean$booleanValue$$1$r0, inline$java.lang.Boolean$booleanValue$$1$$return, inline$java.lang.Boolean$booleanValue$$1$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$1$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$1$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$1$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$r0 := inline$java.lang.Boolean$booleanValue$$1$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$1$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$$return := inline$java.lang.Boolean$booleanValue$$1$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$1$block3;
+
+  inline$java.lang.Boolean$booleanValue$$1$block3:
+    goto inline$java.lang.Boolean$booleanValue$$1$Return;
+
+  inline$java.lang.Boolean$booleanValue$$1$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$java.lang.Boolean$booleanValue$$1$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$booleanValue$$1$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$1:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0 := 1;
+    havoc inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$0$z0, inline$java.lang.Boolean$valueOf$boolean$0$$r0, inline$java.lang.Boolean$valueOf$boolean$0$$return, inline$java.lang.Boolean$valueOf$boolean$0$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$0$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$0$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$0$z0 := inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$0$$r0 := inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this := inline$java.lang.Boolean$valueOf$boolean$0$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$0$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return:
+    inline$java.lang.Boolean$valueOf$boolean$0$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$0$$return := inline$java.lang.Boolean$valueOf$boolean$0$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$0$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12 := inline$java.lang.Boolean$valueOf$boolean$0$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$0$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$2;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$2:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    havoc inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$1$z0, inline$java.lang.Boolean$valueOf$boolean$1$$r0, inline$java.lang.Boolean$valueOf$boolean$1$$return, inline$java.lang.Boolean$valueOf$boolean$1$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$1$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$1$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$1$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$1$z0 := inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$1$$r0 := inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this := inline$java.lang.Boolean$valueOf$boolean$1$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$1$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$1$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$1$Entry:
+    inline$java.lang.Object$$la$init$ra$$$1$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$1$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$1$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$1$anon0:
+    inline$java.lang.Object$$la$init$ra$$$1$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$1$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$1$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception := inline$java.lang.Object$$la$init$ra$$$1$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$Return:
+    inline$java.lang.Boolean$valueOf$boolean$1$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$1$$return := inline$java.lang.Boolean$valueOf$boolean$1$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$1$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13 := inline$java.lang.Boolean$valueOf$boolean$1$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$1$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$3;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$3:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$4;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$4:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Else:
+    assume {:partition} !(fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, fixed.$type]
+   <: fixed.java.lang.Boolean);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7 := fixed.$new(fixed.java.lang.ClassCastException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon24:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10;
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6 := fixed.$new(fixed.java.lang.RuntimeException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Then:
+    assume {:partition} fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon24;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1;
+    assert {:sourceloc "Safe.java", 55, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1);
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 != 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon3:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36:
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1);
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 == 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon6:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block38;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block38:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 != 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 == 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$1:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$2$z0, inline$java.lang.Boolean$valueOf$boolean$2$$r0, inline$java.lang.Boolean$valueOf$boolean$2$$return, inline$java.lang.Boolean$valueOf$boolean$2$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$2$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$2$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$2$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$2$z0 := inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$2$$r0 := inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this := inline$java.lang.Boolean$valueOf$boolean$2$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$2$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$2$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$2$Entry:
+    inline$java.lang.Object$$la$init$ra$$$2$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$2$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$2$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$2$anon0:
+    inline$java.lang.Object$$la$init$ra$$$2$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$2$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$2$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception := inline$java.lang.Object$$la$init$ra$$$2$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$Return:
+    inline$java.lang.Boolean$valueOf$boolean$2$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$2$$return := inline$java.lang.Boolean$valueOf$boolean$2$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$2$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6 := inline$java.lang.Boolean$valueOf$boolean$2$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$2$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$2;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$2:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0 := 0;
+    havoc inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$3$z0, inline$java.lang.Boolean$valueOf$boolean$3$$r0, inline$java.lang.Boolean$valueOf$boolean$3$$return, inline$java.lang.Boolean$valueOf$boolean$3$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$3$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$3$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$3$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$3$z0 := inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$3$$r0 := inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this := inline$java.lang.Boolean$valueOf$boolean$3$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$3$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$3$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$3$Entry:
+    inline$java.lang.Object$$la$init$ra$$$3$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$3$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$3$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$3$anon0:
+    inline$java.lang.Object$$la$init$ra$$$3$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$3$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$3$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception := inline$java.lang.Object$$la$init$ra$$$3$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$Return:
+    inline$java.lang.Boolean$valueOf$boolean$3$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$3$$return := inline$java.lang.Boolean$valueOf$boolean$3$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$3$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7 := inline$java.lang.Boolean$valueOf$boolean$3$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$3$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$3;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$3:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$4;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$4:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$4$z0, inline$java.lang.Boolean$valueOf$boolean$4$$r0, inline$java.lang.Boolean$valueOf$boolean$4$$return, inline$java.lang.Boolean$valueOf$boolean$4$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$4$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$4$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$4$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$4$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$4$z0 := inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$4$$r0 := inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this := inline$java.lang.Boolean$valueOf$boolean$4$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$4$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$4$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$4$Entry:
+    inline$java.lang.Object$$la$init$ra$$$4$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$4$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$4$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$4$anon0:
+    inline$java.lang.Object$$la$init$ra$$$4$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$4$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$4$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception := inline$java.lang.Object$$la$init$ra$$$4$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$Return:
+    inline$java.lang.Boolean$valueOf$boolean$4$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$4$$return := inline$java.lang.Boolean$valueOf$boolean$4$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$4$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9 := inline$java.lang.Boolean$valueOf$boolean$4$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$4$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$5;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$5:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$6:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Else:
+    assume {:partition} !(fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, fixed.$type]
+   <: fixed.java.lang.Boolean);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ClassCastException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15:
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2
+   > inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+   >= inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$exit:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return:
+    $return := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return;
+    $exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    $fakelocal_8 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8;
+    $r9 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9;
+    $fakelocal_5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5;
+    $i2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    $r8 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8;
+    $r15 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15;
+    $r10 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10;
+    z0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    z3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    $b3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    $r13 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13;
+    $l6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6;
+    $fakelocal_7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7;
+    $fakelocal_6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6;
+    $r6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6;
+    $r11 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11;
+    $r14 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14;
+    $fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    $r12 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12;
+    $fakelocal_2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    $l5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5;
+    $r7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7;
+    $b4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    $fakelocal_3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    i7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7;
+    z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    goto block6$1;
+
+  block6$1:
+    goto block6_last;
+
+  anon43_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_2;
+    return;
+
+  anon43_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon12;
+
+  anon12:
+    $i2 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon44_Then, anon44_Else;
+
+  anon44_Else:
+    assume {:partition} $i2 > i7;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto anon45_Then, anon45_Else;
+
+  anon45_Else:
+    assume {:partition} !(i7 < fixed.$arrSizeHeap[r0] && i7 >= 0);
+    call $fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_3;
+    return;
+
+  anon45_Then:
+    assume {:partition} i7 < fixed.$arrSizeHeap[r0] && i7 >= 0;
+    $exception := $exception;
+    goto anon18;
+
+  anon18:
+    $b3 := fixed.$intArrHeap[r0][i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    $l6 := $b3;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto anon46_Then, anon46_Else;
+
+  anon46_Else:
+    assume {:partition} !(i7 < fixed.$arrSizeHeap[r1] && i7 >= 0);
+    call $fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_4;
+    return;
+
+  anon46_Then:
+    assume {:partition} i7 < fixed.$arrSizeHeap[r1] && i7 >= 0;
+    $exception := $exception;
+    goto anon21;
+
+  anon21:
+    $b4 := fixed.$intArrHeap[r1][i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    $l5 := $b4;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0 := $l6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1 := $l5;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1;
+    assert {:sourceloc "Safe.java", 55, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1);
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 != 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon3:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36:
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1);
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 == 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon6:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block38;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block38:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 != 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 == 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Return:
+    z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return;
+    $exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception;
+    goto anon21$1;
+
+  anon21$1:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0 := z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$5$z0, inline$java.lang.Boolean$valueOf$boolean$5$$r0, inline$java.lang.Boolean$valueOf$boolean$5$$return, inline$java.lang.Boolean$valueOf$boolean$5$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$5$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$5$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$5$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$5$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$5$z0 := inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$5$$r0 := inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this := inline$java.lang.Boolean$valueOf$boolean$5$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$5$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$5$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$5$Entry:
+    inline$java.lang.Object$$la$init$ra$$$5$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$5$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$5$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$5$anon0:
+    inline$java.lang.Object$$la$init$ra$$$5$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$5$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$5$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception := inline$java.lang.Object$$la$init$ra$$$5$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$Return:
+    inline$java.lang.Boolean$valueOf$boolean$5$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$5$$return := inline$java.lang.Boolean$valueOf$boolean$5$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$5$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$Return:
+    $r6 := inline$java.lang.Boolean$valueOf$boolean$5$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$5$$exception;
+    goto anon21$2;
+
+  anon21$2:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0 := 0;
+    havoc inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$6$z0, inline$java.lang.Boolean$valueOf$boolean$6$$r0, inline$java.lang.Boolean$valueOf$boolean$6$$return, inline$java.lang.Boolean$valueOf$boolean$6$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$6$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$6$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$6$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$6$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$6$z0 := inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$6$$r0 := inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this := inline$java.lang.Boolean$valueOf$boolean$6$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$6$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$6$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$6$Entry:
+    inline$java.lang.Object$$la$init$ra$$$6$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$6$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$6$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$6$anon0:
+    inline$java.lang.Object$$la$init$ra$$$6$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$6$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$6$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception := inline$java.lang.Object$$la$init$ra$$$6$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$Return:
+    inline$java.lang.Boolean$valueOf$boolean$6$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$6$$return := inline$java.lang.Boolean$valueOf$boolean$6$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$6$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$Return:
+    $r7 := inline$java.lang.Boolean$valueOf$boolean$6$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$6$$exception;
+    goto anon21$3;
+
+  anon21$3:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0 := z3;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1 := $r6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2 := $r7;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Return:
+    $r8 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return;
+    $exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception;
+    goto anon21$4;
+
+  anon21$4:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0 := z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$7$z0, inline$java.lang.Boolean$valueOf$boolean$7$$r0, inline$java.lang.Boolean$valueOf$boolean$7$$return, inline$java.lang.Boolean$valueOf$boolean$7$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$7$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$7$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$7$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$7$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$7$z0 := inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$7$$r0 := inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this := inline$java.lang.Boolean$valueOf$boolean$7$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$7$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$7$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$7$Entry:
+    inline$java.lang.Object$$la$init$ra$$$7$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$7$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$7$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$7$anon0:
+    inline$java.lang.Object$$la$init$ra$$$7$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$7$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$7$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception := inline$java.lang.Object$$la$init$ra$$$7$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$Return:
+    inline$java.lang.Boolean$valueOf$boolean$7$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$7$$return := inline$java.lang.Boolean$valueOf$boolean$7$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$7$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$Return:
+    $r9 := inline$java.lang.Boolean$valueOf$boolean$7$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$7$$exception;
+    goto anon21$5;
+
+  anon21$5:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0 := z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1 := $r8;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2 := $r9;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Return:
+    $r10 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return;
+    $exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception;
+    goto anon21$6;
+
+  anon21$6:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto anon47_Then, anon47_Else;
+
+  anon47_Else:
+    assume {:partition} !(fixed.$heap[$r10, fixed.$type] <: fixed.java.lang.Boolean);
+    call $fakelocal_5 := fixed.$new(fixed.java.lang.ClassCastException);
+    $return := 0;
+    $exception := $fakelocal_5;
+    return;
+
+  anon47_Then:
+    assume {:partition} fixed.$heap[$r10, fixed.$type] <: fixed.java.lang.Boolean;
+    $exception := $exception;
+    goto anon24;
+
+  anon24:
+    $r11 := $r10;
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto anon48_Then, anon48_Else;
+
+  anon48_Else:
+    assume {:partition} $r11 == fixed.$null;
+    call $fakelocal_6 := fixed.$new(fixed.java.lang.RuntimeException);
+    $return := 0;
+    $exception := $fakelocal_6;
+    return;
+
+  anon48_Then:
+    assume {:partition} $r11 != fixed.$null;
+    $exception := $exception;
+    goto anon27;
+
+  anon27:
+    goto inline$java.lang.Boolean$booleanValue$$2$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$2$Entry:
+    inline$java.lang.Boolean$booleanValue$$2$$this := $r11;
+    havoc inline$java.lang.Boolean$booleanValue$$2$$z0, inline$java.lang.Boolean$booleanValue$$2$r0, inline$java.lang.Boolean$booleanValue$$2$$return, inline$java.lang.Boolean$booleanValue$$2$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$2$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$2$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$2$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$r0 := inline$java.lang.Boolean$booleanValue$$2$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$2$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$$return := inline$java.lang.Boolean$booleanValue$$2$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$2$block3;
+
+  inline$java.lang.Boolean$booleanValue$$2$block3:
+    goto inline$java.lang.Boolean$booleanValue$$2$Return;
+
+  inline$java.lang.Boolean$booleanValue$$2$Return:
+    z2 := inline$java.lang.Boolean$booleanValue$$2$$return;
+    $exception := inline$java.lang.Boolean$booleanValue$$2$$exception;
+    goto anon27$1;
+
+  anon27$1:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0 := 1;
+    havoc inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$8$z0, inline$java.lang.Boolean$valueOf$boolean$8$$r0, inline$java.lang.Boolean$valueOf$boolean$8$$return, inline$java.lang.Boolean$valueOf$boolean$8$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$8$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$8$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$8$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$8$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$8$z0 := inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$8$$r0 := inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this := inline$java.lang.Boolean$valueOf$boolean$8$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$8$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$8$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$8$Entry:
+    inline$java.lang.Object$$la$init$ra$$$8$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$8$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$8$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$8$anon0:
+    inline$java.lang.Object$$la$init$ra$$$8$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$8$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$8$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception := inline$java.lang.Object$$la$init$ra$$$8$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$Return:
+    inline$java.lang.Boolean$valueOf$boolean$8$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$8$$return := inline$java.lang.Boolean$valueOf$boolean$8$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$8$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$Return:
+    $r12 := inline$java.lang.Boolean$valueOf$boolean$8$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$8$$exception;
+    goto anon27$2;
+
+  anon27$2:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0 := z3;
+    havoc inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$9$z0, inline$java.lang.Boolean$valueOf$boolean$9$$r0, inline$java.lang.Boolean$valueOf$boolean$9$$return, inline$java.lang.Boolean$valueOf$boolean$9$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$9$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$9$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$9$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$9$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$9$z0 := inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$9$$r0 := inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this := inline$java.lang.Boolean$valueOf$boolean$9$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$9$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$9$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$9$Entry:
+    inline$java.lang.Object$$la$init$ra$$$9$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$9$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$9$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$9$anon0:
+    inline$java.lang.Object$$la$init$ra$$$9$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$9$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$9$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception := inline$java.lang.Object$$la$init$ra$$$9$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$Return:
+    inline$java.lang.Boolean$valueOf$boolean$9$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$9$$return := inline$java.lang.Boolean$valueOf$boolean$9$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$9$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$Return:
+    $r13 := inline$java.lang.Boolean$valueOf$boolean$9$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$9$$exception;
+    goto anon27$3;
+
+  anon27$3:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0 := z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1 := $r12;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2 := $r13;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Return:
+    $r14 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return;
+    $exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception;
+    goto anon27$4;
+
+  anon27$4:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto anon49_Then, anon49_Else;
+
+  anon49_Else:
+    assume {:partition} !(fixed.$heap[$r14, fixed.$type] <: fixed.java.lang.Boolean);
+    call $fakelocal_7 := fixed.$new(fixed.java.lang.ClassCastException);
+    $return := 0;
+    $exception := $fakelocal_7;
+    return;
+
+  anon49_Then:
+    assume {:partition} fixed.$heap[$r14, fixed.$type] <: fixed.java.lang.Boolean;
+    $exception := $exception;
+    goto anon30;
+
+  anon30:
+    $r15 := $r14;
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto anon50_Then, anon50_Else;
+
+  anon50_Else:
+    assume {:partition} $r15 == fixed.$null;
+    call $fakelocal_8 := fixed.$new(fixed.java.lang.RuntimeException);
+    $return := 0;
+    $exception := $fakelocal_8;
+    return;
+
+  anon50_Then:
+    assume {:partition} $r15 != fixed.$null;
+    $exception := $exception;
+    goto anon33;
+
+  anon33:
+    goto inline$java.lang.Boolean$booleanValue$$3$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$3$Entry:
+    inline$java.lang.Boolean$booleanValue$$3$$this := $r15;
+    havoc inline$java.lang.Boolean$booleanValue$$3$$z0, inline$java.lang.Boolean$booleanValue$$3$r0, inline$java.lang.Boolean$booleanValue$$3$$return, inline$java.lang.Boolean$booleanValue$$3$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$3$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$3$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$3$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$r0 := inline$java.lang.Boolean$booleanValue$$3$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$3$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$$return := inline$java.lang.Boolean$booleanValue$$3$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$3$block3;
+
+  inline$java.lang.Boolean$booleanValue$$3$block3:
+    goto inline$java.lang.Boolean$booleanValue$$3$Return;
+
+  inline$java.lang.Boolean$booleanValue$$3$Return:
+    z3 := inline$java.lang.Boolean$booleanValue$$3$$return;
+    $exception := inline$java.lang.Boolean$booleanValue$$3$$exception;
+    goto anon33$1;
+
+  anon33$1:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    i7 := i7 + 1;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon33_dummy;
+
+  anon44_Then:
+    assume {:partition} i7 >= $i2;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "thenblock"} true;
+    goto block7;
+
+  block7:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$10$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$10$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$10$$in_parameter__0 := z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$10$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$10$z0, inline$java.lang.Boolean$valueOf$boolean$10$$r0, inline$java.lang.Boolean$valueOf$boolean$10$$return, inline$java.lang.Boolean$valueOf$boolean$10$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$10$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$10$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$10$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$10$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$10$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$10$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$10$z0 := inline$java.lang.Boolean$valueOf$boolean$10$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$10$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$10$$r0 := inline$java.lang.Boolean$valueOf$boolean$10$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$10$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$10$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$$this := inline$java.lang.Boolean$valueOf$boolean$10$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$10$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$10$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$10$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$10$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$10$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$10$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$10$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$10$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$10$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$10$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$10$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$10$Entry:
+    inline$java.lang.Object$$la$init$ra$$$10$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$10$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$10$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$10$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$10$anon0:
+    inline$java.lang.Object$$la$init$ra$$$10$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$10$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$10$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$10$$exception := inline$java.lang.Object$$la$init$ra$$$10$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$10$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$10$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$10$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$10$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$10$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$10$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$10$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$10$Return:
+    inline$java.lang.Boolean$valueOf$boolean$10$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$10$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$10$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$10$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$10$$return := inline$java.lang.Boolean$valueOf$boolean$10$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$10$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$10$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$10$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$10$Return:
+    $r2 := inline$java.lang.Boolean$valueOf$boolean$10$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$10$$exception;
+    goto block7$1;
+
+  block7$1:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$11$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$11$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$11$$in_parameter__0 := 1;
+    havoc inline$java.lang.Boolean$valueOf$boolean$11$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$11$z0, inline$java.lang.Boolean$valueOf$boolean$11$$r0, inline$java.lang.Boolean$valueOf$boolean$11$$return, inline$java.lang.Boolean$valueOf$boolean$11$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$11$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$11$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$11$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$11$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$11$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$11$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$11$z0 := inline$java.lang.Boolean$valueOf$boolean$11$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$11$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$11$$r0 := inline$java.lang.Boolean$valueOf$boolean$11$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$11$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$11$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$$this := inline$java.lang.Boolean$valueOf$boolean$11$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$11$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$11$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$11$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$11$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$11$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$11$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$11$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$11$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$11$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$11$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$11$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$11$Entry:
+    inline$java.lang.Object$$la$init$ra$$$11$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$11$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$11$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$11$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$11$anon0:
+    inline$java.lang.Object$$la$init$ra$$$11$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$11$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$11$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$11$$exception := inline$java.lang.Object$$la$init$ra$$$11$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$11$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$11$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$11$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$11$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$11$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$11$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$11$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$11$Return:
+    inline$java.lang.Boolean$valueOf$boolean$11$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$11$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$11$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$11$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$11$$return := inline$java.lang.Boolean$valueOf$boolean$11$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$11$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$11$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$11$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$11$Return:
+    $r3 := inline$java.lang.Boolean$valueOf$boolean$11$$return;
+    $exception := inline$java.lang.Boolean$valueOf$boolean$11$$exception;
+    goto block7$2;
+
+  block7$2:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__0 := z3;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__1 := $r2;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__2 := $r3;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$Return:
+    $r4 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$return;
+    $exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$6$$exception;
+    goto block7$3;
+
+  block7$3:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    goto anon51_Then, anon51_Else;
+
+  anon51_Else:
+    assume {:partition} !(fixed.$heap[$r4, fixed.$type] <: fixed.java.lang.Boolean);
+    call $fakelocal_9 := fixed.$new(fixed.java.lang.ClassCastException);
+    $return := 0;
+    $exception := $fakelocal_9;
+    return;
+
+  anon51_Then:
+    assume {:partition} fixed.$heap[$r4, fixed.$type] <: fixed.java.lang.Boolean;
+    $exception := $exception;
+    goto anon36;
+
+  anon36:
+    $r5 := $r4;
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    goto anon52_Then, anon52_Else;
+
+  anon52_Else:
+    assume {:partition} $r5 == fixed.$null;
+    call $fakelocal_10 := fixed.$new(fixed.java.lang.RuntimeException);
+    $return := 0;
+    $exception := $fakelocal_10;
+    return;
+
+  anon52_Then:
+    assume {:partition} $r5 != fixed.$null;
+    $exception := $exception;
+    goto anon39;
+
+  anon39:
+    goto inline$java.lang.Boolean$booleanValue$$4$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$4$Entry:
+    inline$java.lang.Boolean$booleanValue$$4$$this := $r5;
+    havoc inline$java.lang.Boolean$booleanValue$$4$$z0, inline$java.lang.Boolean$booleanValue$$4$r0, inline$java.lang.Boolean$booleanValue$$4$$return, inline$java.lang.Boolean$booleanValue$$4$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$4$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$4$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$4$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$4$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$4$r0 := inline$java.lang.Boolean$booleanValue$$4$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$4$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$4$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$4$$return := inline$java.lang.Boolean$booleanValue$$4$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$4$block3;
+
+  inline$java.lang.Boolean$booleanValue$$4$block3:
+    goto inline$java.lang.Boolean$booleanValue$$4$Return;
+
+  inline$java.lang.Boolean$booleanValue$$4$Return:
+    $z1 := inline$java.lang.Boolean$booleanValue$$4$$return;
+    $exception := inline$java.lang.Boolean$booleanValue$$4$$exception;
+    goto anon39$1;
+
+  anon39$1:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    $return := $z1;
+    goto block8;
+
+  anon33_dummy:
+    assume false;
+    return;
+
+  block6_last:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon43_Then, anon43_Else;
+}
+
+
+
+implementation {:inline 1} fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var $fakelocal_2: ref;
+  var z0: int;
+  var $i1: int;
+  var $fakelocal_1: ref;
+  var $fakelocal_3: ref;
+  var $b5: int;
+  var r0: ref;
+  var r1: ref;
+  var $b4: int;
+  var $i2: int;
+  var i6: int;
+  var $fakelocal_0: ref;
+  var $i0: int;
+  var $fakelocal_4: ref;
+  var $i3: int;
+  var $fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap: $heap_type;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto anon31_Then, anon31_Else;
+
+  anon31_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_0;
+    return;
+
+  anon31_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon3;
+
+  anon3:
+    $i1 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto anon32_Then, anon32_Else;
+
+  anon32_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_1;
+    return;
+
+  anon32_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon6;
+
+  anon6:
+    $i0 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto anon33_Then, anon33_Else;
+
+  anon33_Else:
+    assume {:partition} $i1 != $i0;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon9;
+
+  anon9:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    $return := 0;
+    goto block14;
+
+  block14:
+    return;
+
+  anon33_Then:
+    assume {:partition} $i1 == $i0;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} {:comment "thenblock"} true;
+    goto block9;
+
+  block9:
+    assert {:sourceloc "PWCheck.java", 37, -1, -1, -1} true;
+    z0 := 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    i6 := 0;
+    goto block10;
+
+  block10:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return := $return;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception := $exception;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2 := $fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0 := z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3 := $fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5 := $b5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0 := r0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1 := r1;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4 := $b4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2 := $i2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6 := i6;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4 := $fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3 := $i3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5 := $fakelocal_5;
+    havoc inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   == inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   != inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$exit:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return:
+    $return := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return;
+    $exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    $fakelocal_2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0;
+    $fakelocal_3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    $b5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5;
+    $b4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    $i2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    $fakelocal_4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    $i3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    $fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    goto block10$1;
+
+  block10$1:
+    goto block10_last;
+
+  anon34_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_2;
+    return;
+
+  anon34_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon12;
+
+  anon12:
+    $i2 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto anon35_Then, anon35_Else;
+
+  anon35_Else:
+    assume {:partition} $i2 > i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto anon36_Then, anon36_Else;
+
+  anon36_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_3;
+    return;
+
+  anon36_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon18;
+
+  anon18:
+    $i3 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto anon37_Then, anon37_Else;
+
+  anon37_Else:
+    assume {:partition} $i3 > i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon21;
+
+  anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon38_Then, anon38_Else;
+
+  anon38_Else:
+    assume {:partition} !(i6 < fixed.$arrSizeHeap[r0] && i6 >= 0);
+    call $fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_4;
+    return;
+
+  anon38_Then:
+    assume {:partition} i6 < fixed.$arrSizeHeap[r0] && i6 >= 0;
+    $exception := $exception;
+    goto anon24;
+
+  anon24:
+    $b5 := fixed.$intArrHeap[r0][i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon39_Then, anon39_Else;
+
+  anon39_Else:
+    assume {:partition} !(i6 < fixed.$arrSizeHeap[r1] && i6 >= 0);
+    call $fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_5;
+    return;
+
+  anon39_Then:
+    assume {:partition} i6 < fixed.$arrSizeHeap[r1] && i6 >= 0;
+    $exception := $exception;
+    goto anon27;
+
+  anon27:
+    $b4 := fixed.$intArrHeap[r1][i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon40_Then, anon40_Else;
+
+  anon40_Else:
+    assume {:partition} $b5 != $b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon30;
+
+  anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto block12;
+
+  block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    i6 := i6 + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto block12_dummy;
+
+  anon40_Then:
+    assume {:partition} $b5 == $b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto block13;
+
+  block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto block12;
+
+  anon37_Then:
+    assume {:partition} i6 >= $i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto block12;
+
+  anon35_Then:
+    assume {:partition} i6 >= $i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    goto block11;
+
+  block11:
+    assert {:sourceloc "PWCheck.java", 50, -1, -1, -1} true;
+    $return := z0;
+    goto block14;
+
+  block12_dummy:
+    assume false;
+    return;
+
+  block10_last:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto anon34_Then, anon34_Else;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$$la$init$ra$$($this: ref) returns ($exception: ref)
+{
+  var r0: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Safe.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.sg.edu.nus.comp.tsunami.safe.Safe;
+    assume {:sourceloc "Safe.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "Safe.java", 3, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    $exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "Safe.java", 3, -1, -1, -1} true;
+    goto block15;
+
+  block15:
+    return;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$not$boolean($in_parameter__0: int) returns ($return: int, $exception: ref)
+{
+  var z1: int;
+  var z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", 5, -1, -1, -1} true;
+    z1 := 0;
+    assert {:sourceloc "Safe.java", 6, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} z0 != 0;
+    assert {:sourceloc "Safe.java", 6, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 8, -1, -1, -1} true;
+    z1 := 0;
+    goto block16;
+
+  block16:
+    assert {:sourceloc "Safe.java", 7, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} z0 == 0;
+    assert {:sourceloc "Safe.java", 7, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 8, -1, -1, -1} true;
+    z1 := 1;
+    goto block17;
+
+  block17:
+    assert {:sourceloc "Safe.java", 8, -1, -1, -1} true;
+    $return := z1;
+    goto block18;
+
+  block18:
+    return;
+
+  anon8_Then:
+    assume {:partition} z0 != 0;
+    assert {:sourceloc "Safe.java", 7, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block17;
+
+  anon7_Then:
+    assume {:partition} z0 == 0;
+    assert {:sourceloc "Safe.java", 6, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block16;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$and$boolean_boolean($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $z2: int;
+  var z1: int;
+  var z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 12, -1, -1, -1} true;
+    $z2 := fixed.$bitAnd(z0, z1);
+    assert {:sourceloc "Safe.java", 12, -1, -1, -1} true;
+    $return := $z2;
+    goto block19;
+
+  block19:
+    return;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$or$boolean_boolean($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var z1: int;
+  var z0: int;
+  var $z2: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 16, -1, -1, -1} true;
+    $z2 := fixed.$bitOr(z0, z1);
+    assert {:sourceloc "Safe.java", 16, -1, -1, -1} true;
+    $return := $z2;
+    goto block20;
+
+  block20:
+    return;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$gt$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var z0: int;
+  var l0: int;
+  var $b2: int;
+  var $b3: int;
+  var l1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 20, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 21, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 21, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 < $b2;
+    assert {:sourceloc "Safe.java", 21, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 23, -1, -1, -1} true;
+    z0 := 1;
+    goto block21;
+
+  block21:
+    assert {:sourceloc "Safe.java", 22, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 22, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 >= $b3;
+    assert {:sourceloc "Safe.java", 22, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 23, -1, -1, -1} true;
+    z0 := 0;
+    goto block22;
+
+  block22:
+    assert {:sourceloc "Safe.java", 23, -1, -1, -1} true;
+    $return := z0;
+    goto block23;
+
+  block23:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 > 0;
+    assert {:sourceloc "Safe.java", 22, -1, -1, -1} {:comment "thenblock"} true;
+    goto block22;
+
+  anon7_Then:
+    assume {:partition} $b2 <= 0;
+    assert {:sourceloc "Safe.java", 21, -1, -1, -1} {:comment "thenblock"} true;
+    goto block21;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$lt$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b2: int;
+  var z0: int;
+  var l0: int;
+  var $b3: int;
+  var l1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 27, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 28, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 28, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 > $b2;
+    assert {:sourceloc "Safe.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 30, -1, -1, -1} true;
+    z0 := 1;
+    goto block24;
+
+  block24:
+    assert {:sourceloc "Safe.java", 29, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 29, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 <= $b3;
+    assert {:sourceloc "Safe.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 30, -1, -1, -1} true;
+    z0 := 0;
+    goto block25;
+
+  block25:
+    assert {:sourceloc "Safe.java", 30, -1, -1, -1} true;
+    $return := z0;
+    goto block26;
+
+  block26:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 < 0;
+    assert {:sourceloc "Safe.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto block25;
+
+  anon7_Then:
+    assume {:partition} $b2 >= 0;
+    assert {:sourceloc "Safe.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto block24;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$ge$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b2: int;
+  var z0: int;
+  var $b3: int;
+  var l0: int;
+  var l1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 34, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 35, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 35, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 <= $b2;
+    assert {:sourceloc "Safe.java", 35, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 37, -1, -1, -1} true;
+    z0 := 1;
+    goto block27;
+
+  block27:
+    assert {:sourceloc "Safe.java", 36, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 36, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 > $b3;
+    assert {:sourceloc "Safe.java", 36, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 37, -1, -1, -1} true;
+    z0 := 0;
+    goto block28;
+
+  block28:
+    assert {:sourceloc "Safe.java", 37, -1, -1, -1} true;
+    $return := z0;
+    goto block29;
+
+  block29:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 >= 0;
+    assert {:sourceloc "Safe.java", 36, -1, -1, -1} {:comment "thenblock"} true;
+    goto block28;
+
+  anon7_Then:
+    assume {:partition} $b2 < 0;
+    assert {:sourceloc "Safe.java", 35, -1, -1, -1} {:comment "thenblock"} true;
+    goto block27;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$le$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var l0: int;
+  var $b2: int;
+  var z0: int;
+  var $b3: int;
+  var l1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 41, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 42, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 42, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 >= $b2;
+    assert {:sourceloc "Safe.java", 42, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 44, -1, -1, -1} true;
+    z0 := 1;
+    goto block30;
+
+  block30:
+    assert {:sourceloc "Safe.java", 43, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 43, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 < $b3;
+    assert {:sourceloc "Safe.java", 43, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 44, -1, -1, -1} true;
+    z0 := 0;
+    goto block31;
+
+  block31:
+    assert {:sourceloc "Safe.java", 44, -1, -1, -1} true;
+    $return := z0;
+    goto block32;
+
+  block32:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 <= 0;
+    assert {:sourceloc "Safe.java", 43, -1, -1, -1} {:comment "thenblock"} true;
+    goto block31;
+
+  anon7_Then:
+    assume {:partition} $b2 > 0;
+    assert {:sourceloc "Safe.java", 42, -1, -1, -1} {:comment "thenblock"} true;
+    goto block30;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var z0: int;
+  var $b2: int;
+  var l1: int;
+  var l0: int;
+  var $b3: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 48, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 49, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 49, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} $b2 == 0;
+    assert {:sourceloc "Safe.java", 49, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 51, -1, -1, -1} true;
+    z0 := 1;
+    goto block33;
+
+  block33:
+    assert {:sourceloc "Safe.java", 50, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 50, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} $b3 != 0;
+    assert {:sourceloc "Safe.java", 50, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 51, -1, -1, -1} true;
+    z0 := 0;
+    goto block34;
+
+  block34:
+    assert {:sourceloc "Safe.java", 51, -1, -1, -1} true;
+    $return := z0;
+    goto block35;
+
+  block35:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 == 0;
+    assert {:sourceloc "Safe.java", 50, -1, -1, -1} {:comment "thenblock"} true;
+    goto block34;
+
+  anon7_Then:
+    assume {:partition} $b2 != 0;
+    assert {:sourceloc "Safe.java", 49, -1, -1, -1} {:comment "thenblock"} true;
+    goto block33;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b2: int;
+  var l1: int;
+  var $b3: int;
+  var l0: int;
+  var z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    l1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 55, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    $b2 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} $b2 != 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    z0 := 1;
+    goto block36;
+
+  block36:
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    $b3 := fixed.$cmpInt(l0, l1);
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} $b3 == 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    z0 := 0;
+    goto block37;
+
+  block37:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    $return := z0;
+    goto block38;
+
+  block38:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b3 != 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "thenblock"} true;
+    goto block37;
+
+  anon7_Then:
+    assume {:partition} $b2 == 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "thenblock"} true;
+    goto block36;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$gt$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b0: int;
+  var z0: int;
+  var d0: int;
+  var d1: int;
+  var $b1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 62, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 63, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 63, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 < $b0;
+    assert {:sourceloc "Safe.java", 63, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 65, -1, -1, -1} true;
+    z0 := 1;
+    goto block39;
+
+  block39:
+    assert {:sourceloc "Safe.java", 64, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 64, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 >= $b1;
+    assert {:sourceloc "Safe.java", 64, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 65, -1, -1, -1} true;
+    z0 := 0;
+    goto block40;
+
+  block40:
+    assert {:sourceloc "Safe.java", 65, -1, -1, -1} true;
+    $return := z0;
+    goto block41;
+
+  block41:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 > 0;
+    assert {:sourceloc "Safe.java", 64, -1, -1, -1} {:comment "thenblock"} true;
+    goto block40;
+
+  anon7_Then:
+    assume {:partition} $b0 <= 0;
+    assert {:sourceloc "Safe.java", 63, -1, -1, -1} {:comment "thenblock"} true;
+    goto block39;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$lt$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b0: int;
+  var z0: int;
+  var $b1: int;
+  var d0: int;
+  var d1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 69, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 70, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 70, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 > $b0;
+    assert {:sourceloc "Safe.java", 70, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 72, -1, -1, -1} true;
+    z0 := 1;
+    goto block42;
+
+  block42:
+    assert {:sourceloc "Safe.java", 71, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 71, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 <= $b1;
+    assert {:sourceloc "Safe.java", 71, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 72, -1, -1, -1} true;
+    z0 := 0;
+    goto block43;
+
+  block43:
+    assert {:sourceloc "Safe.java", 72, -1, -1, -1} true;
+    $return := z0;
+    goto block44;
+
+  block44:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 < 0;
+    assert {:sourceloc "Safe.java", 71, -1, -1, -1} {:comment "thenblock"} true;
+    goto block43;
+
+  anon7_Then:
+    assume {:partition} $b0 >= 0;
+    assert {:sourceloc "Safe.java", 70, -1, -1, -1} {:comment "thenblock"} true;
+    goto block42;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$ge$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var d0: int;
+  var $b1: int;
+  var d1: int;
+  var $b0: int;
+  var z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 76, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 77, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 77, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 <= $b0;
+    assert {:sourceloc "Safe.java", 77, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 79, -1, -1, -1} true;
+    z0 := 1;
+    goto block45;
+
+  block45:
+    assert {:sourceloc "Safe.java", 78, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 78, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 > $b1;
+    assert {:sourceloc "Safe.java", 78, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 79, -1, -1, -1} true;
+    z0 := 0;
+    goto block46;
+
+  block46:
+    assert {:sourceloc "Safe.java", 79, -1, -1, -1} true;
+    $return := z0;
+    goto block47;
+
+  block47:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 >= 0;
+    assert {:sourceloc "Safe.java", 78, -1, -1, -1} {:comment "thenblock"} true;
+    goto block46;
+
+  anon7_Then:
+    assume {:partition} $b0 < 0;
+    assert {:sourceloc "Safe.java", 77, -1, -1, -1} {:comment "thenblock"} true;
+    goto block45;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$le$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var z0: int;
+  var d1: int;
+  var $b0: int;
+  var d0: int;
+  var $b1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 83, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 84, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 84, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} 0 >= $b0;
+    assert {:sourceloc "Safe.java", 84, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 86, -1, -1, -1} true;
+    z0 := 1;
+    goto block48;
+
+  block48:
+    assert {:sourceloc "Safe.java", 85, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 85, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} 0 < $b1;
+    assert {:sourceloc "Safe.java", 85, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 86, -1, -1, -1} true;
+    z0 := 0;
+    goto block49;
+
+  block49:
+    assert {:sourceloc "Safe.java", 86, -1, -1, -1} true;
+    $return := z0;
+    goto block50;
+
+  block50:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 <= 0;
+    assert {:sourceloc "Safe.java", 85, -1, -1, -1} {:comment "thenblock"} true;
+    goto block49;
+
+  anon7_Then:
+    assume {:partition} $b0 > 0;
+    assert {:sourceloc "Safe.java", 84, -1, -1, -1} {:comment "thenblock"} true;
+    goto block48;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var $b1: int;
+  var d1: int;
+  var d0: int;
+  var z0: int;
+  var $b0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 90, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 91, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 91, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} $b0 == 0;
+    assert {:sourceloc "Safe.java", 91, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 93, -1, -1, -1} true;
+    z0 := 1;
+    goto block51;
+
+  block51:
+    assert {:sourceloc "Safe.java", 92, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 92, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} $b1 != 0;
+    assert {:sourceloc "Safe.java", 92, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 93, -1, -1, -1} true;
+    z0 := 0;
+    goto block52;
+
+  block52:
+    assert {:sourceloc "Safe.java", 93, -1, -1, -1} true;
+    $return := z0;
+    goto block53;
+
+  block53:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 == 0;
+    assert {:sourceloc "Safe.java", 92, -1, -1, -1} {:comment "thenblock"} true;
+    goto block52;
+
+  anon7_Then:
+    assume {:partition} $b0 != 0;
+    assert {:sourceloc "Safe.java", 91, -1, -1, -1} {:comment "thenblock"} true;
+    goto block51;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$double_double($in_parameter__0: int, $in_parameter__1: int)
+   returns ($return: int, $exception: ref)
+{
+  var d0: int;
+  var z0: int;
+  var $b0: int;
+  var $b1: int;
+  var d1: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    d1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 97, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 98, -1, -1, -1} true;
+    $b0 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 98, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} $b0 != 0;
+    assert {:sourceloc "Safe.java", 98, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 100, -1, -1, -1} true;
+    z0 := 1;
+    goto block54;
+
+  block54:
+    assert {:sourceloc "Safe.java", 99, -1, -1, -1} true;
+    $b1 := fixed.$cmpInt(d0, d1);
+    assert {:sourceloc "Safe.java", 99, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} $b1 == 0;
+    assert {:sourceloc "Safe.java", 99, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 100, -1, -1, -1} true;
+    z0 := 0;
+    goto block55;
+
+  block55:
+    assert {:sourceloc "Safe.java", 100, -1, -1, -1} true;
+    $return := z0;
+    goto block56;
+
+  block56:
+    return;
+
+  anon8_Then:
+    assume {:partition} $b1 != 0;
+    assert {:sourceloc "Safe.java", 99, -1, -1, -1} {:comment "thenblock"} true;
+    goto block55;
+
+  anon7_Then:
+    assume {:partition} $b0 == 0;
+    assert {:sourceloc "Safe.java", 98, -1, -1, -1} {:comment "thenblock"} true;
+    goto block54;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$eq$java.lang.Object_java.lang.Object($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var r0: ref;
+  var z0: int;
+  var r1: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[$in_parameter__1, fixed.$type] <: fixed.java.lang.Object;
+    assume fixed.$heap[$in_parameter__0, fixed.$type] <: fixed.java.lang.Object;
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 104, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 105, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} r0 == r1;
+    assert {:sourceloc "Safe.java", 105, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 107, -1, -1, -1} true;
+    z0 := 1;
+    goto block57;
+
+  block57:
+    assert {:sourceloc "Safe.java", 106, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} r0 != r1;
+    assert {:sourceloc "Safe.java", 106, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 107, -1, -1, -1} true;
+    z0 := 0;
+    goto block58;
+
+  block58:
+    assert {:sourceloc "Safe.java", 107, -1, -1, -1} true;
+    $return := z0;
+    goto block59;
+
+  block59:
+    return;
+
+  anon8_Then:
+    assume {:partition} r0 == r1;
+    assert {:sourceloc "Safe.java", 106, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block58;
+
+  anon7_Then:
+    assume {:partition} r0 != r1;
+    assert {:sourceloc "Safe.java", 105, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block57;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$neq$java.lang.Object_java.lang.Object($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var z0: int;
+  var r0: ref;
+  var r1: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[$in_parameter__0, fixed.$type] <: fixed.java.lang.Object;
+    assume fixed.$heap[$in_parameter__1, fixed.$type] <: fixed.java.lang.Object;
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", 111, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "Safe.java", 112, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} r0 != r1;
+    assert {:sourceloc "Safe.java", 112, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 114, -1, -1, -1} true;
+    z0 := 1;
+    goto block60;
+
+  block60:
+    assert {:sourceloc "Safe.java", 113, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} r0 == r1;
+    assert {:sourceloc "Safe.java", 113, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 114, -1, -1, -1} true;
+    z0 := 0;
+    goto block61;
+
+  block61:
+    assert {:sourceloc "Safe.java", 114, -1, -1, -1} true;
+    $return := z0;
+    goto block62;
+
+  block62:
+    return;
+
+  anon8_Then:
+    assume {:partition} r0 != r1;
+    assert {:sourceloc "Safe.java", 113, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block61;
+
+  anon7_Then:
+    assume {:partition} r0 == r1;
+    assert {:sourceloc "Safe.java", 112, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block60;
+}
+
+
+
+implementation fixed.sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object($in_parameter__0: int, $in_parameter__1: ref, $in_parameter__2: ref)
+   returns ($return: ref, $exception: ref)
+{
+  var r0: ref;
+  var r2: ref;
+  var r1: ref;
+  var z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[$in_parameter__1, fixed.$type] <: fixed.java.lang.Object;
+    assume fixed.$heap[$in_parameter__2, fixed.$type] <: fixed.java.lang.Object;
+    assume fixed.$heap[$return, fixed.$type] <: fixed.java.lang.Object;
+    $exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto anon7_Then, anon7_Else;
+
+  anon7_Else:
+    assume {:partition} z0 != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon3;
+
+  anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    r2 := r0;
+    goto block63;
+
+  block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto anon8_Then, anon8_Else;
+
+  anon8_Else:
+    assume {:partition} z0 == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto anon6;
+
+  anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    r2 := r1;
+    goto block64;
+
+  block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    $return := r2;
+    goto block65;
+
+  block65:
+    return;
+
+  anon8_Then:
+    assume {:partition} z0 != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block64;
+
+  anon7_Then:
+    assume {:partition} z0 == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto block63;
+}
+
+
+
+implementation fixed.java.lang.Object$$la$init$ra$$($this: ref) returns ($exception: ref)
+{
+
+  anon0:
+    $exception := fixed.$null;
+    return;
+}
+
+
+
+implementation fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6(in_$return: int, 
+    in_$exception: ref, 
+    in_$fakelocal_8: ref, 
+    in_$r9: ref, 
+    in_$fakelocal_5: ref, 
+    in_$i2: int, 
+    in_$r8: ref, 
+    in_$r15: ref, 
+    in_r1: ref, 
+    in_$r10: ref, 
+    in_z0: int, 
+    in_z3: int, 
+    in_$b3: int, 
+    in_$r13: ref, 
+    in_$l6: int, 
+    in_$fakelocal_7: ref, 
+    in_$fakelocal_6: ref, 
+    in_$r6: ref, 
+    in_$r11: ref, 
+    in_r0: ref, 
+    in_$r14: ref, 
+    in_$fakelocal_4: ref, 
+    in_$r12: ref, 
+    in_$fakelocal_2: ref, 
+    in_$l5: int, 
+    in_$r7: ref, 
+    in_$b4: int, 
+    in_$fakelocal_3: ref, 
+    in_i7: int, 
+    in_z2: int)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$fakelocal_8: ref, 
+    out_$r9: ref, 
+    out_$fakelocal_5: ref, 
+    out_$i2: int, 
+    out_$r8: ref, 
+    out_$r15: ref, 
+    out_$r10: ref, 
+    out_z0: int, 
+    out_z3: int, 
+    out_$b3: int, 
+    out_$r13: ref, 
+    out_$l6: int, 
+    out_$fakelocal_7: ref, 
+    out_$fakelocal_6: ref, 
+    out_$r6: ref, 
+    out_$r11: ref, 
+    out_$r14: ref, 
+    out_$fakelocal_4: ref, 
+    out_$r12: ref, 
+    out_$fakelocal_2: ref, 
+    out_$l5: int, 
+    out_$r7: ref, 
+    out_$b4: int, 
+    out_$fakelocal_3: ref, 
+    out_i7: int, 
+    out_z2: int)
+{
+  var inline$java.lang.Boolean$booleanValue$$0$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$0$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$0$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$0$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$0$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$1$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$1$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$1$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$1$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$1$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$1$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$2$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$2$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$2$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$2$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$3$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$3$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$3$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$3$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$4$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$4$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$4$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$4$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap: $heap_type;
+  var inline$java.lang.Boolean$booleanValue$$2$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$2$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$2$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$2$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$2$$exception: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$z0: int;
+  var inline$java.lang.Boolean$booleanValue$$3$r0: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$this: ref;
+  var inline$java.lang.Boolean$booleanValue$$3$$return: int;
+  var inline$java.lang.Boolean$booleanValue$$3$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$5$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$5$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$5$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$5$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$6$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$6$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$6$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$6$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$7$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$7$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$7$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$7$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$8$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$8$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$8$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$8$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$z0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$r0: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$return: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$exception: ref;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$objIndex: int;
+  var inline$java.lang.Boolean$valueOf$boolean$9$$heap: $heap_type;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$9$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$9$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$9$$exception: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0: int;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return: ref;
+  var inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception: ref;
+
+  entry:
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    goto block6;
+
+  block6:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon43_Then, anon43_Else;
+
+  anon43_Else:
+    assume {:partition} in_r0 == fixed.$null;
+    call out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_2;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon33:
+    goto inline$java.lang.Boolean$booleanValue$$0$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$0$Entry:
+    inline$java.lang.Boolean$booleanValue$$0$$this := out_$r15;
+    havoc inline$java.lang.Boolean$booleanValue$$0$$z0, inline$java.lang.Boolean$booleanValue$$0$r0, inline$java.lang.Boolean$booleanValue$$0$$return, inline$java.lang.Boolean$booleanValue$$0$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$0$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$0$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$r0 := inline$java.lang.Boolean$booleanValue$$0$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$0$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$0$$return := inline$java.lang.Boolean$booleanValue$$0$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$0$block3;
+
+  inline$java.lang.Boolean$booleanValue$$0$block3:
+    goto inline$java.lang.Boolean$booleanValue$$0$Return;
+
+  inline$java.lang.Boolean$booleanValue$$0$Return:
+    out_z3 := inline$java.lang.Boolean$booleanValue$$0$$return;
+    out_$exception := inline$java.lang.Boolean$booleanValue$$0$$exception;
+    goto anon33$1;
+
+  anon33$1:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    out_i7 := out_i7 + 1;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon33_dummy;
+
+  anon50_Then:
+    assume {:partition} out_$r15 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon33;
+
+  anon30:
+    out_$r15 := out_$r14;
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto anon50_Then, anon50_Else;
+
+  anon50_Else:
+    assume {:partition} out_$r15 == fixed.$null;
+    call out_$fakelocal_8 := fixed.$new(fixed.java.lang.RuntimeException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_8;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon49_Then:
+    assume {:partition} fixed.$heap[out_$r14, fixed.$type] <: fixed.java.lang.Boolean;
+    out_$exception := out_$exception;
+    goto anon30;
+
+  anon27:
+    goto inline$java.lang.Boolean$booleanValue$$1$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$1$Entry:
+    inline$java.lang.Boolean$booleanValue$$1$$this := out_$r11;
+    havoc inline$java.lang.Boolean$booleanValue$$1$$z0, inline$java.lang.Boolean$booleanValue$$1$r0, inline$java.lang.Boolean$booleanValue$$1$$return, inline$java.lang.Boolean$booleanValue$$1$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$1$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$1$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$1$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$r0 := inline$java.lang.Boolean$booleanValue$$1$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$1$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$1$$return := inline$java.lang.Boolean$booleanValue$$1$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$1$block3;
+
+  inline$java.lang.Boolean$booleanValue$$1$block3:
+    goto inline$java.lang.Boolean$booleanValue$$1$Return;
+
+  inline$java.lang.Boolean$booleanValue$$1$Return:
+    out_z2 := inline$java.lang.Boolean$booleanValue$$1$$return;
+    out_$exception := inline$java.lang.Boolean$booleanValue$$1$$exception;
+    goto anon27$1;
+
+  anon27$1:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0 := 1;
+    havoc inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$0$z0, inline$java.lang.Boolean$valueOf$boolean$0$$r0, inline$java.lang.Boolean$valueOf$boolean$0$$return, inline$java.lang.Boolean$valueOf$boolean$0$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$0$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$0$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$0$z0 := inline$java.lang.Boolean$valueOf$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$0$$r0 := inline$java.lang.Boolean$valueOf$boolean$0$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this := inline$java.lang.Boolean$valueOf$boolean$0$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$0$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return:
+    inline$java.lang.Boolean$valueOf$boolean$0$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$0$$return := inline$java.lang.Boolean$valueOf$boolean$0$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$0$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$0$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$0$Return:
+    out_$r12 := inline$java.lang.Boolean$valueOf$boolean$0$$return;
+    out_$exception := inline$java.lang.Boolean$valueOf$boolean$0$$exception;
+    goto anon27$2;
+
+  anon27$2:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0 := out_z3;
+    havoc inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$1$z0, inline$java.lang.Boolean$valueOf$boolean$1$$r0, inline$java.lang.Boolean$valueOf$boolean$1$$return, inline$java.lang.Boolean$valueOf$boolean$1$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$1$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$1$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$1$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$1$z0 := inline$java.lang.Boolean$valueOf$boolean$1$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$1$$r0 := inline$java.lang.Boolean$valueOf$boolean$1$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this := inline$java.lang.Boolean$valueOf$boolean$1$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$1$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$1$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$1$Entry:
+    inline$java.lang.Object$$la$init$ra$$$1$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$1$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$1$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$1$anon0:
+    inline$java.lang.Object$$la$init$ra$$$1$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$1$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$1$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception := inline$java.lang.Object$$la$init$ra$$$1$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$1$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$1$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$1$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$1$Return:
+    inline$java.lang.Boolean$valueOf$boolean$1$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$1$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$1$$return := inline$java.lang.Boolean$valueOf$boolean$1$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$1$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$1$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$1$Return:
+    out_$r13 := inline$java.lang.Boolean$valueOf$boolean$1$$return;
+    out_$exception := inline$java.lang.Boolean$valueOf$boolean$1$$exception;
+    goto anon27$3;
+
+  anon27$3:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0 := out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1 := out_$r12;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2 := out_$r13;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$Return:
+    out_$r14 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$return;
+    out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$0$$exception;
+    goto anon27$4;
+
+  anon27$4:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto anon49_Then, anon49_Else;
+
+  anon49_Else:
+    assume {:partition} !(fixed.$heap[out_$r14, fixed.$type] <: fixed.java.lang.Boolean);
+    call out_$fakelocal_7 := fixed.$new(fixed.java.lang.ClassCastException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_7;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon48_Then:
+    assume {:partition} out_$r11 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon27;
+
+  anon24:
+    out_$r11 := out_$r10;
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto anon48_Then, anon48_Else;
+
+  anon48_Else:
+    assume {:partition} out_$r11 == fixed.$null;
+    call out_$fakelocal_6 := fixed.$new(fixed.java.lang.RuntimeException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_6;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon47_Then:
+    assume {:partition} fixed.$heap[out_$r10, fixed.$type] <: fixed.java.lang.Boolean;
+    out_$exception := out_$exception;
+    goto anon24;
+
+  anon21:
+    out_$b4 := fixed.$intArrHeap[in_r1][out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    out_$l5 := out_$b4;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0 := out_$l6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1 := out_$l5;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$in_parameter__1;
+    assert {:sourceloc "Safe.java", 55, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1);
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 != 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon3:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36:
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$l1);
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 == 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon6:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0 := 0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$z0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block38;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block38:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b3 != 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$b2 == 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$Return:
+    out_z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$return;
+    out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$0$$exception;
+    goto anon21$1;
+
+  anon21$1:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0 := out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$2$z0, inline$java.lang.Boolean$valueOf$boolean$2$$r0, inline$java.lang.Boolean$valueOf$boolean$2$$return, inline$java.lang.Boolean$valueOf$boolean$2$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$2$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$2$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$2$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$2$z0 := inline$java.lang.Boolean$valueOf$boolean$2$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$2$$r0 := inline$java.lang.Boolean$valueOf$boolean$2$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this := inline$java.lang.Boolean$valueOf$boolean$2$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$2$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$2$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$2$Entry:
+    inline$java.lang.Object$$la$init$ra$$$2$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$2$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$2$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$2$anon0:
+    inline$java.lang.Object$$la$init$ra$$$2$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$2$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$2$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception := inline$java.lang.Object$$la$init$ra$$$2$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$2$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$2$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$2$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$2$Return:
+    inline$java.lang.Boolean$valueOf$boolean$2$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$2$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$2$$return := inline$java.lang.Boolean$valueOf$boolean$2$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$2$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$2$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$2$Return:
+    out_$r6 := inline$java.lang.Boolean$valueOf$boolean$2$$return;
+    out_$exception := inline$java.lang.Boolean$valueOf$boolean$2$$exception;
+    goto anon21$2;
+
+  anon21$2:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0 := 0;
+    havoc inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$3$z0, inline$java.lang.Boolean$valueOf$boolean$3$$r0, inline$java.lang.Boolean$valueOf$boolean$3$$return, inline$java.lang.Boolean$valueOf$boolean$3$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$3$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$3$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$3$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$3$z0 := inline$java.lang.Boolean$valueOf$boolean$3$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$3$$r0 := inline$java.lang.Boolean$valueOf$boolean$3$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this := inline$java.lang.Boolean$valueOf$boolean$3$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$3$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$3$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$3$Entry:
+    inline$java.lang.Object$$la$init$ra$$$3$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$3$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$3$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$3$anon0:
+    inline$java.lang.Object$$la$init$ra$$$3$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$3$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$3$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception := inline$java.lang.Object$$la$init$ra$$$3$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$3$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$3$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$3$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$3$Return:
+    inline$java.lang.Boolean$valueOf$boolean$3$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$3$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$3$$return := inline$java.lang.Boolean$valueOf$boolean$3$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$3$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$3$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$3$Return:
+    out_$r7 := inline$java.lang.Boolean$valueOf$boolean$3$$return;
+    out_$exception := inline$java.lang.Boolean$valueOf$boolean$3$$exception;
+    goto anon21$3;
+
+  anon21$3:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0 := out_z3;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1 := out_$r6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2 := out_$r7;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$Return:
+    out_$r8 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$return;
+    out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$1$$exception;
+    goto anon21$4;
+
+  anon21$4:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0 := out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$4$z0, inline$java.lang.Boolean$valueOf$boolean$4$$r0, inline$java.lang.Boolean$valueOf$boolean$4$$return, inline$java.lang.Boolean$valueOf$boolean$4$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$4$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$4$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$4$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$4$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$4$z0 := inline$java.lang.Boolean$valueOf$boolean$4$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$4$$r0 := inline$java.lang.Boolean$valueOf$boolean$4$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this := inline$java.lang.Boolean$valueOf$boolean$4$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$4$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$4$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$4$Entry:
+    inline$java.lang.Object$$la$init$ra$$$4$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$4$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$4$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$4$anon0:
+    inline$java.lang.Object$$la$init$ra$$$4$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$4$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$4$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception := inline$java.lang.Object$$la$init$ra$$$4$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$4$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$4$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$4$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$4$Return:
+    inline$java.lang.Boolean$valueOf$boolean$4$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$4$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$4$$return := inline$java.lang.Boolean$valueOf$boolean$4$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$4$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$4$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$4$Return:
+    out_$r9 := inline$java.lang.Boolean$valueOf$boolean$4$$return;
+    out_$exception := inline$java.lang.Boolean$valueOf$boolean$4$$exception;
+    goto anon21$5;
+
+  anon21$5:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0 := out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1 := out_$r8;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2 := out_$r9;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$Return:
+    out_$r10 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$return;
+    out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$2$$exception;
+    goto anon21$6;
+
+  anon21$6:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto anon47_Then, anon47_Else;
+
+  anon47_Else:
+    assume {:partition} !(fixed.$heap[out_$r10, fixed.$type] <: fixed.java.lang.Boolean);
+    call out_$fakelocal_5 := fixed.$new(fixed.java.lang.ClassCastException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_5;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon46_Then:
+    assume {:partition} out_i7 < fixed.$arrSizeHeap[in_r1] && out_i7 >= 0;
+    out_$exception := out_$exception;
+    goto anon21;
+
+  anon18:
+    out_$b3 := fixed.$intArrHeap[in_r0][out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    out_$l6 := out_$b3;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto anon46_Then, anon46_Else;
+
+  anon46_Else:
+    assume {:partition} !(out_i7 < fixed.$arrSizeHeap[in_r1] && out_i7 >= 0);
+    call out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_4;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon45_Then:
+    assume {:partition} out_i7 < fixed.$arrSizeHeap[in_r0] && out_i7 >= 0;
+    out_$exception := out_$exception;
+    goto anon18;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto anon45_Then, anon45_Else;
+
+  anon45_Else:
+    assume {:partition} !(out_i7 < fixed.$arrSizeHeap[in_r0] && out_i7 >= 0);
+    call out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_3;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon44_Else:
+    assume {:partition} out_$i2 > out_i7;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon12:
+    out_$i2 := fixed.$arrSizeHeap[in_r0];
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto anon44_Then, anon44_Else;
+
+  anon44_Then:
+    assume {:partition} out_i7 >= out_$i2;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "thenblock"} true;
+    out_$return, out_$exception, out_$fakelocal_8, out_$r9, out_$fakelocal_5, out_$i2, out_$r8, out_$r15, out_$r10, out_z0, out_z3, out_$b3, out_$r13, out_$l6, out_$fakelocal_7, out_$fakelocal_6, out_$r6, out_$r11, out_$r14, out_$fakelocal_4, out_$r12, out_$fakelocal_2, out_$l5, out_$r7, out_$b4, out_$fakelocal_3, out_i7, out_z2 := in_$return, in_$exception, in_$fakelocal_8, in_$r9, in_$fakelocal_5, in_$i2, in_$r8, in_$r15, in_$r10, in_z0, in_z3, in_$b3, in_$r13, in_$l6, in_$fakelocal_7, in_$fakelocal_6, in_$r6, in_$r11, in_$r14, in_$fakelocal_4, in_$r12, in_$fakelocal_2, in_$l5, in_$r7, in_$b4, in_$fakelocal_3, in_i7, in_z2;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon43_Then:
+    assume {:partition} in_r0 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon12;
+
+  anon33_dummy:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return := out_$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception := out_$exception;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8 := out_$fakelocal_8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9 := out_$r9;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5 := out_$fakelocal_5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2 := out_$i2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8 := out_$r8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15 := out_$r15;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1 := in_r1;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10 := out_$r10;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0 := out_z0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3 := out_z3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3 := out_$b3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13 := out_$r13;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6 := out_$l6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7 := out_$fakelocal_7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6 := out_$fakelocal_6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6 := out_$r6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11 := out_$r11;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0 := in_r0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14 := out_$r14;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4 := out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12 := out_$r12;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2 := out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5 := out_$l5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7 := out_$r7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4 := out_$b4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3 := out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7 := out_i7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2 := out_z2;
+    havoc inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33:
+    goto inline$java.lang.Boolean$booleanValue$$2$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$2$Entry:
+    inline$java.lang.Boolean$booleanValue$$2$$this := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15;
+    havoc inline$java.lang.Boolean$booleanValue$$2$$z0, inline$java.lang.Boolean$booleanValue$$2$r0, inline$java.lang.Boolean$booleanValue$$2$$return, inline$java.lang.Boolean$booleanValue$$2$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$2$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$2$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$2$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$2$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$2$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$r0 := inline$java.lang.Boolean$booleanValue$$2$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$2$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$2$$return := inline$java.lang.Boolean$booleanValue$$2$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$2$block3;
+
+  inline$java.lang.Boolean$booleanValue$$2$block3:
+    goto inline$java.lang.Boolean$booleanValue$$2$Return;
+
+  inline$java.lang.Boolean$booleanValue$$2$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3 := inline$java.lang.Boolean$booleanValue$$2$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$booleanValue$$2$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33$1:
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+   + 1;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33_dummy;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14;
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon50_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8 := fixed.$new(fixed.java.lang.RuntimeException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Then:
+    assume {:partition} fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27:
+    goto inline$java.lang.Boolean$booleanValue$$3$Entry;
+
+  inline$java.lang.Boolean$booleanValue$$3$Entry:
+    inline$java.lang.Boolean$booleanValue$$3$$this := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11;
+    havoc inline$java.lang.Boolean$booleanValue$$3$$z0, inline$java.lang.Boolean$booleanValue$$3$r0, inline$java.lang.Boolean$booleanValue$$3$$return, inline$java.lang.Boolean$booleanValue$$3$$exception;
+    goto inline$java.lang.Boolean$booleanValue$$3$anon0;
+
+  inline$java.lang.Boolean$booleanValue$$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$booleanValue$$3$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$booleanValue$$3$$this != fixed.$null;
+    inline$java.lang.Boolean$booleanValue$$3$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$r0 := inline$java.lang.Boolean$booleanValue$$3$$this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$$z0 := fixed.$heap[inline$java.lang.Boolean$booleanValue$$3$r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    inline$java.lang.Boolean$booleanValue$$3$$return := inline$java.lang.Boolean$booleanValue$$3$$z0;
+    goto inline$java.lang.Boolean$booleanValue$$3$block3;
+
+  inline$java.lang.Boolean$booleanValue$$3$block3:
+    goto inline$java.lang.Boolean$booleanValue$$3$Return;
+
+  inline$java.lang.Boolean$booleanValue$$3$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$java.lang.Boolean$booleanValue$$3$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$booleanValue$$3$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$1:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0 := 1;
+    havoc inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$5$z0, inline$java.lang.Boolean$valueOf$boolean$5$$r0, inline$java.lang.Boolean$valueOf$boolean$5$$return, inline$java.lang.Boolean$valueOf$boolean$5$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$5$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$5$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$5$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$5$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$5$z0 := inline$java.lang.Boolean$valueOf$boolean$5$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$5$$r0 := inline$java.lang.Boolean$valueOf$boolean$5$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this := inline$java.lang.Boolean$valueOf$boolean$5$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$5$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$5$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$5$Entry:
+    inline$java.lang.Object$$la$init$ra$$$5$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$5$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$5$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$5$anon0:
+    inline$java.lang.Object$$la$init$ra$$$5$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$5$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$5$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception := inline$java.lang.Object$$la$init$ra$$$5$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$5$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$5$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$5$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$5$Return:
+    inline$java.lang.Boolean$valueOf$boolean$5$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$5$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$5$$return := inline$java.lang.Boolean$valueOf$boolean$5$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$5$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$5$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$5$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12 := inline$java.lang.Boolean$valueOf$boolean$5$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$5$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$2;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$2:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    havoc inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$6$z0, inline$java.lang.Boolean$valueOf$boolean$6$$r0, inline$java.lang.Boolean$valueOf$boolean$6$$return, inline$java.lang.Boolean$valueOf$boolean$6$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$6$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$6$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$6$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$6$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$6$z0 := inline$java.lang.Boolean$valueOf$boolean$6$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$6$$r0 := inline$java.lang.Boolean$valueOf$boolean$6$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this := inline$java.lang.Boolean$valueOf$boolean$6$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$6$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$6$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$6$Entry:
+    inline$java.lang.Object$$la$init$ra$$$6$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$6$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$6$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$6$anon0:
+    inline$java.lang.Object$$la$init$ra$$$6$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$6$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$6$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception := inline$java.lang.Object$$la$init$ra$$$6$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$6$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$6$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$6$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$6$Return:
+    inline$java.lang.Boolean$valueOf$boolean$6$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$6$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$6$$return := inline$java.lang.Boolean$valueOf$boolean$6$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$6$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$6$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$6$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13 := inline$java.lang.Boolean$valueOf$boolean$6$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$6$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$3;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$3:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$3$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$4;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27$4:
+    assert {:sourceloc "PWCheck.java", 19, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon49_Else:
+    assume {:partition} !(fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, fixed.$type]
+   <: fixed.java.lang.Boolean);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7 := fixed.$new(fixed.java.lang.ClassCastException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon27;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon24:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10;
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon48_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6 := fixed.$new(fixed.java.lang.RuntimeException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Then:
+    assume {:partition} fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon24;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$in_parameter__1;
+    assert {:sourceloc "Safe.java", 55, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1);
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 != 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon3:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36:
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 := fixed.$cmpInt(inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l0, 
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$l1);
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 == 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon6:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0 := 0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37:
+    assert {:sourceloc "Safe.java", 58, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$z0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block38;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block38:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b3 != 0;
+    assert {:sourceloc "Safe.java", 57, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block37;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$b2 == 0;
+    assert {:sourceloc "Safe.java", 56, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$block36;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$neq$long_long$1$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$1;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$1:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$7$z0, inline$java.lang.Boolean$valueOf$boolean$7$$r0, inline$java.lang.Boolean$valueOf$boolean$7$$return, inline$java.lang.Boolean$valueOf$boolean$7$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$7$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$7$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$7$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$7$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$7$z0 := inline$java.lang.Boolean$valueOf$boolean$7$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$7$$r0 := inline$java.lang.Boolean$valueOf$boolean$7$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this := inline$java.lang.Boolean$valueOf$boolean$7$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$7$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$7$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$7$Entry:
+    inline$java.lang.Object$$la$init$ra$$$7$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$7$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$7$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$7$anon0:
+    inline$java.lang.Object$$la$init$ra$$$7$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$7$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$7$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception := inline$java.lang.Object$$la$init$ra$$$7$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$7$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$7$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$7$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$7$Return:
+    inline$java.lang.Boolean$valueOf$boolean$7$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$7$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$7$$return := inline$java.lang.Boolean$valueOf$boolean$7$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$7$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$7$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$7$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6 := inline$java.lang.Boolean$valueOf$boolean$7$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$7$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$2;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$2:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0 := 0;
+    havoc inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$8$z0, inline$java.lang.Boolean$valueOf$boolean$8$$r0, inline$java.lang.Boolean$valueOf$boolean$8$$return, inline$java.lang.Boolean$valueOf$boolean$8$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$8$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$8$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$8$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$8$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$8$z0 := inline$java.lang.Boolean$valueOf$boolean$8$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$8$$r0 := inline$java.lang.Boolean$valueOf$boolean$8$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this := inline$java.lang.Boolean$valueOf$boolean$8$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$8$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$8$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$8$Entry:
+    inline$java.lang.Object$$la$init$ra$$$8$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$8$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$8$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$8$anon0:
+    inline$java.lang.Object$$la$init$ra$$$8$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$8$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$8$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception := inline$java.lang.Object$$la$init$ra$$$8$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$8$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$8$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$8$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$8$Return:
+    inline$java.lang.Boolean$valueOf$boolean$8$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$8$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$8$$return := inline$java.lang.Boolean$valueOf$boolean$8$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$8$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$8$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$8$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7 := inline$java.lang.Boolean$valueOf$boolean$8$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$8$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$3;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$3:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$4$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$4;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$4:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$Entry;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$Entry:
+    inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    havoc inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0, inline$java.lang.Boolean$valueOf$boolean$9$z0, inline$java.lang.Boolean$valueOf$boolean$9$$r0, inline$java.lang.Boolean$valueOf$boolean$9$$return, inline$java.lang.Boolean$valueOf$boolean$9$$exception;
+    inline$java.lang.Boolean$valueOf$boolean$9$$objIndex := fixed.$objIndex;
+    inline$java.lang.Boolean$valueOf$boolean$9$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$anon0;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$java.lang.Boolean$valueOf$boolean$9$$return, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    inline$java.lang.Boolean$valueOf$boolean$9$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$9$z0 := inline$java.lang.Boolean$valueOf$boolean$9$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    inline$java.lang.Boolean$valueOf$boolean$9$$r0 := inline$java.lang.Boolean$valueOf$boolean$9$$fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this := inline$java.lang.Boolean$valueOf$boolean$9$$r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0 := inline$java.lang.Boolean$valueOf$boolean$9$z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$9$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$9$Entry:
+    inline$java.lang.Object$$la$init$ra$$$9$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$9$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$9$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$9$anon0:
+    inline$java.lang.Object$$la$init$ra$$$9$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$9$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$9$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception := inline$java.lang.Object$$la$init$ra$$$9$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$9$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$9$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$9$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$9$Return:
+    inline$java.lang.Boolean$valueOf$boolean$9$$exception := inline$java.lang.Boolean$$la$init$ra$$boolean$9$$exception;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$anon0$1;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    inline$java.lang.Boolean$valueOf$boolean$9$$return := inline$java.lang.Boolean$valueOf$boolean$9$$r0;
+    goto inline$java.lang.Boolean$valueOf$boolean$9$block2;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$block2:
+    goto inline$java.lang.Boolean$valueOf$boolean$9$Return;
+
+  inline$java.lang.Boolean$valueOf$boolean$9$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9 := inline$java.lang.Boolean$valueOf$boolean$9$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$java.lang.Boolean$valueOf$boolean$9$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$5;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$5:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Entry;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Entry:
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9;
+    havoc inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon0;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2, fixed.$type]
+   <: fixed.java.lang.Object;
+    assume fixed.$heap[inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return, fixed.$type]
+   <: fixed.java.lang.Object;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception := fixed.$null;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__0;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__1;
+    assert {:sourceloc "Safe.java", -1, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$in_parameter__2;
+    assert {:sourceloc "Safe.java", 117, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := fixed.$null;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon3;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon3:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r0;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63:
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Then, inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Else;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Else:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "elseblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon6;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon6:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r1;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64:
+    assert {:sourceloc "Safe.java", 120, -1, -1, -1} true;
+    inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$r2;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block65;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block65:
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Return;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon8_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   != 0;
+    assert {:sourceloc "Safe.java", 119, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block64;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$anon7_Then:
+    assume {:partition} inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$z0
+   == 0;
+    assert {:sourceloc "Safe.java", 118, -1, -1, -1} {:clone} {:comment "thenblock"} true;
+    goto inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$block63;
+
+  inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$Return:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10 := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$sg.edu.nus.comp.tsunami.safe.Safe$cond$boolean_java.lang.Object_java.lang.Object$5$$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21$6:
+    assert {:sourceloc "PWCheck.java", 18, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon47_Else:
+    assume {:partition} !(fixed.$heap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, fixed.$type]
+   <: fixed.java.lang.Boolean);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ClassCastException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7];
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon46_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15:
+    assert {:sourceloc "PWCheck.java", 16, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon45_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2
+   > inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon44_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7
+   >= inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 13, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r9, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r8, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r15, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r10, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z0, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r13, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r6, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r11, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r14, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r12, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$l5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$r7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i7, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_z2;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon43_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon33_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$exit:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return:
+    out_$return := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return;
+    out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    out_$fakelocal_8 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_8;
+    out_$r9 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r9;
+    out_$fakelocal_5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_5;
+    out_$i2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    out_$r8 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r8;
+    out_$r15 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r15;
+    out_$r10 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r10;
+    out_z0 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z0;
+    out_z3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z3;
+    out_$b3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    out_$r13 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r13;
+    out_$l6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l6;
+    out_$fakelocal_7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_7;
+    out_$fakelocal_6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_6;
+    out_$r6 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r6;
+    out_$r11 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r11;
+    out_$r14 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r14;
+    out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    out_$r12 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r12;
+    out_$fakelocal_2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    out_$l5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$l5;
+    out_$r7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$r7;
+    out_$b4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    out_$fakelocal_3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    out_i7 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i7;
+    out_z2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_z2;
+    goto anon33_dummy$1;
+
+  anon33_dummy$1:
+    return;
+
+  exit:
+    return;
+}
+
+
+
+implementation fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10(in_$return: int, 
+    in_$exception: ref, 
+    in_$fakelocal_2: ref, 
+    in_z0: int, 
+    in_$fakelocal_3: ref, 
+    in_$b5: int, 
+    in_r0: ref, 
+    in_r1: ref, 
+    in_$b4: int, 
+    in_$i2: int, 
+    in_i6: int, 
+    in_$fakelocal_4: ref, 
+    in_$i3: int, 
+    in_$fakelocal_5: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$fakelocal_2: ref, 
+    out_z0: int, 
+    out_$fakelocal_3: ref, 
+    out_$b5: int, 
+    out_$b4: int, 
+    out_$i2: int, 
+    out_i6: int, 
+    out_$fakelocal_4: ref, 
+    out_$i3: int, 
+    out_$fakelocal_5: ref)
+{
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap: $heap_type;
+
+  entry:
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    goto block10;
+
+  block10:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto anon34_Then, anon34_Else;
+
+  anon34_Else:
+    assume {:partition} in_r0 == fixed.$null;
+    call out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_2;
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    out_i6 := out_i6 + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto block12_dummy;
+
+  anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto block12;
+
+  block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto block12;
+
+  anon37_Then:
+    assume {:partition} out_i6 >= out_$i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto block12;
+
+  anon18:
+    out_$i3 := fixed.$arrSizeHeap[in_r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto anon37_Then, anon37_Else;
+
+  anon36_Then:
+    assume {:partition} in_r1 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon18;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto anon36_Then, anon36_Else;
+
+  anon36_Else:
+    assume {:partition} in_r1 == fixed.$null;
+    call out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_3;
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon35_Else:
+    assume {:partition} out_$i2 > out_i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon12:
+    out_$i2 := fixed.$arrSizeHeap[in_r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto anon35_Then, anon35_Else;
+
+  anon35_Then:
+    assume {:partition} out_i6 >= out_$i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon34_Then:
+    assume {:partition} in_r0 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon12;
+
+  anon40_Then:
+    assume {:partition} out_$b5 == out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto block13;
+
+  anon27:
+    out_$b4 := fixed.$intArrHeap[in_r1][out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon40_Then, anon40_Else;
+
+  anon39_Then:
+    assume {:partition} out_i6 < fixed.$arrSizeHeap[in_r1] && out_i6 >= 0;
+    out_$exception := out_$exception;
+    goto anon27;
+
+  anon24:
+    out_$b5 := fixed.$intArrHeap[in_r0][out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon39_Then, anon39_Else;
+
+  anon39_Else:
+    assume {:partition} !(out_i6 < fixed.$arrSizeHeap[in_r1] && out_i6 >= 0);
+    call out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_5;
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon38_Then:
+    assume {:partition} out_i6 < fixed.$arrSizeHeap[in_r0] && out_i6 >= 0;
+    out_$exception := out_$exception;
+    goto anon24;
+
+  anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto anon38_Then, anon38_Else;
+
+  anon38_Else:
+    assume {:partition} !(out_i6 < fixed.$arrSizeHeap[in_r0] && out_i6 >= 0);
+    call out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_4;
+    out_$return, out_$exception, out_$fakelocal_2, out_z0, out_$fakelocal_3, out_$b5, out_$b4, out_$i2, out_i6, out_$fakelocal_4, out_$i3, out_$fakelocal_5 := in_$return, in_$exception, in_$fakelocal_2, in_z0, in_$fakelocal_3, in_$b5, in_$b4, in_$i2, in_i6, in_$fakelocal_4, in_$i3, in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon37_Else:
+    assume {:partition} out_$i3 > out_i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon21;
+
+  anon40_Else:
+    assume {:partition} out_$b5 != out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon30;
+
+  block12_dummy:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return := out_$return;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception := out_$exception;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2 := out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0 := out_z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3 := out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5 := out_$b5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0 := in_r0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1 := in_r1;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4 := out_$b4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2 := out_$i2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6 := out_i6;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4 := out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3 := out_$i3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5 := out_$fakelocal_5;
+    havoc inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   == inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   != inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$exit:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return:
+    out_$return := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return;
+    out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    out_$fakelocal_2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0;
+    out_$fakelocal_3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    out_$b5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5;
+    out_$b4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    out_$i2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    out_$fakelocal_4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    out_$i3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    goto block12_dummy$1;
+
+  block12_dummy$1:
+    return;
+
+  exit:
+    return;
+}
+
+
+
+axiom (forall x: int :: 
+  { fixed.$intToBool(x): bool } 
+  fixed.$intToBool(x): bool <==> (if x == 0 then false else true));
+
+axiom (forall x: ref :: 
+  { fixed.$refToBool(x): bool } 
+  fixed.$refToBool(x): bool <==> (if x == fixed.$null then false else true));
+
+axiom (forall x: bool :: 
+  { fixed.$boolToInt(x): int } 
+  fixed.$boolToInt(x): int == (if x <==> true then 1 else 0));
+
+axiom (forall x: real, y: real :: 
+  { fixed.$cmpReal(x, y): int } 
+  fixed.$cmpReal(x, y): int == (if x > y then 1 else (if x < y then -1 else 0)));
+
+axiom (forall x: int, y: int :: 
+  { fixed.$cmpInt(x, y): int } 
+  fixed.$cmpInt(x, y): int == (if x > y then 1 else (if x < y then -1 else 0)));
+
+axiom (forall index: int :: fixed.$intToRef(index) != fixed.$null);
+
+axiom (forall i1: int, i2: int :: 
+  i1 == i2 <==> fixed.$intToRef(i1) == fixed.$intToRef(i2));
+
+procedure {:prefix "unsafe"} unsafe.java.lang.Boolean$$la$init$ra$$boolean($this: ref, $in_parameter__0: int) returns ($exception: ref);
+  modifies fixed.$heap;
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_$exception($this, 
+    $in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_fixed.$heap($this, 
+    $in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "unsafe"} unsafe.java.lang.Object$$la$init$ra$$($this: ref) returns ($exception: ref);
+  free ensures $exception == _uf_fixed.java.lang.Object$$la$init$ra$$_$exception($this);
+
+
+
+procedure {:prefix "unsafe"} unsafe.java.lang.Boolean$valueOf$boolean($in_parameter__0: int) returns ($return: ref, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_$return($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_$exception($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$objIndex
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$objIndex($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$heap($in_parameter__0, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "unsafe"} unsafe.java.lang.Boolean$booleanValue$($this: ref) returns ($return: int, $exception: ref);
+  free ensures $return
+   == _uf_fixed.java.lang.Boolean$booleanValue$_$return($this, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.java.lang.Boolean$booleanValue$_$exception($this, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:prefix "unsafe"} unsafe.PWCheck$$la$init$ra$$($this: ref) returns ($exception: ref);
+  free ensures $exception
+   == _uf_fixed.PWCheck$$la$init$ra$$_$exception($this, old(fixed.$heap), old(fixed.$arrSizeHeap), old(fixed.$stringSizeHeap));
+
+
+
+procedure {:prefix "unsafe"} unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures $exception
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$objIndex
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+  free ensures fixed.$heap
+   == _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap), 
+    old(fixed.boolean$java.lang.Boolean$value0));
+
+
+
+procedure {:inline 1} unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+  free ensures $return
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures $exception
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures fixed.$objIndex
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+  free ensures fixed.$heap
+   == _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap($in_parameter__0, 
+    $in_parameter__1, 
+    old(fixed.$heap), 
+    old(fixed.$arrSizeHeap), 
+    old(fixed.$stringSizeHeap), 
+    old(fixed.$objIndex), 
+    old(fixed.$intArrHeap));
+
+
+
+procedure {:prefix "unsafe"} unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6(in_$return: int, 
+    in_$exception: ref, 
+    in_$b4: int, 
+    in_$b3: int, 
+    in_$fakelocal_3: ref, 
+    in_$fakelocal_2: ref, 
+    in_r1: ref, 
+    in_$i2: int, 
+    in_i5: int, 
+    in_r0: ref, 
+    in_$fakelocal_4: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$b4: int, 
+    out_$b3: int, 
+    out_$fakelocal_3: ref, 
+    out_$fakelocal_2: ref, 
+    out_$i2: int, 
+    out_i5: int, 
+    out_$fakelocal_4: ref);
+  modifies fixed.$objIndex, fixed.$heap;
+
+
+
+procedure {:prefix "unsafe"} unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11(in_$return: int, 
+    in_$exception: ref, 
+    in_$i2: int, 
+    in_$b5: int, 
+    in_$fakelocal_3: ref, 
+    in_$fakelocal_2: ref, 
+    in_$b4: int, 
+    in_$fakelocal_4: ref, 
+    in_r1: ref, 
+    in_$fakelocal_5: ref, 
+    in_$i3: int, 
+    in_i6: int, 
+    in_z0: int, 
+    in_r0: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$i2: int, 
+    out_$b5: int, 
+    out_$fakelocal_3: ref, 
+    out_$fakelocal_2: ref, 
+    out_$b4: int, 
+    out_$fakelocal_4: ref, 
+    out_$fakelocal_5: ref, 
+    out_$i3: int, 
+    out_i6: int, 
+    out_z0: int);
+  modifies fixed.$objIndex, fixed.$heap;
+
+
+
+implementation unsafe.java.lang.Boolean$$la$init$ra$$boolean($this: ref, $in_parameter__0: int) returns ($exception: ref)
+{
+  var z0: int;
+  var r0: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    $exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[r0, fixed.boolean$java.lang.Boolean$value0 := z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto block1;
+
+  block1:
+    return;
+}
+
+
+
+implementation unsafe.java.lang.Boolean$valueOf$boolean($in_parameter__0: int) returns ($return: ref, $exception: ref)
+{
+  var z0: int;
+  var $fakelocal_0: ref;
+  var $r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0: int;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception: ref;
+  var inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap: $heap_type;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume fixed.$heap[$return, fixed.$type] <: fixed.java.lang.Boolean;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    z0 := $in_parameter__0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.Boolean);
+    $r0 := $fakelocal_0;
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Entry:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this := $r0;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0 := z0;
+    havoc inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$heap := fixed.$heap;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this, fixed.$type]
+   <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this != fixed.$null;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$this;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$in_parameter__0;
+    assert {:sourceloc "Boolean.java", 6, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$anon0$1:
+    assert {:sourceloc "Boolean.java", 7, -1, -1, -1} true;
+    fixed.$heap := fixed.$heap[inline$java.lang.Boolean$$la$init$ra$$boolean$0$r0, fixed.boolean$java.lang.Boolean$value0 := inline$java.lang.Boolean$$la$init$ra$$boolean$0$z0];
+    assert {:sourceloc "Boolean.java", 8, -1, -1, -1} true;
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$block1:
+    goto inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return;
+
+  inline$java.lang.Boolean$$la$init$ra$$boolean$0$Return:
+    $exception := inline$java.lang.Boolean$$la$init$ra$$boolean$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "Boolean.java", 11, -1, -1, -1} true;
+    $return := $r0;
+    goto block2;
+
+  block2:
+    return;
+}
+
+
+
+implementation unsafe.java.lang.Boolean$booleanValue$($this: ref) returns ($return: int, $exception: ref)
+{
+  var r0: ref;
+  var $z0: int;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.java.lang.Boolean;
+    assume {:sourceloc "Boolean.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "Boolean.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    $z0 := fixed.$heap[r0, fixed.boolean$java.lang.Boolean$value0];
+    assert {:sourceloc "Boolean.java", 15, -1, -1, -1} true;
+    $return := $z0;
+    goto block3;
+
+  block3:
+    return;
+}
+
+
+
+implementation unsafe.PWCheck$$la$init$ra$$($this: ref) returns ($exception: ref)
+{
+  var r0: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$this: ref;
+  var inline$java.lang.Object$$la$init$ra$$$0$$exception: ref;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    assume {:sourceloc "PWCheck.java", -1, -1, -1, -1} fixed.$heap[$this, fixed.$type] <: fixed.PWCheck;
+    assume {:sourceloc "PWCheck.java", -1, -1, -1, -1} $this != fixed.$null;
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $this;
+    assert {:sourceloc "PWCheck.java", 1, -1, -1, -1} true;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Entry;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Entry:
+    inline$java.lang.Object$$la$init$ra$$$0$$this := r0;
+    havoc inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto inline$java.lang.Object$$la$init$ra$$$0$anon0;
+
+  inline$java.lang.Object$$la$init$ra$$$0$anon0:
+    inline$java.lang.Object$$la$init$ra$$$0$$exception := fixed.$null;
+    goto inline$java.lang.Object$$la$init$ra$$$0$Return;
+
+  inline$java.lang.Object$$la$init$ra$$$0$Return:
+    $exception := inline$java.lang.Object$$la$init$ra$$$0$$exception;
+    goto anon0$1;
+
+  anon0$1:
+    assert {:sourceloc "PWCheck.java", 1, -1, -1, -1} true;
+    goto block4;
+
+  block4:
+    return;
+}
+
+
+
+implementation unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var $b4: int;
+  var $i0: int;
+  var $b3: int;
+  var $i1: int;
+  var $fakelocal_3: ref;
+  var $fakelocal_2: ref;
+  var $fakelocal_0: ref;
+  var $fakelocal_1: ref;
+  var r1: ref;
+  var $i2: int;
+  var i5: int;
+  var r0: ref;
+  var $fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap: $heap_type;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} true;
+    goto anon25_Then, anon25_Else;
+
+  anon25_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_0;
+    return;
+
+  anon25_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon3;
+
+  anon3:
+    $i1 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} true;
+    goto anon26_Then, anon26_Else;
+
+  anon26_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_1;
+    return;
+
+  anon26_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon6;
+
+  anon6:
+    $i0 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} true;
+    goto anon27_Then, anon27_Else;
+
+  anon27_Else:
+    assume {:partition} $i1 != $i0;
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon9;
+
+  anon9:
+    assert {:sourceloc "PWCheck.java", 4, -1, -1, -1} true;
+    $return := 0;
+    goto block9;
+
+  block9:
+    return;
+
+  anon27_Then:
+    assume {:partition} $i1 == $i0;
+    assert {:sourceloc "PWCheck.java", 3, -1, -1, -1} {:comment "thenblock"} true;
+    goto block5;
+
+  block5:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    i5 := 0;
+    goto block6;
+
+  block6:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return := $return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception := $exception;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4 := $b4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3 := $b3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3 := $fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2 := $fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1 := r1;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2 := $i2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5 := i5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0 := r0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4 := $fakelocal_4;
+    havoc inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+   + 1;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8_dummy;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4
+   == inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4
+   != inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "elseblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15:
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2
+   > inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+   >= inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$exit:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return:
+    $return := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return;
+    $exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    $b4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    $b3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    $fakelocal_3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    $fakelocal_2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    $i2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    i5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5;
+    $fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    goto block6$1;
+
+  block6$1:
+    goto block6_last;
+
+  anon28_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_2;
+    return;
+
+  anon28_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon12;
+
+  anon12:
+    $i2 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto anon29_Then, anon29_Else;
+
+  anon29_Else:
+    assume {:partition} $i2 > i5;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon30_Then, anon30_Else;
+
+  anon30_Else:
+    assume {:partition} !(i5 < fixed.$arrSizeHeap[r0] && i5 >= 0);
+    call $fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_3;
+    return;
+
+  anon30_Then:
+    assume {:partition} i5 < fixed.$arrSizeHeap[r0] && i5 >= 0;
+    $exception := $exception;
+    goto anon18;
+
+  anon18:
+    $b4 := fixed.$intArrHeap[r0][i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon31_Then, anon31_Else;
+
+  anon31_Else:
+    assume {:partition} !(i5 < fixed.$arrSizeHeap[r1] && i5 >= 0);
+    call $fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_4;
+    return;
+
+  anon31_Then:
+    assume {:partition} i5 < fixed.$arrSizeHeap[r1] && i5 >= 0;
+    $exception := $exception;
+    goto anon21;
+
+  anon21:
+    $b3 := fixed.$intArrHeap[r1][i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon32_Then, anon32_Else;
+
+  anon32_Else:
+    assume {:partition} $b4 != $b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon24;
+
+  anon24:
+    assert {:sourceloc "PWCheck.java", 11, -1, -1, -1} true;
+    $return := 0;
+    goto block9;
+
+  anon32_Then:
+    assume {:partition} $b4 == $b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "thenblock"} true;
+    goto block8;
+
+  block8:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    i5 := i5 + 1;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto block8_dummy;
+
+  anon29_Then:
+    assume {:partition} i5 >= $i2;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "thenblock"} true;
+    goto block7;
+
+  block7:
+    assert {:sourceloc "PWCheck.java", 15, -1, -1, -1} true;
+    $return := 1;
+    goto block9;
+
+  block8_dummy:
+    assume false;
+    return;
+
+  block6_last:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto anon28_Then, anon28_Else;
+}
+
+
+
+implementation {:inline 1} unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$($in_parameter__0: ref, $in_parameter__1: ref)
+   returns ($return: int, $exception: ref)
+{
+  var $i2: int;
+  var $b5: int;
+  var $i0: int;
+  var $fakelocal_3: ref;
+  var $i1: int;
+  var $fakelocal_2: ref;
+  var $fakelocal_0: ref;
+  var $b4: int;
+  var $fakelocal_4: ref;
+  var r1: ref;
+  var $fakelocal_5: ref;
+  var $i3: int;
+  var i6: int;
+  var z0: int;
+  var r0: ref;
+  var $fakelocal_1: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap: $heap_type;
+
+  anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    $exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r0 := $in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    r1 := $in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto anon31_Then, anon31_Else;
+
+  anon31_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_0;
+    return;
+
+  anon31_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon3;
+
+  anon3:
+    $i1 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto anon32_Then, anon32_Else;
+
+  anon32_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_1;
+    return;
+
+  anon32_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon6;
+
+  anon6:
+    $i0 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto anon33_Then, anon33_Else;
+
+  anon33_Else:
+    assume {:partition} $i1 != $i0;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon9;
+
+  anon9:
+    assert {:sourceloc "PWCheck.java", 21, -1, -1, -1} true;
+    $return := 0;
+    goto block15;
+
+  block15:
+    return;
+
+  anon33_Then:
+    assume {:partition} $i1 == $i0;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} {:comment "thenblock"} true;
+    goto block10;
+
+  block10:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    z0 := 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    i6 := 0;
+    goto block11;
+
+  block11:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return := $return;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception := $exception;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2 := $i2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5 := $b5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3 := $fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2 := $fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4 := $b4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4 := $fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1 := r1;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5 := $fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3 := $i3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6 := i6;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0 := z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0 := r0;
+    havoc inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   == inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   != inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$exit:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return:
+    $return := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return;
+    $exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    $i2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    $b5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5;
+    $fakelocal_3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    $fakelocal_2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    $b4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    $fakelocal_4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    $fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    $i3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    goto block11$1;
+
+  block11$1:
+    goto block11_last;
+
+  anon34_Else:
+    assume {:partition} r0 == fixed.$null;
+    call $fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_2;
+    return;
+
+  anon34_Then:
+    assume {:partition} r0 != fixed.$null;
+    $exception := $exception;
+    goto anon12;
+
+  anon12:
+    $i2 := fixed.$arrSizeHeap[r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto anon35_Then, anon35_Else;
+
+  anon35_Else:
+    assume {:partition} $i2 > i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto anon36_Then, anon36_Else;
+
+  anon36_Else:
+    assume {:partition} r1 == fixed.$null;
+    call $fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    $return := 0;
+    $exception := $fakelocal_3;
+    return;
+
+  anon36_Then:
+    assume {:partition} r1 != fixed.$null;
+    $exception := $exception;
+    goto anon18;
+
+  anon18:
+    $i3 := fixed.$arrSizeHeap[r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto anon37_Then, anon37_Else;
+
+  anon37_Else:
+    assume {:partition} $i3 > i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon21;
+
+  anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon38_Then, anon38_Else;
+
+  anon38_Else:
+    assume {:partition} !(i6 < fixed.$arrSizeHeap[r0] && i6 >= 0);
+    call $fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_4;
+    return;
+
+  anon38_Then:
+    assume {:partition} i6 < fixed.$arrSizeHeap[r0] && i6 >= 0;
+    $exception := $exception;
+    goto anon24;
+
+  anon24:
+    $b5 := fixed.$intArrHeap[r0][i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon39_Then, anon39_Else;
+
+  anon39_Else:
+    assume {:partition} !(i6 < fixed.$arrSizeHeap[r1] && i6 >= 0);
+    call $fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    $return := 0;
+    $exception := $fakelocal_5;
+    return;
+
+  anon39_Then:
+    assume {:partition} i6 < fixed.$arrSizeHeap[r1] && i6 >= 0;
+    $exception := $exception;
+    goto anon27;
+
+  anon27:
+    $b4 := fixed.$intArrHeap[r1][i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon40_Then, anon40_Else;
+
+  anon40_Else:
+    assume {:partition} $b5 != $b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon30;
+
+  anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto block13;
+
+  block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    i6 := i6 + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto block13_dummy;
+
+  anon40_Then:
+    assume {:partition} $b5 == $b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto block14;
+
+  block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto block13;
+
+  anon37_Then:
+    assume {:partition} i6 >= $i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto block13;
+
+  anon35_Then:
+    assume {:partition} i6 >= $i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    goto block12;
+
+  block12:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    $return := z0;
+    goto block15;
+
+  block13_dummy:
+    assume false;
+    return;
+
+  block11_last:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto anon34_Then, anon34_Else;
+}
+
+
+
+implementation unsafe.java.lang.Object$$la$init$ra$$($this: ref) returns ($exception: ref)
+{
+
+  anon0:
+    $exception := fixed.$null;
+    return;
+}
+
+
+
+implementation unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6(in_$return: int, 
+    in_$exception: ref, 
+    in_$b4: int, 
+    in_$b3: int, 
+    in_$fakelocal_3: ref, 
+    in_$fakelocal_2: ref, 
+    in_r1: ref, 
+    in_$i2: int, 
+    in_i5: int, 
+    in_r0: ref, 
+    in_$fakelocal_4: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$b4: int, 
+    out_$b3: int, 
+    out_$fakelocal_3: ref, 
+    out_$fakelocal_2: ref, 
+    out_$i2: int, 
+    out_i5: int, 
+    out_$fakelocal_4: ref)
+{
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex: int;
+  var inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap: $heap_type;
+
+  entry:
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    goto block6;
+
+  block6:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto anon28_Then, anon28_Else;
+
+  anon28_Else:
+    assume {:partition} in_r0 == fixed.$null;
+    call out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_2;
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  block8:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    out_i5 := out_i5 + 1;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto block8_dummy;
+
+  anon32_Then:
+    assume {:partition} out_$b4 == out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "thenblock"} true;
+    goto block8;
+
+  anon21:
+    out_$b3 := fixed.$intArrHeap[in_r1][out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon32_Then, anon32_Else;
+
+  anon32_Else:
+    assume {:partition} out_$b4 != out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "elseblock"} true;
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon31_Then:
+    assume {:partition} out_i5 < fixed.$arrSizeHeap[in_r1] && out_i5 >= 0;
+    out_$exception := out_$exception;
+    goto anon21;
+
+  anon18:
+    out_$b4 := fixed.$intArrHeap[in_r0][out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon31_Then, anon31_Else;
+
+  anon31_Else:
+    assume {:partition} !(out_i5 < fixed.$arrSizeHeap[in_r1] && out_i5 >= 0);
+    call out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_4;
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon30_Then:
+    assume {:partition} out_i5 < fixed.$arrSizeHeap[in_r0] && out_i5 >= 0;
+    out_$exception := out_$exception;
+    goto anon18;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto anon30_Then, anon30_Else;
+
+  anon30_Else:
+    assume {:partition} !(out_i5 < fixed.$arrSizeHeap[in_r0] && out_i5 >= 0);
+    call out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_3;
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon29_Else:
+    assume {:partition} out_$i2 > out_i5;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon12:
+    out_$i2 := fixed.$arrSizeHeap[in_r0];
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto anon29_Then, anon29_Else;
+
+  anon29_Then:
+    assume {:partition} out_i5 >= out_$i2;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "thenblock"} true;
+    out_$return, out_$exception, out_$b4, out_$b3, out_$fakelocal_3, out_$fakelocal_2, out_$i2, out_i5, out_$fakelocal_4 := in_$return, in_$exception, in_$b4, in_$b3, in_$fakelocal_3, in_$fakelocal_2, in_$i2, in_i5, in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon28_Then:
+    assume {:partition} in_r0 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon12;
+
+  block8_dummy:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return := out_$return;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception := out_$exception;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4 := out_$b4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3 := out_$b3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3 := out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2 := out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1 := in_r1;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2 := out_$i2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5 := out_i5;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0 := in_r0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4 := out_$fakelocal_4;
+    havoc inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$entry:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block6:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8:
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+   + 1;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8_dummy;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4
+   == inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon32_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4
+   != inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} {:comment "elseblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon21;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0][inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5];
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon31_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r1]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon18;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15:
+    assert {:sourceloc "PWCheck.java", 10, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon30_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0]
+   && inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+     >= 0);
+    call inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return := 0;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Else:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2
+   > inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon15;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12:
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Then, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Else;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon29_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5
+   >= inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 9, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$return, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$exception, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b4, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$b3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_3, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$i2, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_i5, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_$fakelocal_4;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$objIndex, inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$$heap;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon28_Then:
+    assume {:partition} inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$anon12;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$block8_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$exit:
+    goto inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return;
+
+  inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$Return:
+    out_$return := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$return;
+    out_$exception := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$exception;
+    out_$b4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b4;
+    out_$b3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$b3;
+    out_$fakelocal_3 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_3;
+    out_$fakelocal_2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_2;
+    out_$i2 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$i2;
+    out_i5 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_i5;
+    out_$fakelocal_4 := inline$PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block6$0$out_$fakelocal_4;
+    goto block8_dummy$1;
+
+  block8_dummy$1:
+    return;
+
+  exit:
+    return;
+}
+
+
+
+implementation unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11(in_$return: int, 
+    in_$exception: ref, 
+    in_$i2: int, 
+    in_$b5: int, 
+    in_$fakelocal_3: ref, 
+    in_$fakelocal_2: ref, 
+    in_$b4: int, 
+    in_$fakelocal_4: ref, 
+    in_r1: ref, 
+    in_$fakelocal_5: ref, 
+    in_$i3: int, 
+    in_i6: int, 
+    in_z0: int, 
+    in_r0: ref)
+   returns (out_$return: int, 
+    out_$exception: ref, 
+    out_$i2: int, 
+    out_$b5: int, 
+    out_$fakelocal_3: ref, 
+    out_$fakelocal_2: ref, 
+    out_$b4: int, 
+    out_$fakelocal_4: ref, 
+    out_$fakelocal_5: ref, 
+    out_$i3: int, 
+    out_i6: int, 
+    out_z0: int)
+{
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5: ref;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex: int;
+  var inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap: $heap_type;
+
+  entry:
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    goto block11;
+
+  block11:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto anon34_Then, anon34_Else;
+
+  anon34_Else:
+    assume {:partition} in_r0 == fixed.$null;
+    call out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_2;
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    out_i6 := out_i6 + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto block13_dummy;
+
+  anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto block13;
+
+  block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto block13;
+
+  anon37_Then:
+    assume {:partition} out_i6 >= out_$i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto block13;
+
+  anon18:
+    out_$i3 := fixed.$arrSizeHeap[in_r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto anon37_Then, anon37_Else;
+
+  anon36_Then:
+    assume {:partition} in_r1 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon18;
+
+  anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto anon36_Then, anon36_Else;
+
+  anon36_Else:
+    assume {:partition} in_r1 == fixed.$null;
+    call out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_3;
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon35_Else:
+    assume {:partition} out_$i2 > out_i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon15;
+
+  anon12:
+    out_$i2 := fixed.$arrSizeHeap[in_r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto anon35_Then, anon35_Else;
+
+  anon35_Then:
+    assume {:partition} out_i6 >= out_$i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon34_Then:
+    assume {:partition} in_r0 != fixed.$null;
+    out_$exception := out_$exception;
+    goto anon12;
+
+  anon40_Then:
+    assume {:partition} out_$b5 == out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto block14;
+
+  anon27:
+    out_$b4 := fixed.$intArrHeap[in_r1][out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon40_Then, anon40_Else;
+
+  anon39_Then:
+    assume {:partition} out_i6 < fixed.$arrSizeHeap[in_r1] && out_i6 >= 0;
+    out_$exception := out_$exception;
+    goto anon27;
+
+  anon24:
+    out_$b5 := fixed.$intArrHeap[in_r0][out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon39_Then, anon39_Else;
+
+  anon39_Else:
+    assume {:partition} !(out_i6 < fixed.$arrSizeHeap[in_r1] && out_i6 >= 0);
+    call out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_5;
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon38_Then:
+    assume {:partition} out_i6 < fixed.$arrSizeHeap[in_r0] && out_i6 >= 0;
+    out_$exception := out_$exception;
+    goto anon24;
+
+  anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto anon38_Then, anon38_Else;
+
+  anon38_Else:
+    assume {:partition} !(out_i6 < fixed.$arrSizeHeap[in_r0] && out_i6 >= 0);
+    call out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    out_$return := 0;
+    out_$exception := out_$fakelocal_4;
+    out_$return, out_$exception, out_$i2, out_$b5, out_$fakelocal_3, out_$fakelocal_2, out_$b4, out_$fakelocal_4, out_$fakelocal_5, out_$i3, out_i6, out_z0 := in_$return, in_$exception, in_$i2, in_$b5, in_$fakelocal_3, in_$fakelocal_2, in_$b4, in_$fakelocal_4, in_$fakelocal_5, in_$i3, in_i6, in_z0;
+    fixed.$objIndex, fixed.$heap := old(fixed.$objIndex), old(fixed.$heap);
+    return;
+
+  anon37_Else:
+    assume {:partition} out_$i3 > out_i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon21;
+
+  anon40_Else:
+    assume {:partition} out_$b5 != out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto anon30;
+
+  block13_dummy:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return := out_$return;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception := out_$exception;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2 := out_$i2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5 := out_$b5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3 := out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2 := out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4 := out_$b4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4 := out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1 := in_r1;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5 := out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3 := out_$i3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6 := out_i6;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0 := out_z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0 := in_r0;
+    havoc inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex := fixed.$objIndex;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap := fixed.$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   == fixed.$null;
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2 := fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   != fixed.$null;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   == inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24:
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5 := fixed.$intArrHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0][inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else:
+    assume {:partition} !(inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3
+   > inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else:
+    assume {:partition} inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   != inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy:
+    assume false;
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$exit:
+    goto inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return:
+    out_$return := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return;
+    out_$exception := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    out_$i2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    out_$b5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5;
+    out_$fakelocal_3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    out_$fakelocal_2 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    out_$b4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    out_$fakelocal_4 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    out_$fakelocal_5 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    out_$i3 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    out_i6 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    out_z0 := inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    goto block13_dummy$1;
+
+  block13_dummy$1:
+    return;
+
+  exit:
+    return;
+}
+
+
+
+type ref;
+
+type javaType;
+
+type Field _;
+
+type $heap_type = <$GenericType__0>[ref,Field $GenericType__0]$GenericType__0;
+
+type boolArrHeap_type = [ref][int]bool;
+
+type refArrHeap_type = [ref][int]ref;
+
+type realArrHeap_type = [ref][int]int;
+
+type intArrHeap_type = [ref][int]int;
+
+function _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_$exception(arg_0: ref, 
+    arg_1: int, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_fixed.java.lang.Boolean$$la$init$ra$$boolean_fixed.$heap(arg_0: ref, 
+    arg_1: int, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: Field int)
+   : $heap_type;
+
+function _uf_unsafe.java.lang.Boolean$$la$init$ra$$boolean_$exception(arg_0: ref, 
+    arg_1: int, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_unsafe.java.lang.Boolean$$la$init$ra$$boolean_fixed.$heap(arg_0: ref, 
+    arg_1: int, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: Field int)
+   : $heap_type;
+
+function _uf_fixed.java.lang.Object$$la$init$ra$$_$exception(arg_0: ref) : ref;
+
+function _uf_unsafe.java.lang.Object$$la$init$ra$$_$exception(arg_0: ref) : ref;
+
+function _uf_fixed.java.lang.Boolean$valueOf$boolean_$return(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_fixed.java.lang.Boolean$valueOf$boolean_$exception(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$objIndex(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : int;
+
+function _uf_fixed.java.lang.Boolean$valueOf$boolean_fixed.$heap(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : $heap_type;
+
+function _uf_unsafe.java.lang.Boolean$valueOf$boolean_$return(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_unsafe.java.lang.Boolean$valueOf$boolean_$exception(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : ref;
+
+function _uf_unsafe.java.lang.Boolean$valueOf$boolean_fixed.$objIndex(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : int;
+
+function _uf_unsafe.java.lang.Boolean$valueOf$boolean_fixed.$heap(arg_0: int, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: int, 
+    arg_5: Field int)
+   : $heap_type;
+
+function _uf_fixed.java.lang.Boolean$booleanValue$_$return(arg_0: ref, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: Field int)
+   : int;
+
+function _uf_fixed.java.lang.Boolean$booleanValue$_$exception(arg_0: ref, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: Field int)
+   : ref;
+
+function _uf_unsafe.java.lang.Boolean$booleanValue$_$return(arg_0: ref, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: Field int)
+   : int;
+
+function _uf_unsafe.java.lang.Boolean$booleanValue$_$exception(arg_0: ref, 
+    arg_1: $heap_type, 
+    arg_2: [ref]int, 
+    arg_3: [ref]int, 
+    arg_4: Field int)
+   : ref;
+
+function _uf_fixed.PWCheck$$la$init$ra$$_$exception(arg_0: ref, arg_1: $heap_type, arg_2: [ref]int, arg_3: [ref]int) : ref;
+
+function _uf_unsafe.PWCheck$$la$init$ra$$_$exception(arg_0: ref, arg_1: $heap_type, arg_2: [ref]int, arg_3: [ref]int) : ref;
+
+var Output_of_unsafe.PWCheck$$la$init$ra$$_$exception: ref;
+
+var Output_of_fixed.PWCheck$$la$init$ra$$_$exception: ref;
+
+function _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : int;
+
+function _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : ref;
+
+function _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : int;
+
+function _uf_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : $heap_type;
+
+function _uf_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : int;
+
+function _uf_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : ref;
+
+function _uf_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : int;
+
+function _uf_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type, 
+    arg_7: Field int)
+   : $heap_type;
+
+var Output_of_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return: int;
+
+var Output_of_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return: int;
+
+var Output_of_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception: ref;
+
+var Output_of_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception: ref;
+
+var Output_of_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex: int;
+
+var Output_of_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex: int;
+
+var Output_of_unsafe.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap: $heap_type;
+
+var Output_of_fixed.PWCheck$pwcheck1_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap: $heap_type;
+
+function _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : int;
+
+function _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : ref;
+
+function _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : int;
+
+function _uf_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : $heap_type;
+
+function _uf_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : int;
+
+function _uf_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : ref;
+
+function _uf_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : int;
+
+function _uf_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap(arg_0: ref, 
+    arg_1: ref, 
+    arg_2: $heap_type, 
+    arg_3: [ref]int, 
+    arg_4: [ref]int, 
+    arg_5: int, 
+    arg_6: intArrHeap_type)
+   : $heap_type;
+
+var Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return: int;
+
+var Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return: int;
+
+var Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception: ref;
+
+var Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception: ref;
+
+var Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex: int;
+
+var Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex: int;
+
+var Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap: $heap_type;
+
+var Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap: $heap_type;
+
+procedure PROC_.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed($in_parameter__0: ref, $in_parameter__1: ref)
+   returns (AA_TEMP130: bool, AA_TEMP131: bool, AA_TEMP132: bool, AA_TEMP133: bool);
+  modifies fixed.$objIndex, fixed.$heap, Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return, Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return, Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception, Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception, Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex, Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex, Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap, Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap;
+  ensures AA_TEMP133 && AA_TEMP132 && AA_TEMP131 && AA_TEMP130;
+
+
+
+implementation PROC_.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed($in_parameter__0: ref, $in_parameter__1: ref)
+   returns (AA_TEMP130: bool, AA_TEMP131: bool, AA_TEMP132: bool, AA_TEMP133: bool)
+{
+  var AA_TEMP120: int;
+  var AA_TEMP121: ref;
+  var AA_TEMP110: int;
+  var AA_TEMP111: $heap_type;
+  var AA_TEMP100: int;
+  var AA_TEMP101: $heap_type;
+  var $return: int;
+  var $exception: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap: $heap_type;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception: ref;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$objIndex: int;
+  var inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$heap: $heap_type;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap: $heap_type;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception: ref;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$objIndex: int;
+  var inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$heap: $heap_type;
+
+  AA_INSTR_EQ_BODY:
+    AA_TEMP100 := fixed.$objIndex;
+    AA_TEMP101 := fixed.$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Entry;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Entry:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0 := $in_parameter__0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1 := $in_parameter__1;
+    havoc inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$objIndex := fixed.$objIndex;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$heap := fixed.$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon0;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon3;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon3:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0];
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon6;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon6:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1];
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1
+   != inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon9;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon9:
+    assert {:sourceloc "PWCheck.java", 21, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block15;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block15:
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1
+   == inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0;
+    assert {:sourceloc "PWCheck.java", 20, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10:
+    assert {:sourceloc "PWCheck.java", 26, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := 0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11:
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Entry:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0;
+    havoc inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex := fixed.$objIndex;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap := fixed.$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$entry:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block11:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon18;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon36_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2
+   > inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon15;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon35_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+   >= inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon34_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon12;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   == inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block14;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4 := fixed.$intArrHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1][inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon27;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5 := fixed.$intArrHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0][inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon39_Else:
+    assume {:partition} !(inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r1]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon24;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon38_Else:
+    assume {:partition} !(inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_r0]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6
+     >= 0);
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$return, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$exception, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_2, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$b4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_4, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$fakelocal_5, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_$i3, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_i6, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$in_z0;
+    fixed.$objIndex, fixed.$heap := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$objIndex, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$$heap;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon37_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3
+   > inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon21;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon40_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5
+   != inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$anon30;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$block13_dummy:
+    assume false;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$exit:
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$Return:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$return;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$exception;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i2;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b5;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_3;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_2;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$b4;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_4;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$fakelocal_5;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_$i3;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_i6;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block11$0$out_z0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11$1;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11$1:
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11_last;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon12;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon12:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0];
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2
+   > inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon15;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon15:
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   == fixed.$null;
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   != fixed.$null;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon18;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon18:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3 := fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1];
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3
+   > inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon21;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon21:
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Else:
+    assume {:partition} !(inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0);
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon24;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon24:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5 := fixed.$intArrHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0][inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Else:
+    assume {:partition} !(inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0);
+    call inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1]
+   && inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon27;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon27:
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4 := fixed.$intArrHeap[inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1][inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6];
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Else:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5
+   != inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon30;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon30:
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := 0;
+    assert {:sourceloc "PWCheck.java", 30, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 + 1;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13_dummy;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5
+   == inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    assert {:sourceloc "PWCheck.java", 29, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block14;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block14:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+   >= inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3;
+    assert {:sourceloc "PWCheck.java", 28, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Then:
+    assume {:partition} inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+   >= inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2;
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block15;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13_dummy:
+    assume false;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11_last:
+    assert {:sourceloc "PWCheck.java", 27, -1, -1, -1} true;
+    goto inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Then, inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Else;
+
+  inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return:
+    assume true;
+    assume true;
+    assume true;
+    assume true;
+    $return := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return;
+    $exception := inline$unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto AA_INSTR_EQ_BODY$1;
+
+  AA_INSTR_EQ_BODY$1:
+    AA_TEMP110 := fixed.$objIndex;
+    AA_TEMP111 := fixed.$heap;
+    fixed.$objIndex := AA_TEMP100;
+    fixed.$heap := AA_TEMP101;
+    AA_TEMP120 := $return;
+    AA_TEMP121 := $exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Entry;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Entry:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0 := $in_parameter__0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1 := $in_parameter__1;
+    havoc inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$objIndex := fixed.$objIndex;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$fixed.$heap := fixed.$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon0;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon0:
+    assume (forall T: javaType :: fixed.$heap[fixed.$null, fixed.$type] <: T);
+    assume (forall _r: ref :: fixed.$arrSizeHeap[_r] >= 0);
+    assume (forall _r: ref :: fixed.$stringSizeHeap[_r] >= 0);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := fixed.$null;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__0;
+    assert {:sourceloc "PWCheck.java", -1, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$in_parameter__1;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_0;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon31_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon3;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon3:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0];
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_1;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon32_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon6;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon6:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1];
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1
+   != inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon9;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon9:
+    assert {:sourceloc "PWCheck.java", 32, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block14;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block14:
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon33_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i1
+   == inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i0;
+    assert {:sourceloc "PWCheck.java", 31, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block9;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block9:
+    assert {:sourceloc "PWCheck.java", 37, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := 0;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10:
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Entry:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5;
+    havoc inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex := fixed.$objIndex;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap := fixed.$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$entry:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block10:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon18;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon36_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2
+   > inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon15;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon35_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+   >= inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon34_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   == inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block13;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4 := fixed.$intArrHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1][inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon27;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5 := fixed.$intArrHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0][inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon39_Else:
+    assume {:partition} !(inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r1]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon24;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon38_Else:
+    assume {:partition} !(inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_r0]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6
+     >= 0);
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$return, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$exception, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_z0, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b5, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$b4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i2, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_i6, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_4, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$i3, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$in_$fakelocal_5;
+    fixed.$objIndex, fixed.$heap := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$objIndex, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$$heap;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon37_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3
+   > inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon21;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon40_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5
+   != inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$anon30;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$block12_dummy:
+    assume false;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$exit:
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$Return:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$return;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$exception;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_2;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_z0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_3;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b5;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$b4;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i2;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_i6;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_4;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$i3;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$inline$PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_loop_block10$0$out_$fakelocal_5;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10$1;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10$1:
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10_last;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_2;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon12:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0];
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2
+   > inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon15;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon15:
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   == fixed.$null;
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3 := fixed.$new(fixed.java.lang.NullPointerException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_3;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon36_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1
+   != fixed.$null;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon18;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon18:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3 := fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1];
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3
+   > inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon21;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon21:
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Else:
+    assume {:partition} !(inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0);
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_4;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon38_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon24;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon24:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5 := fixed.$intArrHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r0][inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Else:
+    assume {:partition} !(inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0);
+    call inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5 := fixed.$new(fixed.java.lang.ArrayIndexOutOfBoundsException);
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$fakelocal_5;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon39_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+     < fixed.$arrSizeHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1]
+   && inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 >= 0;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon27;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon27:
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4 := fixed.$intArrHeap[inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$r1][inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6];
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Else:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5
+   != inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "elseblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon30;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon30:
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0 := 0;
+    assert {:sourceloc "PWCheck.java", 41, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6 + 1;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12_dummy;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon40_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b5
+   == inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$b4;
+    assert {:sourceloc "PWCheck.java", 40, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block13:
+    assert {:sourceloc "PWCheck.java", 43, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon37_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+   >= inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i3;
+    assert {:sourceloc "PWCheck.java", 39, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon35_Then:
+    assume {:partition} inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$i6
+   >= inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$i2;
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} {:comment "thenblock"} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block11:
+    assert {:sourceloc "PWCheck.java", 50, -1, -1, -1} true;
+    inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$z0;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block14;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block12_dummy:
+    assume false;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$block10_last:
+    assert {:sourceloc "PWCheck.java", 38, -1, -1, -1} true;
+    goto inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Then, inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$anon34_Else;
+
+  inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$Return:
+    assume true;
+    assume true;
+    assume true;
+    assume true;
+    $return := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$return;
+    $exception := inline$fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$$0$$exception;
+    goto AA_INSTR_EQ_BODY$2;
+
+  AA_INSTR_EQ_BODY$2:
+    Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return := AA_TEMP120;
+    Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$return := $return;
+    Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception := AA_TEMP121;
+    Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_$exception := $exception;
+    Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex := AA_TEMP110;
+    Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$objIndex := fixed.$objIndex;
+    Output_of_unsafe.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap := AA_TEMP111;
+    Output_of_fixed.PWCheck$pwcheck2_unsafe$byte$lp$$rp$_byte$lp$$rp$_fixed.$heap := fixed.$heap;
+    havoc AA_TEMP130, AA_TEMP131, AA_TEMP132, AA_TEMP133;
+    AA_TEMP130, AA_TEMP131, AA_TEMP132, AA_TEMP133 := AA_TEMP130 || AA_TEMP120 == $return, AA_TEMP131 || AA_TEMP121 == $exception, AA_TEMP132 || fixed.$objIndex == fixed.$objIndex, AA_TEMP133
+   || (forall<_ty> r: ref, f: Field _ty :: 
+    fixed.$heap[r, f] == AA_TEMP111[r, f] || !old(fixed.$heap[r, fixed.$alloc]));
+    return;
+}
+
+

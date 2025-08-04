@@ -72,7 +72,7 @@ public class PasswordCredentials$Impl_ESTest_scaffolding {
   public static void setSystemProperties() {
  
     java.lang.System.setProperties((java.util.Properties) defaultProperties.clone()); 
-    java.lang.System.setProperty("user.dir", "/tmp/sc-fix/evaluation/subjects/themis_oacc_unsafe"); 
+    java.lang.System.setProperty("user.dir", "/home/haifeng/files/sc-fix/evaluation/subjects/themis_oacc_unsafe"); 
     java.lang.System.setProperty("java.io.tmpdir", "/tmp"); 
   }
 

@@ -1,0 +1,83 @@
+=> Compiling unsafe and fixed java files
++ make compile
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/QDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/MoreSanity_Array_FuzzDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Greedy.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_KDynamic.java -d bin
++ make compile_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/QDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/MoreSanity_Array_FuzzDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/sg/edu/nus/comp/tsunami/safe/Safe.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Greedy.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_KDynamic.java -d bin_fixed
+
+=> Copying class files to verification/
++ mkdir -p verification
++ cp -r bin verification/bin
++ cp -r bin_fixed verification/bin_fixed
+
+=> Removing unchanged class files
++ rm -f verification/bin_fixed/QDriver.class verification/bin/QDriver.class
++ rm -f verification/bin_fixed/Driver_Greedy.class verification/bin/Driver_Greedy.class
++ rm -f verification/bin_fixed/MoreSanity_Array_FuzzDriver.class verification/bin/MoreSanity_Array_FuzzDriver.class
++ rm -f verification/bin_fixed/Driver_KDynamic.class verification/bin/Driver_KDynamic.class
+
+=> Compiling stubs
++ mvn clean compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ my-app ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ my-app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/blazer_array_unsafe/stubs/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ my-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/blazer_array_unsafe/stubs/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.614 s
+[INFO] Finished at: 2024-07-04T21:28:30+08:00
+[INFO] ------------------------------------------------------------------------
+=> Copying stubs over
++ rsync -avz stubs/target/classes/fakejava verification/bin
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Integer.class
+
+sent 728 bytes  received 47 bytes  1,550.00 bytes/sec
+total size is 972  speedup is 1.25
++ rsync -avz stubs/target/classes/fakejava verification/bin_fixed
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Integer.class
+
+sent 728 bytes  received 47 bytes  1,550.00 bytes/sec
+total size is 972  speedup is 1.25
+
+=> Entering directory verification/\n
+=> Translating bytecode to Boogie with jar2bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin unsafe.bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin_fixed fixed.bpl
+
+=> Adding preconditions
++ sed -i '/\<procedure MoreSanity$array_unsafe$int$lp$$rp$_int\>/{:loop;n;/^[[:space:]]*$/s#$#free requires $arrSizeHeap[$in_parameter__0] > 0;free requires $in_parameter__0 != $null;#;t;b loop}' unsafe.bpl fixed.bpl
+
+=> Inferring verification config using Symdiff
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh infer unsafe.bpl fixed.bpl
+
+=> Diffing with Symdiff; results will be dumped to symdiff.log
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh diff unsafe.bpl fixed.bpl verify.cfg
+Leaving directory verification/
+
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,1387)
+
+Verification passed

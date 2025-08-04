@@ -278,7 +278,7 @@ public class DataSourceRealm extends RealmBase {
      *  authenticating this username
      * @return the associated principal, or <code>null</code> if there is none.
      */
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     protected Boolean /*authenticate_safe*/authenticate_unsafe(Connection dbConnection,
                                      String username,
                                      String credentials) {

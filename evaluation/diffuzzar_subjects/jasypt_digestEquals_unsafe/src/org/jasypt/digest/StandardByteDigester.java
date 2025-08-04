@@ -1038,7 +1038,7 @@ public final class StandardByteDigester implements ByteDigester {
      *         cannot be used).
      */
     public boolean matches(final byte[] message, final byte[] digest) {
-        return false;  // 
+        return false;  // RHf
     //     if (message == null) {
     //         return (digest == null);
     //     } else if (digest == null) {

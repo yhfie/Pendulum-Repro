@@ -24,7 +24,7 @@ fuzz_out_dir := fuzzer-out
 fuzz_out_dir_fixed := fuzzer-out_fixed
 
 kelinci_class := edu.cmu.sv.kelinci.Kelinci
-drivermain_class := pendulum.DriverMain
+drivermain_class := sg.edu.nus.comp.tsunami.DriverMain
 driver_class := QDriver
 driver_stem := $(subst .,/,$(driver_class))
 
@@ -43,8 +43,8 @@ javac := javac
 java := java
 
 instrumentor_class := edu.cmu.sv.kelinci.instrumentor.Instrumentor
-pendulum_class := pendulum.Pendulum
-helper_class := pendulum.safe.Safe
+pendulum_class := sg.edu.nus.comp.tsunami.Pendulum
+helper_class := sg.edu.nus.comp.tsunami.safe.Safe
 
 #### Help
 .DEFAULT_GOAL := help
@@ -93,11 +93,11 @@ testfuzz: instr  ## Test if compilation and instrumentation of original source c
 helper_stem := $(subst .,/,$(helper_class))
 helper_dir := $(dir $(helper_stem))
 repair:  ## Repair the timing side channel vulnerability in the original source code using Pendulum
-	$(java) -jar $(diffuzzar) $(src)/$(diffuzzar_driver_name) && \
-	rm -rf $(src_fixed) && \
-	python3 ../../scripts/DifFuzzTransform.py $(src) $(src_fixed) && \
-	rsync -av --ignore-existing $(src)/* $(src_fixed) >/dev/null && \
-	rm -f $(src_fixed)/$(diffuzzar_driver_name)
+	if [ "$$(make -f $(firstword $(MAKEFILE_LIST)) -q instr)" -ne 0 ]; then \
+        echo "WARNING: the binaries and instrumented binaries are not up to date."; \
+    fi
+	$(java) -jar $(diffuzzar) $(src)/$(diffuzzar_driver_name)
+	rsync -av --ignore-existing $(src)/* $(src_fixed) >/dev/null
 
 ##### Fuzzing
 

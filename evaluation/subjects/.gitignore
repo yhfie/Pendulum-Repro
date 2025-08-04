@@ -8,3 +8,4 @@
 /*/server.fix.log
 /*/evosuite-tests-bin
 .vscode/
+/*/stubs/target

@@ -25,7 +25,7 @@ public class AesEaxJce {
 	// 	return res;
 	// }
 
-	/* : multiply for a few times; otherwise, two clusters will be only one instruction apart */
+	/* Rhf: multiply for a few times; otherwise, two clusters will be only one instruction apart */
 	public static byte[] multiplyByX_exp_unsafe(final byte[] block, int n) {
 		byte[] res = null;
 		for (int i = 0; i < n; i++) {

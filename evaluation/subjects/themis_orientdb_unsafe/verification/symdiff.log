@@ -1,0 +1,231 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.security.MessageDigest$getInstance$java.lang.String and fixed.java.security.MessageDigest$getInstance$java.lang.String are equivalent
+Assuming unsafe.com.orientechnologies.common.log.OLogManager$instance$ and fixed.com.orientechnologies.common.log.OLogManager$instance$ are equivalent
+Assuming unsafe.com.orientechnologies.common.log.OLogManager$error$java.lang.Object_java.lang.String_java.lang.Throwable_java.lang.Object$lp$$rp$ and fixed.com.orientechnologies.common.log.OLogManager$error$java.lang.Object_java.lang.String_java.lang.Throwable_java.lang.Object$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.String$getBytes$java.lang.String and fixed.java.lang.String$getBytes$java.lang.String are equivalent
+Assuming unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ and fixed.java.security.MessageDigest$digest$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.String$toCharArray$ and fixed.java.lang.String$toCharArray$ are equivalent
+Assuming unsafe.java.lang.String$startsWith$java.lang.String and fixed.java.lang.String$startsWith$java.lang.String are equivalent
+Assuming unsafe.java.lang.String$substring$int and fixed.java.lang.String$substring$int are equivalent
+Assuming unsafe.java.lang.String$equals$java.lang.Object and fixed.java.lang.String$equals$java.lang.Object are equivalent
+Assuming unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String and fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$int and fixed.java.lang.StringBuilder$$la$init$ra$$int are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$char and fixed.java.lang.StringBuilder$append$char are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String are equivalent
+Assuming unsafe.java.lang.String$equalsIgnoreCase$java.lang.String and fixed.java.lang.String$equalsIgnoreCase$java.lang.String are equivalent
+Assuming unsafe.com.orientechnologies.orient.core.config.OGlobalConfiguration$getValueAsInteger$ and fixed.com.orientechnologies.orient.core.config.OGlobalConfiguration$getValueAsInteger$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$ are equivalent
+Assuming unsafe.com.orientechnologies.orient.core.exception.OConfigurationException$$la$init$ra$$java.lang.String and fixed.com.orientechnologies.orient.core.exception.OConfigurationException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.com.orientechnologies.common.exception.OException$wrapException$com.orientechnologies.common.exception.OException_java.lang.Throwable and fixed.com.orientechnologies.common.exception.OException$wrapException$com.orientechnologies.common.exception.OException_java.lang.Throwable are equivalent
+Assuming unsafe.java.security.SecureRandom$$la$init$ra$$ and fixed.java.security.SecureRandom$$la$init$ra$$ are equivalent
+Assuming unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ and fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$int and fixed.java.lang.StringBuilder$append$int are equivalent
+Assuming unsafe.java.lang.String$split$java.lang.String and fixed.java.lang.String$split$java.lang.String are equivalent
+Assuming unsafe.java.lang.Integer$parseInt$java.lang.String and fixed.java.lang.Integer$parseInt$java.lang.String are equivalent
+Assuming unsafe.java.security.MessageDigest$isEqual$byte$lp$$rp$_byte$lp$$rp$ and fixed.java.security.MessageDigest$isEqual$byte$lp$$rp$_byte$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$ and fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.util.Arrays$toString$byte$lp$$rp$ and fixed.java.util.Arrays$toString$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.util.Map$get$java.lang.Object and fixed.java.util.Map$get$java.lang.Object are equivalent
+Assuming unsafe.javax.crypto.spec.PBEKeySpec$$la$init$ra$$char$lp$$rp$_byte$lp$$rp$_int_int and fixed.javax.crypto.spec.PBEKeySpec$$la$init$ra$$char$lp$$rp$_byte$lp$$rp$_int_int are equivalent
+Assuming unsafe.javax.crypto.SecretKeyFactory$getInstance$java.lang.String and fixed.javax.crypto.SecretKeyFactory$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.SecretKeyFactory$generateSecret$java.security.spec.KeySpec and fixed.javax.crypto.SecretKeyFactory$generateSecret$java.security.spec.KeySpec are equivalent
+Assuming unsafe.java.security.Key$getEncoded$ and fixed.java.security.Key$getEncoded$ are equivalent
+Assuming unsafe.java.util.Map$put$java.lang.Object_java.lang.Object and fixed.java.util.Map$put$java.lang.Object_java.lang.Object are equivalent
+Assuming unsafe.com.orientechnologies.orient.core.exception.OSecurityException$$la$init$ra$$java.lang.String and fixed.com.orientechnologies.orient.core.exception.OSecurityException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$ and fixed.java.lang.String$$la$init$ra$$char$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.String$substring$int_int and fixed.java.lang.String$substring$int_int are equivalent
+Assuming unsafe.java.lang.Integer$parseInt$java.lang.String_int and fixed.java.lang.Integer$parseInt$java.lang.String_int are equivalent
+Assuming unsafe.com.orientechnologies.common.collection.OLRUCache$$la$init$ra$$int and fixed.com.orientechnologies.common.collection.OLRUCache$$la$init$ra$$int are equivalent
+Assuming unsafe.java.util.Collections$synchronizedMap$java.util.Map and fixed.java.util.Collections$synchronizedMap$java.util.Map are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getInstance$java.lang.String or fixed.java.security.MessageDigest$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.com.orientechnologies.common.log.OLogManager$instance$ or fixed.com.orientechnologies.common.log.OLogManager$instance$: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.com.orientechnologies.common.log.OLogManager$error$java.lang.Object_java.lang.String_java.lang.Throwable_java.lang.Object$lp$$rp$ or fixed.com.orientechnologies.common.log.OLogManager$error$java.lang.Object_java.lang.String_java.lang.Throwable_java.lang.Object$lp$$rp$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$$la$init$ra$$, fixed.OSecurityManager$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.java.lang.String$getBytes$java.lang.String or fixed.java.lang.String$getBytes$java.lang.String: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ or fixed.java.security.MessageDigest$digest$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$ or fixed.java.lang.String$$la$init$ra$$char$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$createHash$java.lang.String_java.lang.String and fixed.OSecurityManager$createHash$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$createHash$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [0.217788 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1643ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1643ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1643	0	0	0	7133	8	
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$byteArrayToHexStr$byte$lp$$rp$, fixed.OSecurityManager$byteArrayToHexStr$byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$instance$_EQ_unsafe__xx__fixed
+  [0.041944 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1486ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1486ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1486	0	0	0	8702	8	
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$isEqual_inline$byte$lp$$rp$_byte$lp$$rp$ and fixed.OSecurityManager$isEqual_inline$byte$lp$$rp$_byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$isEqual_inline$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.064369 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1521ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1521ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1521	0	0	0	10305	8	
+Missing procedure for unsafe.java.lang.String$toCharArray$ or fixed.java.lang.String$toCharArray$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$equals_inline$java.lang.String_java.lang.String, fixed.OSecurityManager$equals_inline$java.lang.String_java.lang.String
+Missing procedure for unsafe.java.lang.String$startsWith$java.lang.String or fixed.java.lang.String$startsWith$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.String$substring$int or fixed.java.lang.String$substring$int: skipping...
+Missing procedure for unsafe.com.orientechnologies.orient.core.exception.OConfigurationException$$la$init$ra$$java.lang.String or fixed.com.orientechnologies.orient.core.exception.OConfigurationException$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.com.orientechnologies.common.exception.OException$wrapException$com.orientechnologies.common.exception.OException_java.lang.Throwable or fixed.com.orientechnologies.common.exception.OException$wrapException$com.orientechnologies.common.exception.OException_java.lang.Throwable: skipping...
+Missing procedure for unsafe.java.lang.String$equals$java.lang.Object or fixed.java.lang.String$equals$java.lang.Object: skipping...
+Missing procedure for unsafe.java.lang.String$split$java.lang.String or fixed.java.lang.String$split$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String or fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.String$substring$int_int or fixed.java.lang.String$substring$int_int: skipping...
+Missing procedure for unsafe.java.lang.Integer$parseInt$java.lang.String_int or fixed.java.lang.Integer$parseInt$java.lang.String_int: skipping...
+Missing procedure for unsafe.java.lang.Integer$parseInt$java.lang.String or fixed.java.lang.Integer$parseInt$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$ or fixed.java.lang.StringBuilder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$java.lang.String or fixed.java.lang.StringBuilder$append$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$ or fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$toString$ or fixed.java.lang.StringBuilder$toString$: skipping...
+Missing procedure for unsafe.java.util.Arrays$toString$byte$lp$$rp$ or fixed.java.util.Arrays$toString$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$int or fixed.java.lang.StringBuilder$append$int: skipping...
+Missing procedure for unsafe.java.util.Map$get$java.lang.Object or fixed.java.util.Map$get$java.lang.Object: skipping...
+Missing procedure for unsafe.javax.crypto.spec.PBEKeySpec$$la$init$ra$$char$lp$$rp$_byte$lp$$rp$_int_int or fixed.javax.crypto.spec.PBEKeySpec$$la$init$ra$$char$lp$$rp$_byte$lp$$rp$_int_int: skipping...
+Missing procedure for unsafe.javax.crypto.SecretKeyFactory$getInstance$java.lang.String or fixed.javax.crypto.SecretKeyFactory$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.com.orientechnologies.orient.core.exception.OSecurityException$$la$init$ra$$java.lang.String or fixed.com.orientechnologies.orient.core.exception.OSecurityException$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.SecretKeyFactory$generateSecret$java.security.spec.KeySpec or fixed.javax.crypto.SecretKeyFactory$generateSecret$java.security.spec.KeySpec: skipping...
+Missing procedure for unsafe.java.security.Key$getEncoded$ or fixed.java.security.Key$getEncoded$: skipping...
+Missing procedure for unsafe.java.util.Map$put$java.lang.Object_java.lang.Object or fixed.java.util.Map$put$java.lang.Object_java.lang.Object: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$isEqual$byte$lp$$rp$_byte$lp$$rp$ or fixed.java.security.MessageDigest$isEqual$byte$lp$$rp$_byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$checkPassword_unsafe$java.lang.String_java.lang.String and fixed.OSecurityManager$checkPassword_unsafe$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$checkPassword_unsafe$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [1.368122 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 3396ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 3396ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	3396	0	0	0	13785	13	
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$createSHA256$java.lang.String, fixed.OSecurityManager$createSHA256$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$checkPasswordWithSalt$java.lang.String_java.lang.String_java.lang.String, fixed.OSecurityManager$checkPasswordWithSalt$java.lang.String_java.lang.String_java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$digestSHA256$java.lang.String, fixed.OSecurityManager$digestSHA256$java.lang.String
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$int or fixed.java.lang.StringBuilder$$la$init$ra$$int: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$char or fixed.java.lang.StringBuilder$append$char: skipping...
+Missing procedure for unsafe.java.lang.String$equalsIgnoreCase$java.lang.String or fixed.java.lang.String$equalsIgnoreCase$java.lang.String: skipping...
+Missing procedure for unsafe.com.orientechnologies.orient.core.config.OGlobalConfiguration$getValueAsInteger$ or fixed.com.orientechnologies.orient.core.config.OGlobalConfiguration$getValueAsInteger$: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$$la$init$ra$$ or fixed.java.security.SecureRandom$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ or fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$createHash$java.lang.String_java.lang.String_boolean and fixed.OSecurityManager$createHash$java.lang.String_java.lang.String_boolean
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$createHash$java.lang.String_java.lang.String_boolean_EQ_unsafe__xx__fixed
+  [1.141011 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 3254ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 3254ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	3254	0	0	0	17130	13	
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$createHashWithSalt$java.lang.String_int_java.lang.String, fixed.OSecurityManager$createHashWithSalt$java.lang.String_int_java.lang.String
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$createHashWithSalt$java.lang.String and fixed.OSecurityManager$createHashWithSalt$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$createHashWithSalt$java.lang.String_EQ_unsafe__xx__fixed
+  [0.330775 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2151ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2151ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2151	0	0	0	19379	13	
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$getPbkdf2$java.lang.String_byte$lp$$rp$_int_int_java.lang.String, fixed.OSecurityManager$getPbkdf2$java.lang.String_byte$lp$$rp$_int_int_java.lang.String
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$checkPasswordWithSalt$java.lang.String_java.lang.String and fixed.OSecurityManager$checkPasswordWithSalt$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$checkPasswordWithSalt$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [0.264591 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2144ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2144ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2144	0	0	0	21633	14	
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$hexToByteArray$java.lang.String, fixed.OSecurityManager$hexToByteArray$java.lang.String
+Missing procedure for unsafe.com.orientechnologies.common.collection.OLRUCache$$la$init$ra$$int or fixed.com.orientechnologies.common.collection.OLRUCache$$la$init$ra$$int: skipping...
+Missing procedure for unsafe.java.util.Collections$synchronizedMap$java.util.Map or fixed.java.util.Collections$synchronizedMap$java.util.Map: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.OSecurityManager$$la$clinit$ra$$ and fixed.OSecurityManager$$la$clinit$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.OSecurityManager$$la$clinit$ra$$_EQ_unsafe__xx__fixed
+  [0.068875 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1737ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1737ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1737	0	0	0	23468	14	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$isEqual_inline$byte$lp$$rp$_byte$lp$$rp$_loop_block13, fixed.OSecurityManager$isEqual_inline$byte$lp$$rp$_byte$lp$$rp$_loop_block13
+ERROR: Failed to add postconditions to unsafe.OSecurityManager$equals_inline$java.lang.String_java.lang.String_loop_block19 and fixed.OSecurityManager$equals_inline$java.lang.String_java.lang.String_loop_block19
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$equals_inline$java.lang.String_java.lang.String_loop_block19, fixed.OSecurityManager$equals_inline$java.lang.String_java.lang.String_loop_block19
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$byteArrayToHexStr$byte$lp$$rp$_loop_block51, fixed.OSecurityManager$byteArrayToHexStr$byte$lp$$rp$_loop_block50
+nonmodular mode: Skipping non-root nodes unsafe.OSecurityManager$hexToByteArray$java.lang.String_loop_block58, fixed.OSecurityManager$hexToByteArray$java.lang.String_loop_block57
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (8,0,0,0,23470)

@@ -1,0 +1,25 @@
++++ dirname -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh
+++ cd -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
+++ pwd
++ SCRIPT_DIR=/home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
++ '[' trans_no_stub == infer ']'
++ '[' trans_no_stub == diff ']'
++ '[' trans_no_stub == extract ']'
++ '[' trans_no_stub == trans ']'
++ '[' trans_no_stub == trans_no_stub ']'
++ shift
+++ basename unsafe.bpl .bpl
++ raw=unsafer.bpl
++ java -jar /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/jar2bpl.jar -debug-mode -err -j ../verification/bin -b unsafer.bpl
+[root] - Running soot with  -keep-line-number -pp -f jimple -d ./dump -allow-phantom-refs -cp /home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/rt.jar:/home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/jce.jar: -src-prec class -process-path ../verification/bin
+Soot started on Thu Jul 04 21:30:07 SGT 2024
+Warning: org.eclipse.jdt.core.compiler.CategorizedProblem is a phantom class!
+Transforming Sanity... 
+Writing to ./dump/Sanity.jimple
+Soot finished on Thu Jul 04 21:30:07 SGT 2024
+Soot has run for 0 min. 0 sec.
+[root] - Done parsing.
++ '[' == -noExtractLoops ']'
+/home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh: line 47: [: ==: unary operator expected
++ mono /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff/Sources/SymDiff/bin/x86/Debug/SymDiff.exe -extractLoops unsafer.bpl unsafe.bpl
++ sed -i -E '/java.lang.Class: javaType/{s#.*#//\0#}' unsafer.bpl unsafe.bpl

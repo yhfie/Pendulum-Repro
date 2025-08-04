@@ -2,7 +2,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-import pendulum.AbstractQDriver;
+import sg.edu.nus.comp.tsunami.AbstractQDriver;
 
 public class QDriver extends AbstractQDriver {
 	public static final int MAX_PASSWORD_LENGTH = 16; // bytes

@@ -1,0 +1,209 @@
+Added org.apache.shiro.authc.credential.DefaultPasswordService$$la$init$ra$$ to syntacticEqProcs
+Added org.apache.shiro.authc.credential.DefaultPasswordService$encryptPassword$java.lang.Object to syntacticEqProcs
+Added org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch_unsafe$java.lang.Object_org.apache.shiro.crypto.hash.Hash to syntacticEqProcs
+Added org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch$java.lang.Object_java.lang.String to syntacticEqProcs
+Added org.apache.shiro.authc.credential.DefaultPasswordService$$la$clinit$ra$$ to syntacticEqProcs
+Added org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object to forceCheckProcs
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.DefaultHashService$$la$init$ra$$ and fixed.org.apache.shiro.crypto.hash.DefaultHashService$$la$init$ra$$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setHashAlgorithmName$java.lang.String and fixed.org.apache.shiro.crypto.hash.DefaultHashService$setHashAlgorithmName$java.lang.String are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setHashIterations$int and fixed.org.apache.shiro.crypto.hash.DefaultHashService$setHashIterations$int are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setGeneratePublicSalt$boolean and fixed.org.apache.shiro.crypto.hash.DefaultHashService$setGeneratePublicSalt$boolean are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.format.Shiro1CryptFormat$$la$init$ra$$ and fixed.org.apache.shiro.crypto.hash.format.Shiro1CryptFormat$$la$init$ra$$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.format.DefaultHashFormatFactory$$la$init$ra$$ and fixed.org.apache.shiro.crypto.hash.format.DefaultHashFormatFactory$$la$init$ra$$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.format.HashFormat$format$org.apache.shiro.crypto.hash.Hash and fixed.org.apache.shiro.crypto.hash.format.HashFormat$format$org.apache.shiro.crypto.hash.Hash are equivalent
+Assuming unsafe.org.apache.shiro.util.ByteSource$isEmpty$ and fixed.org.apache.shiro.util.ByteSource$isEmpty$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashService$computeHash$org.apache.shiro.crypto.hash.HashRequest and fixed.org.apache.shiro.crypto.hash.HashService$computeHash$org.apache.shiro.crypto.hash.HashRequest are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.Hash$isEmpty$ and fixed.org.apache.shiro.crypto.hash.Hash$isEmpty$ are equivalent
+Assuming unsafe.java.lang.Object$toString$ and fixed.java.lang.Object$toString$ are equivalent
+Assuming unsafe.org.slf4j.Logger$isWarnEnabled$ and fixed.org.slf4j.Logger$isWarnEnabled$ are equivalent
+Assuming unsafe.java.lang.Object$getClass$ and fixed.java.lang.Object$getClass$ are equivalent
+Assuming unsafe.java.lang.Class$getName$ and fixed.java.lang.Class$getName$ are equivalent
+Assuming unsafe.java.lang.Class$getSimpleName$ and fixed.java.lang.Class$getSimpleName$ are equivalent
+Assuming unsafe.org.slf4j.Logger$warn$java.lang.String and fixed.org.slf4j.Logger$warn$java.lang.String are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$$la$init$ra$$ and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$$la$init$ra$$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setSource$org.apache.shiro.util.ByteSource and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setSource$org.apache.shiro.util.ByteSource are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$build$ and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$build$ are equivalent
+Assuming unsafe.org.apache.shiro.util.ByteSource$Util$bytes$java.lang.Object and fixed.org.apache.shiro.util.ByteSource$Util$bytes$java.lang.Object are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.format.HashFormatFactory$getInstance$java.lang.String and fixed.org.apache.shiro.crypto.hash.format.HashFormatFactory$getInstance$java.lang.String are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.format.ParsableHashFormat$parse$java.lang.String and fixed.org.apache.shiro.crypto.hash.format.ParsableHashFormat$parse$java.lang.String are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.Hash$getAlgorithmName$ and fixed.org.apache.shiro.crypto.hash.Hash$getAlgorithmName$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setAlgorithmName$java.lang.String and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setAlgorithmName$java.lang.String are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.Hash$getSalt$ and fixed.org.apache.shiro.crypto.hash.Hash$getSalt$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setSalt$org.apache.shiro.util.ByteSource and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setSalt$org.apache.shiro.util.ByteSource are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.Hash$getIterations$ and fixed.org.apache.shiro.crypto.hash.Hash$getIterations$ are equivalent
+Assuming unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setIterations$int and fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setIterations$int are equivalent
+Assuming unsafe.org.slf4j.LoggerFactory$getLogger$java.lang.Class and fixed.org.slf4j.LoggerFactory$getLogger$java.lang.Class are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.DefaultHashService$$la$init$ra$$ or fixed.org.apache.shiro.crypto.hash.DefaultHashService$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setHashAlgorithmName$java.lang.String or fixed.org.apache.shiro.crypto.hash.DefaultHashService$setHashAlgorithmName$java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setHashIterations$int or fixed.org.apache.shiro.crypto.hash.DefaultHashService$setHashIterations$int: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.DefaultHashService$setGeneratePublicSalt$boolean or fixed.org.apache.shiro.crypto.hash.DefaultHashService$setGeneratePublicSalt$boolean: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.format.Shiro1CryptFormat$$la$init$ra$$ or fixed.org.apache.shiro.crypto.hash.format.Shiro1CryptFormat$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.format.DefaultHashFormatFactory$$la$init$ra$$ or fixed.org.apache.shiro.crypto.hash.format.DefaultHashFormatFactory$$la$init$ra$$: skipping...
+Syntactically equivalent:: Skipping procedure org.apache.shiro.authc.credential.DefaultPasswordService$$la$init$ra$$...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.org.apache.shiro.util.ByteSource$Util$bytes$java.lang.Object or fixed.org.apache.shiro.util.ByteSource$Util$bytes$java.lang.Object: skipping...
+Missing procedure for unsafe.org.apache.shiro.util.ByteSource$isEmpty$ or fixed.org.apache.shiro.util.ByteSource$isEmpty$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$$la$init$ra$$ or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setSource$org.apache.shiro.util.ByteSource or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setSource$org.apache.shiro.util.ByteSource: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$build$ or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$build$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashService$computeHash$org.apache.shiro.crypto.hash.HashRequest or fixed.org.apache.shiro.crypto.hash.HashService$computeHash$org.apache.shiro.crypto.hash.HashRequest: skipping...
+Missing procedure for unsafe.org.slf4j.Logger$isWarnEnabled$ or fixed.org.slf4j.Logger$isWarnEnabled$: skipping...
+Missing procedure for unsafe.java.lang.Object$getClass$ or fixed.java.lang.Object$getClass$: skipping...
+Missing procedure for unsafe.java.lang.Class$getName$ or fixed.java.lang.Class$getName$: skipping...
+Missing procedure for unsafe.java.lang.Class$getSimpleName$ or fixed.java.lang.Class$getSimpleName$: skipping...
+Missing procedure for unsafe.org.slf4j.Logger$warn$java.lang.String or fixed.org.slf4j.Logger$warn$java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.format.HashFormat$format$org.apache.shiro.crypto.hash.Hash or fixed.org.apache.shiro.crypto.hash.format.HashFormat$format$org.apache.shiro.crypto.hash.Hash: skipping...
+Syntactically equivalent:: Skipping procedure org.apache.shiro.authc.credential.DefaultPasswordService$encryptPassword$java.lang.Object...
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$hashPassword$java.lang.Object, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$hashPassword$java.lang.Object
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$checkHashFormatDurability$, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$checkHashFormatDurability$
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$createByteSource$java.lang.Object, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$createByteSource$java.lang.Object
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$createHashRequest$org.apache.shiro.util.ByteSource, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$createHashRequest$org.apache.shiro.util.ByteSource
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch$java.lang.Object_org.apache.shiro.crypto.hash.Hash, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch$java.lang.Object_org.apache.shiro.crypto.hash.Hash
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.Hash$isEmpty$ or fixed.org.apache.shiro.crypto.hash.Hash$isEmpty$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.Hash$getAlgorithmName$ or fixed.org.apache.shiro.crypto.hash.Hash$getAlgorithmName$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setAlgorithmName$java.lang.String or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setAlgorithmName$java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.Hash$getSalt$ or fixed.org.apache.shiro.crypto.hash.Hash$getSalt$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setSalt$org.apache.shiro.util.ByteSource or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setSalt$org.apache.shiro.util.ByteSource: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.Hash$getIterations$ or fixed.org.apache.shiro.crypto.hash.Hash$getIterations$: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.HashRequest$Builder$setIterations$int or fixed.org.apache.shiro.crypto.hash.HashRequest$Builder$setIterations$int: skipping...
+Missing procedure for unsafe.java.lang.Object$toString$ or fixed.java.lang.Object$toString$: skipping...
+Syntactically equivalent:: Skipping procedure org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch_unsafe$java.lang.Object_org.apache.shiro.crypto.hash.Hash...
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$buildHashRequest$org.apache.shiro.util.ByteSource_org.apache.shiro.crypto.hash.Hash, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$buildHashRequest$org.apache.shiro.util.ByteSource_org.apache.shiro.crypto.hash.Hash
+nonmodular mode: Forcing the check of non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object and fixed.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object_EQ_unsafe__xx__fixed
+  [0.339907 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1282ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1282ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1282	0	0	0	4396	14	
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.format.HashFormatFactory$getInstance$java.lang.String or fixed.org.apache.shiro.crypto.hash.format.HashFormatFactory$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.shiro.crypto.hash.format.ParsableHashFormat$parse$java.lang.String or fixed.org.apache.shiro.crypto.hash.format.ParsableHashFormat$parse$java.lang.String: skipping...
+Syntactically equivalent:: Skipping procedure org.apache.shiro.authc.credential.DefaultPasswordService$passwordsMatch$java.lang.Object_java.lang.String...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$getHashService$_EQ_unsafe__xx__fixed
+  [0.030809 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 940ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 940ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	940	0	0	0	5390	14	
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$setHashService$org.apache.shiro.crypto.hash.HashService and fixed.org.apache.shiro.authc.credential.DefaultPasswordService$setHashService$org.apache.shiro.crypto.hash.HashService
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$setHashService$org.apache.shiro.crypto.hash.HashService_EQ_unsafe__xx__fixed
+  [0.028504 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 906ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 906ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	906	0	0	0	6350	14	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$getHashFormat$_EQ_unsafe__xx__fixed
+  [0.029806 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 902ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 902ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	902	0	0	0	7307	14	
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormat$org.apache.shiro.crypto.hash.format.HashFormat and fixed.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormat$org.apache.shiro.crypto.hash.format.HashFormat
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormat$org.apache.shiro.crypto.hash.format.HashFormat_EQ_unsafe__xx__fixed
+  [0.030288 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 924ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 924ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	924	0	0	0	8285	14	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$getHashFormatFactory$_EQ_unsafe__xx__fixed
+  [0.029665 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 925ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 925ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	925	0	0	0	9264	14	
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormatFactory$org.apache.shiro.crypto.hash.format.HashFormatFactory and fixed.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormatFactory$org.apache.shiro.crypto.hash.format.HashFormatFactory
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.apache.shiro.authc.credential.DefaultPasswordService$setHashFormatFactory$org.apache.shiro.crypto.hash.format.HashFormatFactory_EQ_unsafe__xx__fixed
+  [0.060559 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 933ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 933ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	933	0	0	0	10252	14	
+Missing procedure for unsafe.org.slf4j.LoggerFactory$getLogger$java.lang.Class or fixed.org.slf4j.LoggerFactory$getLogger$java.lang.Class: skipping...
+Syntactically equivalent:: Skipping procedure org.apache.shiro.authc.credential.DefaultPasswordService$$la$clinit$ra$$...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$$la$init$ra$$, fixed.java.lang.StringBuilder$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$append$java.lang.String, fixed.java.lang.StringBuilder$append$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$toString$, fixed.java.lang.StringBuilder$toString$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$, fixed.java.lang.String$$la$init$ra$$char$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$charAt$int, fixed.java.lang.String$charAt$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$equals$java.lang.Object, fixed.java.lang.String$equals$java.lang.Object
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+ERROR: Failed to add postconditions to unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object_loop_block17 and fixed.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object_loop_block17
+nonmodular mode: Skipping non-root nodes unsafe.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object_loop_block17, fixed.org.apache.shiro.authc.credential.DefaultPasswordService$jdkStringEquals$java.lang.Object_java.lang.Object_loop_block17
+Could not find the procedure unsafe.java.lang.StringBuilder$append$java.lang.String_loop_block45 in the config file....skipping
+Could not find the procedure unsafe.java.lang.StringBuilder$append$java.lang.String_loop_block43 in the config file....skipping
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$equals$java.lang.Object_loop_block55, fixed.java.lang.String$equals$java.lang.Object_loop_block54
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (7,0,0,0,10255)

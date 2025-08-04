@@ -1,4 +1,4 @@
-import pendulum.AbstractQDriver;
+import sg.edu.nus.comp.tsunami.AbstractQDriver;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -101,7 +101,7 @@ public class QDriver extends AbstractQDriver {
 
 	@Override
 	public Object publicFromString(String publicValue) {
-		/* : strings generated in `parseInput` are supposed to
+		/* Rhf: strings generated in `parseInput` are supposed to
 		contain only non-whitespace chars */
 		return publicValue.split(" ");
 	}

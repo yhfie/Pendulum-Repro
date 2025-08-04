@@ -31,7 +31,7 @@ class Sanity {
 	// }
 	// return false;
     // }
-	/* : this is indeed the developer fix */
+	/* Rhf: this is indeed the developer fix */
     public static boolean /*straightline_safe*/straightline_unsafe(int a, int b) {
 	int x=a, y=b;
 	if(a>0 && b>0) {

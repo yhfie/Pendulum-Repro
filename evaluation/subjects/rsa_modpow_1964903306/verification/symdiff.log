@@ -1,0 +1,128 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Math$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.144636 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 551ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 551ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	551	0	0	0	2585	4	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Math$min$int_int_EQ_unsafe__xx__fixed
+  [0.027119 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 430ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 430ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	430	0	0	0	3039	5	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Math$log$double, fixed.java.lang.Math$log$double
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.021128 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 433ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 433ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	433	0	0	0	3496	5	
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.String$charAt$int and fixed.java.lang.String$charAt$int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$charAt$int_EQ_unsafe__xx__fixed
+  [0.032525 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 450ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 450ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	450	0	0	0	3971	8	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$$la$init$ra$$int, fixed.java.lang.Integer$$la$init$ra$$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$valueOf$int, fixed.java.lang.Integer$valueOf$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$intValue$, fixed.java.lang.Integer$intValue$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$compareTo$java.lang.Integer, fixed.java.lang.Integer$compareTo$java.lang.Integer
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Integer$compareTo$java.lang.Object and fixed.java.lang.Integer$compareTo$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$compareTo$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.032164 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 467ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 467ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	467	0	0	0	4462	8	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.modpow.SimplifiedRSA$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.023001 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 449ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 449ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	449	0	0	0	4936	8	
+Automatically ignoring $objIndex and new heap allocation for unsafe.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int and fixed.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int_EQ_unsafe__xx__fixed
+  [0.819841 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1532ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1532ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1532	0	0	0	6493	10	
+ERROR: Failed to add postconditions to unsafe.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int_loop_block19 and fixed.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int_loop_block19
+nonmodular mode: Skipping non-root nodes unsafe.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int_loop_block19, fixed.modpow.SimplifiedRSA$modPowFastKocherReduction$int_int_int_int_loop_block19
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (7,0,0,0,6493)

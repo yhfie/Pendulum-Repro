@@ -1,5 +1,5 @@
 package org.apache.shiro.authc.credential;
-// import ByteSource.Util;  // : commented out to make DifFuzzAR compile
+// import ByteSource.Util;  // Rhf: commented out to make DifFuzzAR compile
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-// : begin importing to make DifFuzzAR compile
+// Rhf: begin importing to make DifFuzzAR compile
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Hash;
 import org.apache.shiro.crypto.hash.HashRequest;
@@ -19,7 +19,7 @@ import org.apache.shiro.crypto.hash.format.*;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-// : end importing
+// Rhf: end importing
 
 public class DefaultPasswordService implements HashingPasswordService {
     public static final String DEFAULT_HASH_ALGORITHM = "SHA-256";
@@ -142,7 +142,7 @@ public class DefaultPasswordService implements HashingPasswordService {
 
     protected ByteSource createByteSource(Object o) {
         // return Util.bytes(o);
-        return ByteSource.Util.bytes(o);  // : added this to make DifFuzzAR compile
+        return ByteSource.Util.bytes(o);  // Rhf: added this to make DifFuzzAR compile
     }
 
     public boolean passwordsMatch(Object submittedPlaintext, String saved) {

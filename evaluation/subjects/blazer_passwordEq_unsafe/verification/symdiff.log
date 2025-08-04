@@ -1,0 +1,81 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Math$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.146828 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 336ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 336ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	336	0	0	0	1024	4	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Math$min$int_int, fixed.java.lang.Math$min$int_int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.020309 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 196ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 196ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	196	0	0	0	1232	5	
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$charAt$int, fixed.java.lang.String$charAt$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.User$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.018678 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 194ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 194ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	194	0	0	0	1445	8	
+Automatically ignoring $objIndex and new heap allocation for unsafe.User$passwordsEqual_unsafe$java.lang.String_java.lang.String and fixed.User$passwordsEqual_unsafe$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.User$passwordsEqual_unsafe$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [0.226253 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 571ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 571ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	571	0	0	0	2029	9	
+ERROR: Failed to add postconditions to unsafe.User$passwordsEqual_unsafe$java.lang.String_java.lang.String_loop_block12 and fixed.User$passwordsEqual_unsafe$java.lang.String_java.lang.String_loop_block63
+nonmodular mode: Skipping non-root nodes unsafe.User$passwordsEqual_unsafe$java.lang.String_java.lang.String_loop_block12, fixed.User$passwordsEqual_unsafe$java.lang.String_java.lang.String_loop_block63
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (4,0,0,0,2030)

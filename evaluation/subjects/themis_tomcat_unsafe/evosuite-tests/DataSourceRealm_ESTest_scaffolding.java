@@ -75,8 +75,8 @@ public class DataSourceRealm_ESTest_scaffolding {
     java.lang.System.setProperties((java.util.Properties) defaultProperties.clone()); 
     java.lang.System.setProperty("sun.management.compiler", "HotSpot 64-Bit Tiered Compilers"); 
     java.lang.System.setProperty("file.encoding", "UTF-8"); 
-    java.lang.System.setProperty("user.home", "/tmp"); 
-    java.lang.System.setProperty("user.dir", "/tmp/sc-fix/evaluation/subjects/themis_tomcat_unsafe"); 
+    java.lang.System.setProperty("user.home", "/home/haifeng"); 
+    java.lang.System.setProperty("user.dir", "/home/haifeng/files/sc-fix/evaluation/subjects/themis_tomcat_unsafe"); 
     java.lang.System.setProperty("user.language", "en"); 
     java.lang.System.setProperty("user.country", "US"); 
     java.lang.System.setProperty("java.io.tmpdir", "/tmp"); 

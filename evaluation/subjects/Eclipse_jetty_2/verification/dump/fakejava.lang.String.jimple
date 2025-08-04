@@ -1,0 +1,33 @@
+public class fakejava.lang.String extends java.lang.Object
+{
+    char[] chars;
+
+    public void <init>()
+    {
+        fakejava.lang.String r0;
+
+        r0 := @this: fakejava.lang.String;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public char charAt(int)
+    {
+        fakejava.lang.String r0;
+        int i0;
+        char[] $r1;
+        char $c1;
+
+        r0 := @this: fakejava.lang.String;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<fakejava.lang.String: char[] chars>;
+
+        $c1 = $r1[i0];
+
+        return $c1;
+    }
+}

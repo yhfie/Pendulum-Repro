@@ -35,7 +35,7 @@ class MoreSanity {
         return false;
     }
 
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static boolean /*loopAndbranch_safe*/loopAndbranch_unsafe(int a, int taint) {
         int i = a;
 

@@ -23,7 +23,7 @@ public class K96 {
     //     return r;
     // }
     
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static BigInteger /*modular_exponentiation_safe*/modular_exponentiation_unsafe(BigInteger y, BigInteger x, BigInteger n, int w) {
         BigInteger s = BigInteger.ONE;
         // int w = x.bitLength();

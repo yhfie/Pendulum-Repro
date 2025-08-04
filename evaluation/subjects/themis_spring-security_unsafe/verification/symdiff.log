@@ -1,0 +1,150 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.io.PrintStream$println$java.lang.String and fixed.java.io.PrintStream$println$java.lang.String are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.PasswordEncoderUtils$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.144166 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 432ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 432ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	432	0	0	0	1369	4	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.java.io.PrintStream$println$java.lang.String or fixed.java.io.PrintStream$println$java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.PasswordEncoderUtils$equals_unsafe$java.lang.String_java.lang.String and fixed.PasswordEncoderUtils$equals_unsafe$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.PasswordEncoderUtils$equals_unsafe$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [0.203374 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 604ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 604ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	604	0	0	0	2040	11	
+nonmodular mode: Skipping non-root nodes unsafe.PasswordEncoderUtils$bytesUtf8$java.lang.String, fixed.PasswordEncoderUtils$bytesUtf8$java.lang.String
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.StringBuilder$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.02597 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 321ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 321ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	321	0	0	0	2382	11	
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.StringBuilder$append$java.lang.String_EQ_unsafe__xx__fixed
+  [0.059167 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 403ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 403ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	403	0	0	0	2805	11	
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.StringBuilder$toString$_EQ_unsafe__xx__fixed
+  [0.056781 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 379ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 379ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	379	0	0	0	3206	11	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$, fixed.java.lang.String$$la$init$ra$$char$lp$$rp$
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$ and fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$$la$init$ra$$byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.042904 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 359ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 359ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	359	0	0	0	3587	11	
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.String$charAt$int and fixed.java.lang.String$charAt$int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$charAt$int_EQ_unsafe__xx__fixed
+  [0.028245 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 347ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 347ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	347	0	0	0	3956	11	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$getBytes$java.lang.String, fixed.java.lang.String$getBytes$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$getBytes$, fixed.java.lang.String$getBytes$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$format$java.lang.String_java.lang.Object$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.026275 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 360ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 360ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	360	0	0	0	4338	11	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+nonmodular mode: Skipping non-root nodes unsafe.PasswordEncoderUtils$equals_unsafe$java.lang.String_java.lang.String_loop_block7, fixed.PasswordEncoderUtils$equals_unsafe$java.lang.String_java.lang.String_loop_block6
+Could not find the procedure unsafe.java.lang.StringBuilder$append$java.lang.String_loop_block21 in the config file....skipping
+Could not find the procedure unsafe.java.lang.StringBuilder$append$java.lang.String_loop_block19 in the config file....skipping
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$_loop_block25, fixed.java.lang.String$$la$init$ra$$char$lp$$rp$_loop_block24
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$_loop_block28, fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$_loop_block27
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$getBytes$_loop_block33, fixed.java.lang.String$getBytes$_loop_block32
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (8,0,0,0,4342)

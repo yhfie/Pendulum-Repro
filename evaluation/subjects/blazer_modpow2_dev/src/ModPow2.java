@@ -8,7 +8,7 @@ public class ModPow2 {
  */
     
     //top-level modPow method: replaced the fastMultiply with BigInteger standard multiply
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static BigInteger /*modPow2_safe*/modPow2_unsafe(BigInteger base, BigInteger exponent, BigInteger modulus, int width) {
         BigInteger r0 = BigInteger.valueOf(1);
         BigInteger r1 = base;

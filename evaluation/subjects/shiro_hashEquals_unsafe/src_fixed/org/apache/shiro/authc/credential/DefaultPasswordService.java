@@ -18,7 +18,7 @@
  */
 package org.apache.shiro.authc.credential;
 
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 
 
@@ -46,7 +46,7 @@ public class DefaultPasswordService implements HashingPasswordService {
 
     public static final String DEFAULT_HASH_ALGORITHM = "SHA-256";
     // public static final int DEFAULT_HASH_ITERATIONS = 500000; //500,000
-    public static final int DEFAULT_HASH_ITERATIONS = 500; // : make this smaller to save some time
+    public static final int DEFAULT_HASH_ITERATIONS = 500; // Rhf: make this smaller to save some time
 
     private static final Logger log = LoggerFactory.getLogger(DefaultPasswordService.class);
 
@@ -85,7 +85,7 @@ public class DefaultPasswordService implements HashingPasswordService {
     }
 
     public boolean passwordsMatch(Object plaintext, Hash saved) {
-        return false;  // 
+        return false;  // RHf
         // ByteSource plaintextBytes = createByteSource(plaintext);
 
         // if (saved == null || saved.isEmpty()) {

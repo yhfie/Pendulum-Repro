@@ -85,7 +85,7 @@ public final class TokenHandler {
         return null;
     }
 
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     public static boolean /*isEqual*/unsafe_isEqual(byte[] a, byte[] b) {
         if (a.length != b.length) {
             return false;

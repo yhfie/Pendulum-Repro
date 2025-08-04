@@ -1,0 +1,160 @@
+public class SimplifiedUsernameTokenValidatorImpl extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        SimplifiedUsernameTokenValidatorImpl r0;
+
+        r0 := @this: SimplifiedUsernameTokenValidatorImpl;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static boolean unsafe_String_equals(java.lang.String, java.lang.Object)
+    {
+        java.lang.String r0, r2;
+        java.lang.Object r1, $r7, $r11, $r15, $r17, $r21;
+        char[] r3, r4;
+        boolean z0, $z1, $z2, $z3, z4, z5;
+        java.lang.Boolean $r5, $r6, $r8, $r9, $r10, $r12, $r13, $r14, $r16, $r18, $r19, $r20, $r22;
+        int $i0, $i1, i6, i7;
+        char $c2, $c3;
+        long $l4, $l5;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: java.lang.Object;
+
+        z4 = 0;
+
+        z5 = 0;
+
+        if r0 != r1 goto label1;
+
+        return 1;
+
+     label1:
+        $z1 = r1 instanceof java.lang.String;
+
+        if $z1 == 0 goto label4;
+
+        r2 = (java.lang.String) r1;
+
+        i6 = virtualinvoke r0.<java.lang.String: int length()>();
+
+        $i0 = virtualinvoke r2.<java.lang.String: int length()>();
+
+        if i6 != $i0 goto label4;
+
+        r3 = virtualinvoke r0.<java.lang.String: char[] toCharArray()>();
+
+        r4 = virtualinvoke r2.<java.lang.String: char[] toCharArray()>();
+
+        i7 = 0;
+
+     label2:
+        $i1 = i6;
+
+        i6 = i6 + -1;
+
+        if $i1 == 0 goto label3;
+
+        $c2 = r3[i7];
+
+        $l5 = (long) $c2;
+
+        $c3 = r4[i7];
+
+        $l4 = (long) $c3;
+
+        z0 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: boolean neq(long,long)>($l5, $l4);
+
+        $r13 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z4);
+
+        $r14 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        $r15 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z5, $r13, $r14);
+
+        $r16 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z4);
+
+        $r17 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r15, $r16);
+
+        $r18 = (java.lang.Boolean) $r17;
+
+        z4 = virtualinvoke $r18.<java.lang.Boolean: boolean booleanValue()>();
+
+        $r19 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        $r20 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z5);
+
+        $r21 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z0, $r19, $r20);
+
+        $r22 = (java.lang.Boolean) $r21;
+
+        z5 = virtualinvoke $r22.<java.lang.Boolean: boolean booleanValue()>();
+
+        i7 = i7 + 1;
+
+        goto label2;
+
+     label3:
+        $r9 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z4);
+
+        $r10 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(1);
+
+        $r11 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z5, $r9, $r10);
+
+        $r12 = (java.lang.Boolean) $r11;
+
+        $z3 = virtualinvoke $r12.<java.lang.Boolean: boolean booleanValue()>();
+
+        return $z3;
+
+     label4:
+        $r5 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(z4);
+
+        $r6 = staticinvoke <java.lang.Boolean: java.lang.Boolean valueOf(boolean)>(0);
+
+        $r7 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: java.lang.Object cond(boolean,java.lang.Object,java.lang.Object)>(z5, $r5, $r6);
+
+        $r8 = (java.lang.Boolean) $r7;
+
+        $z2 = virtualinvoke $r8.<java.lang.Boolean: boolean booleanValue()>();
+
+        return $z2;
+    }
+
+    public static void verifyPlaintextPassword(org.apache.wss4j.binding.wss10.PasswordString, java.lang.String) throws org.apache.ws.security.WSSecurityException
+    {
+        org.apache.wss4j.binding.wss10.PasswordString r0;
+        java.lang.String r1, $r2;
+        boolean $z0;
+        org.apache.ws.security.WSSecurityException r4;
+        java.lang.Throwable r5;
+
+        r0 := @parameter0: org.apache.wss4j.binding.wss10.PasswordString;
+
+        r1 := @parameter1: java.lang.String;
+
+        $r2 = virtualinvoke r0.<org.apache.wss4j.binding.wss10.PasswordString: java.lang.String getValue()>();
+
+        $z0 = staticinvoke <SimplifiedUsernameTokenValidatorImpl: boolean unsafe_String_equals(java.lang.String,java.lang.Object)>($r2, r1);
+
+        if $z0 != 0 goto label1;
+
+        r4 = new org.apache.ws.security.WSSecurityException;
+
+        specialinvoke r4.<org.apache.ws.security.WSSecurityException: void <init>(int)>(5);
+
+        r5 = (java.lang.Throwable) r4;
+
+        throw r5;
+
+     label1:
+        virtualinvoke r0.<org.apache.wss4j.binding.wss10.PasswordString: void setValue(java.lang.String)>(r1);
+
+        return;
+    }
+}

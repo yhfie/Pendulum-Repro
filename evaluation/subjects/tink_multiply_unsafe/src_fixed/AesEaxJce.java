@@ -1,4 +1,4 @@
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 /* adapted from https://github.com/google/tink/commit/89859790844186aa578bcea0323998d57f73290c */
 public class AesEaxJce {
@@ -27,7 +27,7 @@ public class AesEaxJce {
 	// 	return res;
 	// }
 
-	/* : multiply for a few times; otherwise, two clusters will be only one instruction apart */
+	/* Rhf: multiply for a few times; otherwise, two clusters will be only one instruction apart */
 	public static byte[] multiplyByX_exp_unsafe(final byte[] block, int n) {
 		byte[] res = null;
 		for (int i = 0; i < n; i++) {

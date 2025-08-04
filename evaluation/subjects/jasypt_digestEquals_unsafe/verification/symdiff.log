@@ -1,0 +1,183 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.org.jasypt.commons.CommonUtils$validateNotNull$java.lang.Object_java.lang.String and fixed.org.jasypt.commons.CommonUtils$validateNotNull$java.lang.Object_java.lang.String are equivalent
+Assuming unsafe.org.jasypt.exceptions.AlreadyInitializedException$$la$init$ra$$ and fixed.org.jasypt.exceptions.AlreadyInitializedException$$la$init$ra$$ are equivalent
+Assuming unsafe.org.jasypt.commons.CommonUtils$validateNotEmpty$java.lang.String_java.lang.String and fixed.org.jasypt.commons.CommonUtils$validateNotEmpty$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.org.jasypt.commons.CommonUtils$validateIsTrue$boolean_java.lang.String and fixed.org.jasypt.commons.CommonUtils$validateIsTrue$boolean_java.lang.String are equivalent
+Assuming unsafe.org.jasypt.commons.CommonUtils$isNotEmpty$java.lang.String and fixed.org.jasypt.commons.CommonUtils$isNotEmpty$java.lang.String are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getAlgorithm$ and fixed.org.jasypt.digest.config.DigesterConfig$getAlgorithm$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getSaltSizeBytes$ and fixed.org.jasypt.digest.config.DigesterConfig$getSaltSizeBytes$ are equivalent
+Assuming unsafe.java.lang.Integer$intValue$ and fixed.java.lang.Integer$intValue$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getIterations$ and fixed.org.jasypt.digest.config.DigesterConfig$getIterations$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getSaltGenerator$ and fixed.org.jasypt.digest.config.DigesterConfig$getSaltGenerator$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getProviderName$ and fixed.org.jasypt.digest.config.DigesterConfig$getProviderName$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getProvider$ and fixed.org.jasypt.digest.config.DigesterConfig$getProvider$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfSaltInMessageBeforeDigesting$ and fixed.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfSaltInMessageBeforeDigesting$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfPlainSaltInEncryptionResults$ and fixed.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfPlainSaltInEncryptionResults$ are equivalent
+Assuming unsafe.org.jasypt.digest.config.DigesterConfig$getUseLenientSaltSizeCheck$ and fixed.org.jasypt.digest.config.DigesterConfig$getUseLenientSaltSizeCheck$ are equivalent
+Assuming unsafe.org.jasypt.salt.RandomSaltGenerator$$la$init$ra$$ and fixed.org.jasypt.salt.RandomSaltGenerator$$la$init$ra$$ are equivalent
+Assuming unsafe.org.jasypt.salt.SaltGenerator$includePlainSaltInEncryptionResults$ and fixed.org.jasypt.salt.SaltGenerator$includePlainSaltInEncryptionResults$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String are equivalent
+Assuming unsafe.java.lang.Object$getClass$ and fixed.java.lang.Object$getClass$ are equivalent
+Assuming unsafe.java.lang.Class$getName$ and fixed.java.lang.Class$getName$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$ are equivalent
+Assuming unsafe.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.String and fixed.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.java.security.MessageDigest$getInstance$java.lang.String_java.security.Provider and fixed.java.security.MessageDigest$getInstance$java.lang.String_java.security.Provider are equivalent
+Assuming unsafe.java.security.MessageDigest$getInstance$java.lang.String_java.lang.String and fixed.java.security.MessageDigest$getInstance$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.java.security.MessageDigest$getInstance$java.lang.String and fixed.java.security.MessageDigest$getInstance$java.lang.String are equivalent
+Assuming unsafe.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.Throwable and fixed.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.Throwable are equivalent
+Assuming unsafe.java.security.MessageDigest$getDigestLength$ and fixed.java.security.MessageDigest$getDigestLength$ are equivalent
+Assuming unsafe.org.jasypt.salt.SaltGenerator$generateSalt$int and fixed.org.jasypt.salt.SaltGenerator$generateSalt$int are equivalent
+Assuming unsafe.java.security.MessageDigest$reset$ and fixed.java.security.MessageDigest$reset$ are equivalent
+Assuming unsafe.java.security.MessageDigest$update$byte$lp$$rp$ and fixed.java.security.MessageDigest$update$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.security.MessageDigest$digest$ and fixed.java.security.MessageDigest$digest$ are equivalent
+Assuming unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ and fixed.java.security.MessageDigest$digest$byte$lp$$rp$ are equivalent
+Assuming unsafe.org.jasypt.commons.CommonUtils$appendArrays$byte$lp$$rp$_byte$lp$$rp$ and fixed.org.jasypt.commons.CommonUtils$appendArrays$byte$lp$$rp$_byte$lp$$rp$ are equivalent
+Assuming unsafe.org.jasypt.exceptions.EncryptionOperationNotPossibleException$$la$init$ra$$ and fixed.org.jasypt.exceptions.EncryptionOperationNotPossibleException$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.System$arraycopy$java.lang.Object_int_java.lang.Object_int_int and fixed.java.lang.System$arraycopy$java.lang.Object_int_java.lang.Object_int_int are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$$la$init$ra$$, fixed.org.jasypt.digest.StandardByteDigester$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.org.jasypt.commons.CommonUtils$validateNotNull$java.lang.Object_java.lang.String or fixed.org.jasypt.commons.CommonUtils$validateNotNull$java.lang.Object_java.lang.String: skipping...
+Missing procedure for unsafe.org.jasypt.exceptions.AlreadyInitializedException$$la$init$ra$$ or fixed.org.jasypt.exceptions.AlreadyInitializedException$$la$init$ra$$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.jasypt.digest.StandardByteDigester$setConfig$org.jasypt.digest.config.DigesterConfig and fixed.org.jasypt.digest.StandardByteDigester$setConfig$org.jasypt.digest.config.DigesterConfig
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.jasypt.digest.StandardByteDigester$setConfig$org.jasypt.digest.config.DigesterConfig_EQ_unsafe__xx__fixed
+  [0.166284 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 815ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 815ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	815	0	0	0	3025	28	
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$isInitialized$, fixed.org.jasypt.digest.StandardByteDigester$isInitialized$
+Missing procedure for unsafe.org.jasypt.commons.CommonUtils$validateNotEmpty$java.lang.String_java.lang.String or fixed.org.jasypt.commons.CommonUtils$validateNotEmpty$java.lang.String_java.lang.String: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setAlgorithm$java.lang.String, fixed.org.jasypt.digest.StandardByteDigester$setAlgorithm$java.lang.String
+Missing procedure for unsafe.org.jasypt.commons.CommonUtils$validateIsTrue$boolean_java.lang.String or fixed.org.jasypt.commons.CommonUtils$validateIsTrue$boolean_java.lang.String: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setSaltSizeBytes$int, fixed.org.jasypt.digest.StandardByteDigester$setSaltSizeBytes$int
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setIterations$int, fixed.org.jasypt.digest.StandardByteDigester$setIterations$int
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setSaltGenerator$org.jasypt.salt.SaltGenerator, fixed.org.jasypt.digest.StandardByteDigester$setSaltGenerator$org.jasypt.salt.SaltGenerator
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setProviderName$java.lang.String, fixed.org.jasypt.digest.StandardByteDigester$setProviderName$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setProvider$java.security.Provider, fixed.org.jasypt.digest.StandardByteDigester$setProvider$java.security.Provider
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setInvertPositionOfSaltInMessageBeforeDigesting$boolean, fixed.org.jasypt.digest.StandardByteDigester$setInvertPositionOfSaltInMessageBeforeDigesting$boolean
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setInvertPositionOfPlainSaltInEncryptionResults$boolean, fixed.org.jasypt.digest.StandardByteDigester$setInvertPositionOfPlainSaltInEncryptionResults$boolean
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$setUseLenientSaltSizeCheck$boolean, fixed.org.jasypt.digest.StandardByteDigester$setUseLenientSaltSizeCheck$boolean
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getAlgorithm$ or fixed.org.jasypt.digest.config.DigesterConfig$getAlgorithm$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getSaltSizeBytes$ or fixed.org.jasypt.digest.config.DigesterConfig$getSaltSizeBytes$: skipping...
+Missing procedure for unsafe.java.lang.Integer$intValue$ or fixed.java.lang.Integer$intValue$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getIterations$ or fixed.org.jasypt.digest.config.DigesterConfig$getIterations$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getSaltGenerator$ or fixed.org.jasypt.digest.config.DigesterConfig$getSaltGenerator$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getProviderName$ or fixed.org.jasypt.digest.config.DigesterConfig$getProviderName$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getProvider$ or fixed.org.jasypt.digest.config.DigesterConfig$getProvider$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfSaltInMessageBeforeDigesting$ or fixed.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfSaltInMessageBeforeDigesting$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfPlainSaltInEncryptionResults$ or fixed.org.jasypt.digest.config.DigesterConfig$getInvertPositionOfPlainSaltInEncryptionResults$: skipping...
+Missing procedure for unsafe.org.jasypt.digest.config.DigesterConfig$getUseLenientSaltSizeCheck$ or fixed.org.jasypt.digest.config.DigesterConfig$getUseLenientSaltSizeCheck$: skipping...
+Missing procedure for unsafe.org.jasypt.salt.RandomSaltGenerator$$la$init$ra$$ or fixed.org.jasypt.salt.RandomSaltGenerator$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.jasypt.salt.SaltGenerator$includePlainSaltInEncryptionResults$ or fixed.org.jasypt.salt.SaltGenerator$includePlainSaltInEncryptionResults$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$ or fixed.java.lang.StringBuilder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$java.lang.String or fixed.java.lang.StringBuilder$append$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.Object$getClass$ or fixed.java.lang.Object$getClass$: skipping...
+Missing procedure for unsafe.java.lang.Class$getName$ or fixed.java.lang.Class$getName$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$toString$ or fixed.java.lang.StringBuilder$toString$: skipping...
+Missing procedure for unsafe.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.String or fixed.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getInstance$java.lang.String_java.security.Provider or fixed.java.security.MessageDigest$getInstance$java.lang.String_java.security.Provider: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getDigestLength$ or fixed.java.security.MessageDigest$getDigestLength$: skipping...
+Missing procedure for unsafe.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.Throwable or fixed.org.jasypt.exceptions.EncryptionInitializationException$$la$init$ra$$java.lang.Throwable: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getInstance$java.lang.String_java.lang.String or fixed.java.security.MessageDigest$getInstance$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getInstance$java.lang.String or fixed.java.security.MessageDigest$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.org.jasypt.commons.CommonUtils$isNotEmpty$java.lang.String or fixed.org.jasypt.commons.CommonUtils$isNotEmpty$java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.jasypt.digest.StandardByteDigester$cloneDigester$ and fixed.org.jasypt.digest.StandardByteDigester$cloneDigester$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.jasypt.digest.StandardByteDigester$cloneDigester$_EQ_unsafe__xx__fixed
+  [0.358377 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1193ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1193ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1193	0	0	0	4265	29	
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$initialize$, fixed.org.jasypt.digest.StandardByteDigester$initialize$
+Missing procedure for unsafe.org.jasypt.salt.SaltGenerator$generateSalt$int or fixed.org.jasypt.salt.SaltGenerator$generateSalt$int: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$reset$ or fixed.java.security.MessageDigest$reset$: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$update$byte$lp$$rp$ or fixed.java.security.MessageDigest$update$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$digest$ or fixed.java.security.MessageDigest$digest$: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ or fixed.java.security.MessageDigest$digest$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.org.jasypt.exceptions.EncryptionOperationNotPossibleException$$la$init$ra$$ or fixed.org.jasypt.exceptions.EncryptionOperationNotPossibleException$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.jasypt.commons.CommonUtils$appendArrays$byte$lp$$rp$_byte$lp$$rp$ or fixed.org.jasypt.commons.CommonUtils$appendArrays$byte$lp$$rp$_byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$ and fixed.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.244787 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1228ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1228ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1228	0	0	0	5538	30	
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$_byte$lp$$rp$, fixed.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$_byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.jasypt.digest.StandardByteDigester$matches$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.036758 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 798ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 798ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	798	0	0	0	6386	30	
+Missing procedure for unsafe.java.lang.System$arraycopy$java.lang.Object_int_java.lang.Object_int_int or fixed.java.lang.System$arraycopy$java.lang.Object_int_java.lang.Object_int_int: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.jasypt.digest.StandardByteDigester$matches_unsafe$byte$lp$$rp$_byte$lp$$rp$ and fixed.org.jasypt.digest.StandardByteDigester$matches_unsafe$byte$lp$$rp$_byte$lp$$rp$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.jasypt.digest.StandardByteDigester$matches_unsafe$byte$lp$$rp$_byte$lp$$rp$_EQ_unsafe__xx__fixed
+  [0.622059 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1646ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1646ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1646	0	0	0	8084	33	
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$, fixed.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$_byte$lp$$rp$_loop_block92, fixed.org.jasypt.digest.StandardByteDigester$digest$byte$lp$$rp$_byte$lp$$rp$_loop_block92
+ERROR: Failed to add postconditions to unsafe.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block124 and fixed.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block124
+nonmodular mode: Skipping non-root nodes unsafe.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block124, fixed.org.jasypt.digest.StandardByteDigester$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block124
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,8084)

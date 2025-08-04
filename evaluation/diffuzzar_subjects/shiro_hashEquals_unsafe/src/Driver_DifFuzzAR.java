@@ -1,4 +1,4 @@
-import pendulum.AbstractQDriver;
+import sg.edu.nus.comp.tsunami.AbstractQDriver;
 
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.crypto.hash.Hash;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 import edu.cmu.sv.kelinci.Mem;
 
-/* : subject comes from
+/* Rhf: subject comes from
 https://github.com/apache/shiro/commit/d7214d8b9cee3e0386ddbcd7f2afeb8112057af2 */
 
 public class QDriver extends AbstractQDriver {

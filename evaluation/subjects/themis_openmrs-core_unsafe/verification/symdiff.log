@@ -1,0 +1,309 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$ and fixed.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$ are equivalent
+Assuming unsafe.java.security.MessageDigest$getInstance$java.lang.String and fixed.java.security.MessageDigest$getInstance$java.lang.String are equivalent
+Assuming unsafe.org.slf4j.Logger$error$java.lang.String_java.lang.Throwable and fixed.org.slf4j.Logger$error$java.lang.String_java.lang.Throwable are equivalent
+Assuming unsafe.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$_java.lang.Throwable and fixed.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$_java.lang.Throwable are equivalent
+Assuming unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ and fixed.java.security.MessageDigest$digest$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.Integer$toHexString$int and fixed.java.lang.Integer$toHexString$int are equivalent
+Assuming unsafe.java.util.Random$$la$init$ra$$ and fixed.java.util.Random$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.System$currentTimeMillis$ and fixed.java.lang.System$currentTimeMillis$ are equivalent
+Assuming unsafe.java.lang.Long$toString$long and fixed.java.lang.Long$toString$long are equivalent
+Assuming unsafe.java.util.Random$nextLong$ and fixed.java.util.Random$nextLong$ are equivalent
+Assuming unsafe.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ and fixed.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String and fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Cipher$getInstance$java.lang.String and fixed.javax.crypto.Cipher$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec and fixed.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec are equivalent
+Assuming unsafe.javax.crypto.Cipher$doFinal$byte$lp$$rp$ and fixed.javax.crypto.Cipher$doFinal$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.util.Base64$getEncoder$ and fixed.java.util.Base64$getEncoder$ are equivalent
+Assuming unsafe.java.util.Base64$Encoder$encode$byte$lp$$rp$ and fixed.java.util.Base64$Encoder$encode$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.util.Base64$getDecoder$ and fixed.java.util.Base64$getDecoder$ are equivalent
+Assuming unsafe.java.util.Base64$Decoder$decode$java.lang.String and fixed.java.util.Base64$Decoder$decode$java.lang.String are equivalent
+Assuming unsafe.org.openmrs.api.context.Context$getRuntimeProperties$ and fixed.org.openmrs.api.context.Context$getRuntimeProperties$ are equivalent
+Assuming unsafe.java.util.Properties$getProperty$java.lang.String_java.lang.String and fixed.java.util.Properties$getProperty$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.org.springframework.util.StringUtils$hasText$java.lang.String and fixed.org.springframework.util.StringUtils$hasText$java.lang.String are equivalent
+Assuming unsafe.java.security.SecureRandom$$la$init$ra$$ and fixed.java.security.SecureRandom$$la$init$ra$$ are equivalent
+Assuming unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ and fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.crypto.KeyGenerator$getInstance$java.lang.String and fixed.javax.crypto.KeyGenerator$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.KeyGenerator$init$int and fixed.javax.crypto.KeyGenerator$init$int are equivalent
+Assuming unsafe.javax.crypto.KeyGenerator$generateKey$ and fixed.javax.crypto.KeyGenerator$generateKey$ are equivalent
+Assuming unsafe.java.security.Key$getEncoded$ and fixed.java.security.Key$getEncoded$ are equivalent
+Assuming unsafe.org.slf4j.LoggerFactory$getLogger$java.lang.Class and fixed.org.slf4j.LoggerFactory$getLogger$java.lang.Class are equivalent
+Assuming unsafe.java.lang.Character$charValue$ and fixed.java.lang.Character$charValue$ are equivalent
+Assuming unsafe.java.util.Arrays$hashCode$char$lp$$rp$ and fixed.java.util.Arrays$hashCode$char$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.Object$getClass$ and fixed.java.lang.Object$getClass$ are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.171025 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1251ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1251ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1251	0	0	0	5374	4	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$ or fixed.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$getInstance$java.lang.String or fixed.java.security.MessageDigest$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.org.slf4j.Logger$error$java.lang.String_java.lang.Throwable or fixed.org.slf4j.Logger$error$java.lang.String_java.lang.Throwable: skipping...
+Missing procedure for unsafe.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$_java.lang.Throwable or fixed.org.openmrs.api.APIException$$la$init$ra$$java.lang.String_java.lang.Object$lp$$rp$_java.lang.Throwable: skipping...
+Missing procedure for unsafe.java.security.MessageDigest$digest$byte$lp$$rp$ or fixed.java.security.MessageDigest$digest$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.Character$charValue$ or fixed.java.lang.Character$charValue$: skipping...
+Missing procedure for unsafe.java.lang.Object$getClass$ or fixed.java.lang.Object$getClass$: skipping...
+Missing procedure for unsafe.java.lang.Integer$toHexString$int or fixed.java.lang.Integer$toHexString$int: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$hashMatches$java.lang.String_java.lang.String and fixed.org.openmrs.util.Security$hashMatches$java.lang.String_java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$hashMatches$java.lang.String_java.lang.String_EQ_unsafe__xx__fixed
+  [1.157429 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2814ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2814ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2814	0	0	0	8309	12	
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$encodeString$java.lang.String, fixed.org.openmrs.util.Security$encodeString$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$encodeStringSHA1$java.lang.String, fixed.org.openmrs.util.Security$encodeStringSHA1$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$incorrectlyEncodeString$java.lang.String, fixed.org.openmrs.util.Security$incorrectlyEncodeString$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$getPasswordEncodeFailMessage$java.lang.String, fixed.org.openmrs.util.Security$getPasswordEncodeFailMessage$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$hexString$byte$lp$$rp$, fixed.org.openmrs.util.Security$hexString$byte$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$incorrectHexString$byte$lp$$rp$, fixed.org.openmrs.util.Security$incorrectHexString$byte$lp$$rp$
+Missing procedure for unsafe.java.util.Random$$la$init$ra$$ or fixed.java.util.Random$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.System$currentTimeMillis$ or fixed.java.lang.System$currentTimeMillis$: skipping...
+Missing procedure for unsafe.java.lang.Long$toString$long or fixed.java.lang.Long$toString$long: skipping...
+Missing procedure for unsafe.java.util.Random$nextLong$ or fixed.java.util.Random$nextLong$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$getRandomToken$ and fixed.org.openmrs.util.Security$getRandomToken$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$getRandomToken$_EQ_unsafe__xx__fixed
+  [0.060749 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1494ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1494ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1494	0	0	0	9886	12	
+Missing procedure for unsafe.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ or fixed.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String or fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$getInstance$java.lang.String or fixed.javax.crypto.Cipher$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec or fixed.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$doFinal$byte$lp$$rp$ or fixed.javax.crypto.Cipher$doFinal$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.util.Base64$getEncoder$ or fixed.java.util.Base64$getEncoder$: skipping...
+Missing procedure for unsafe.java.util.Base64$Encoder$encode$byte$lp$$rp$ or fixed.java.util.Base64$Encoder$encode$byte$lp$$rp$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$encrypt$java.lang.String_byte$lp$$rp$_byte$lp$$rp$, fixed.org.openmrs.util.Security$encrypt$java.lang.String_byte$lp$$rp$_byte$lp$$rp$
+Missing procedure for unsafe.org.openmrs.api.context.Context$getRuntimeProperties$ or fixed.org.openmrs.api.context.Context$getRuntimeProperties$: skipping...
+Missing procedure for unsafe.java.util.Properties$getProperty$java.lang.String_java.lang.String or fixed.java.util.Properties$getProperty$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.org.springframework.util.StringUtils$hasText$java.lang.String or fixed.org.springframework.util.StringUtils$hasText$java.lang.String: skipping...
+Missing procedure for unsafe.java.util.Base64$getDecoder$ or fixed.java.util.Base64$getDecoder$: skipping...
+Missing procedure for unsafe.java.util.Base64$Decoder$decode$java.lang.String or fixed.java.util.Base64$Decoder$decode$java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$encrypt$java.lang.String and fixed.org.openmrs.util.Security$encrypt$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$encrypt$java.lang.String_EQ_unsafe__xx__fixed
+  [0.131084 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1480ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1480ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1480	0	0	0	11447	12	
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$getSavedInitVector$, fixed.org.openmrs.util.Security$getSavedInitVector$
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$getSavedSecretKey$, fixed.org.openmrs.util.Security$getSavedSecretKey$
+nonmodular mode: Skipping non-root nodes unsafe.org.openmrs.util.Security$decrypt$java.lang.String_byte$lp$$rp$_byte$lp$$rp$, fixed.org.openmrs.util.Security$decrypt$java.lang.String_byte$lp$$rp$_byte$lp$$rp$
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$decrypt$java.lang.String and fixed.org.openmrs.util.Security$decrypt$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$decrypt$java.lang.String_EQ_unsafe__xx__fixed
+  [0.122069 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1459ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1459ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1459	0	0	0	12986	12	
+Missing procedure for unsafe.java.security.SecureRandom$$la$init$ra$$ or fixed.java.security.SecureRandom$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ or fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$generateNewInitVector$ and fixed.org.openmrs.util.Security$generateNewInitVector$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$generateNewInitVector$_EQ_unsafe__xx__fixed
+  [0.050982 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1309ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1309ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1309	0	0	0	14376	12	
+Missing procedure for unsafe.javax.crypto.KeyGenerator$getInstance$java.lang.String or fixed.javax.crypto.KeyGenerator$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.KeyGenerator$init$int or fixed.javax.crypto.KeyGenerator$init$int: skipping...
+Missing procedure for unsafe.javax.crypto.KeyGenerator$generateKey$ or fixed.javax.crypto.KeyGenerator$generateKey$: skipping...
+Missing procedure for unsafe.java.security.Key$getEncoded$ or fixed.java.security.Key$getEncoded$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.openmrs.util.Security$generateNewSecretKey$ and fixed.org.openmrs.util.Security$generateNewSecretKey$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$generateNewSecretKey$_EQ_unsafe__xx__fixed
+  [0.054968 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1268ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1268ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1268	0	0	0	15728	12	
+Missing procedure for unsafe.org.slf4j.LoggerFactory$getLogger$java.lang.Class or fixed.org.slf4j.LoggerFactory$getLogger$java.lang.Class: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.openmrs.util.Security$$la$clinit$ra$$_EQ_unsafe__xx__fixed
+  [0.051254 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1343ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1343ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1343	0	0	0	17155	12	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.nio.charset.Charset$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.835999 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2158ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2158ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2158	0	0	0	19395	12	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$$la$init$ra$$, fixed.java.lang.StringBuilder$$la$init$ra$$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$append$java.lang.String, fixed.java.lang.StringBuilder$append$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$append$char, fixed.java.lang.StringBuilder$append$char
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$char$lp$$rp$, fixed.java.lang.String$$la$init$ra$$char$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$append$java.lang.Object, fixed.java.lang.StringBuilder$append$java.lang.Object
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$toString$, fixed.java.lang.StringBuilder$toString$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.StringBuilder$toCharArray$, fixed.java.lang.StringBuilder$toCharArray$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset, fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$$la$init$ra$$java.lang.StringBuilder, fixed.java.lang.String$$la$init$ra$$java.lang.StringBuilder
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.String$charAt$int and fixed.java.lang.String$charAt$int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$charAt$int_EQ_unsafe__xx__fixed
+  [0.059317 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1297ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1297ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1297	0	0	0	20777	12	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$getBytes$, fixed.java.lang.String$getBytes$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$getBytes$java.nio.charset.Charset, fixed.java.lang.String$getBytes$java.nio.charset.Charset
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$toCharArray$, fixed.java.lang.String$toCharArray$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$toCharArray$java.nio.charset.Charset_EQ_unsafe__xx__fixed
+  [0.052477 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1355ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1355ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1355	0	0	0	22262	12	
+Missing procedure for unsafe.java.util.Arrays$hashCode$char$lp$$rp$ or fixed.java.util.Arrays$hashCode$char$lp$$rp$: skipping...
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.String$hashCode$_EQ_unsafe__xx__fixed
+  [0.056179 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1366ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1366ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1366	0	0	0	23714	12	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.String$equals$java.lang.Object, fixed.java.lang.String$equals$java.lang.Object
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Boolean$valueOf$boolean and fixed.java.lang.Boolean$valueOf$boolean
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$valueOf$boolean_EQ_unsafe__xx__fixed
+  [0.059545 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1434ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1434ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1434	0	0	0	25236	12	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$booleanValue$_EQ_unsafe__xx__fixed
+  [0.054954 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1393ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1393ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1393	0	0	0	26717	12	
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (14,0,0,0,26717)

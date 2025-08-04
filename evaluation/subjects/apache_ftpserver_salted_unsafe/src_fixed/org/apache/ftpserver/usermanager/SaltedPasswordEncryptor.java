@@ -19,7 +19,7 @@
 
 package org.apache.ftpserver.usermanager;
 
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 
 

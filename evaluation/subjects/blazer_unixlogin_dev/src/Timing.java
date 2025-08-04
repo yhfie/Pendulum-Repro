@@ -14,7 +14,7 @@ public class Timing {
 
     public static String md5(String s) {
         // int lim = 100000000 * s.length();
-        // : use a smaller loop bound. otherwise, while doing fix localization,
+        // RHf: use a smaller loop bound. otherwise, while doing fix localization,
         //      it proudces such a long trace that takes up all heap memory
         int lim = 100 * s.length();
 
@@ -44,7 +44,7 @@ public class Timing {
 
     // }
 
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     public static boolean /*login_safe*/login_unsafe(String u, String p) {
         boolean outcome = false;
 

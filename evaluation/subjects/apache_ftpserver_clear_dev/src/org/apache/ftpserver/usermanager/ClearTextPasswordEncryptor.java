@@ -89,7 +89,7 @@ public class ClearTextPasswordEncryptor implements PasswordEncryptor {
         // }
         // return false;
 
-        /* : inline PasswordUtil.secureCompare() */
+        /* Rhf: inline PasswordUtil.secureCompare() */
         int limit = 1024;
         String input = (String) thisObject;
         String password = (String) otherObject;

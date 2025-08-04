@@ -1038,7 +1038,7 @@ public final class StandardByteDigester implements ByteDigester {
      *         cannot be used).
      */
     public boolean matches(final byte[] message, final byte[] digest) {
-        return false;  // 
+        return false;  // RHf
         // if (message == null) {
         //     return (digest == null);
         // } else if (digest == null) {
@@ -1180,7 +1180,7 @@ public final class StandardByteDigester implements ByteDigester {
     }
     
     // Time-constant comparison of byte arrays
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     /*private*/public static boolean /*digestsAreEqual*/jdkArraysEquals(byte[] a, byte[] b) {
 
         if (a == null || b == null) {

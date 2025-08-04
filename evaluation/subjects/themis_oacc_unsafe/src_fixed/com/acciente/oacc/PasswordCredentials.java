@@ -17,7 +17,7 @@
  */
 package com.acciente.oacc;
 
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 
 

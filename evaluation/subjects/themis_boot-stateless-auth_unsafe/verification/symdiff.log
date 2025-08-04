@@ -1,0 +1,128 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.javax.crypto.Mac$getInstance$java.lang.String and fixed.javax.crypto.Mac$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String and fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Mac$init$java.security.Key and fixed.javax.crypto.Mac$init$java.security.Key are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String are equivalent
+Assuming unsafe.java.lang.Throwable$getMessage$ and fixed.java.lang.Throwable$getMessage$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$ are equivalent
+Assuming unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable and fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable are equivalent
+Assuming unsafe.java.lang.String$split$java.lang.String and fixed.java.lang.String$split$java.lang.String are equivalent
+Assuming unsafe.java.util.Date$$la$init$ra$$ and fixed.java.util.Date$$la$init$ra$$ are equivalent
+Assuming unsafe.java.util.Date$getTime$ and fixed.java.util.Date$getTime$ are equivalent
+Assuming unsafe.com.jdriven.stateless.security.User$getExpires$ and fixed.com.jdriven.stateless.security.User$getExpires$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$int and fixed.java.lang.StringBuilder$$la$init$ra$$int are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ and fixed.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object and fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object are equivalent
+Assuming unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable and fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable are equivalent
+Assuming unsafe.javax.xml.bind.DatatypeConverter$printBase64Binary$byte$lp$$rp$ and fixed.javax.xml.bind.DatatypeConverter$printBase64Binary$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.xml.bind.DatatypeConverter$parseBase64Binary$java.lang.String and fixed.javax.xml.bind.DatatypeConverter$parseBase64Binary$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Mac$doFinal$byte$lp$$rp$ and fixed.javax.crypto.Mac$doFinal$byte$lp$$rp$ are equivalent
+Assuming unsafe.com.jdriven.stateless.security.User$$la$init$ra$$ and fixed.com.jdriven.stateless.security.User$$la$init$ra$$ are equivalent
+Assuming unsafe.com.jdriven.stateless.security.User$setExpires$long and fixed.com.jdriven.stateless.security.User$setExpires$long are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$getInstance$java.lang.String or fixed.javax.crypto.Mac$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String or fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$init$java.security.Key or fixed.javax.crypto.Mac$init$java.security.Key: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$ or fixed.java.lang.StringBuilder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$java.lang.String or fixed.java.lang.StringBuilder$append$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.Throwable$getMessage$ or fixed.java.lang.Throwable$getMessage$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$toString$ or fixed.java.lang.StringBuilder$toString$: skipping...
+Missing procedure for unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable or fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.TokenHandler$$la$init$ra$$byte$lp$$rp$_boolean and fixed.TokenHandler$$la$init$ra$$byte$lp$$rp$_boolean
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.TokenHandler$$la$init$ra$$byte$lp$$rp$_boolean_EQ_unsafe__xx__fixed
+  [0.182284 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 433ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 433ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	433	0	0	0	1260	9	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.java.lang.String$split$java.lang.String or fixed.java.lang.String$split$java.lang.String: skipping...
+Missing procedure for unsafe.javax.xml.bind.DatatypeConverter$parseBase64Binary$java.lang.String or fixed.javax.xml.bind.DatatypeConverter$parseBase64Binary$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$doFinal$byte$lp$$rp$ or fixed.javax.crypto.Mac$doFinal$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.util.Date$$la$init$ra$$ or fixed.java.util.Date$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.util.Date$getTime$ or fixed.java.util.Date$getTime$: skipping...
+Missing procedure for unsafe.com.jdriven.stateless.security.User$getExpires$ or fixed.com.jdriven.stateless.security.User$getExpires$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.TokenHandler$parseUserFromToken$java.lang.String and fixed.TokenHandler$parseUserFromToken$java.lang.String
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.TokenHandler$parseUserFromToken$java.lang.String_EQ_unsafe__xx__fixed
+  [0.15043 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 471ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 471ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	471	0	0	0	1746	10	
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$parseUserFromToken_unsafe$java.lang.String, fixed.TokenHandler$parseUserFromToken_unsafe$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$fromBase64$java.lang.String, fixed.TokenHandler$fromBase64$java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$createHmac$byte$lp$$rp$, fixed.TokenHandler$createHmac$byte$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$, fixed.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$fromJSON$byte$lp$$rp$, fixed.TokenHandler$fromJSON$byte$lp$$rp$
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ or fixed.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$: skipping...
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object or fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object: skipping...
+Missing procedure for unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable or fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$int or fixed.java.lang.StringBuilder$$la$init$ra$$int: skipping...
+Missing procedure for unsafe.javax.xml.bind.DatatypeConverter$printBase64Binary$byte$lp$$rp$ or fixed.javax.xml.bind.DatatypeConverter$printBase64Binary$byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.TokenHandler$createTokenForUser$com.jdriven.stateless.security.User and fixed.TokenHandler$createTokenForUser$com.jdriven.stateless.security.User
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.TokenHandler$createTokenForUser$com.jdriven.stateless.security.User_EQ_unsafe__xx__fixed
+  [0.048891 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 324ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 324ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	324	0	0	0	2088	10	
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$toJSON$com.jdriven.stateless.security.User, fixed.TokenHandler$toJSON$com.jdriven.stateless.security.User
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$toBase64$byte$lp$$rp$, fixed.TokenHandler$toBase64$byte$lp$$rp$
+Missing procedure for unsafe.com.jdriven.stateless.security.User$$la$init$ra$$ or fixed.com.jdriven.stateless.security.User$$la$init$ra$$: skipping...
+Missing procedure for unsafe.com.jdriven.stateless.security.User$setExpires$long or fixed.com.jdriven.stateless.security.User$setExpires$long: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.TokenHandler$$la$clinit$ra$$ and fixed.TokenHandler$$la$clinit$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.TokenHandler$$la$clinit$ra$$_EQ_unsafe__xx__fixed
+  [0.03662 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 296ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 296ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	296	0	0	0	2400	10	
+ERROR: Failed to add postconditions to unsafe.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$_loop_block18 and fixed.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$_loop_block18
+nonmodular mode: Skipping non-root nodes unsafe.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$_loop_block18, fixed.TokenHandler$unsafe_isEqual$byte$lp$$rp$_byte$lp$$rp$_loop_block18
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (4,0,0,0,2400)

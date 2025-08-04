@@ -1,4 +1,4 @@
-import pendulum.safe.Safe;
+import sg.edu.nus.comp.tsunami.safe.Safe;
 
 class MoreSanity {
     public static boolean array_safe(int a[], int taint) {

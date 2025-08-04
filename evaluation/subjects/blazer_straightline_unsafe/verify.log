@@ -1,0 +1,39 @@
+=> Compiling unsafe and fixed java files
++ make compile
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/QDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Sanity_FuzzDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Greedy.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_KDynamic.java -d bin
++ make compile_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/QDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Sanity_FuzzDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/sg/edu/nus/comp/tsunami/safe/Safe.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Greedy.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_KDynamic.java -d bin_fixed
+
+=> Copying class files to verification/
++ mkdir -p verification
++ cp -r bin verification/bin
++ cp -r bin_fixed verification/bin_fixed
+
+=> Removing unchanged class files
++ rm -f verification/bin_fixed/QDriver.class verification/bin/QDriver.class
++ rm -f verification/bin_fixed/Driver_Greedy.class verification/bin/Driver_Greedy.class
++ rm -f verification/bin_fixed/Sanity_FuzzDriver.class verification/bin/Sanity_FuzzDriver.class
++ rm -f verification/bin_fixed/Driver_KDynamic.class verification/bin/Driver_KDynamic.class
+
+=> Entering directory verification/\n
+=> Translating bytecode to Boogie with jar2bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans_no_stub ../verification/bin unsafe.bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans_no_stub ../verification/bin_fixed fixed.bpl
+
+=> Inferring verification config using Symdiff
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh infer unsafe.bpl fixed.bpl
+
+=> Diffing with Symdiff; results will be dumped to symdiff.log
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh diff unsafe.bpl fixed.bpl verify.cfg
+Leaving directory verification/
+
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (6,0,0,0,21666)
+
+Verification passed

@@ -1,0 +1,66 @@
++++ dirname -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh
+++ cd -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
+++ pwd
++ SCRIPT_DIR=/home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
++ '[' trans == infer ']'
++ '[' trans == diff ']'
++ '[' trans == extract ']'
++ '[' trans == trans ']'
++ shift
+++ basename fixed.bpl .bpl
++ raw=fixedr.bpl
++ java -jar /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/jar2bpl.jar -debug-mode -err -j ../verification/bin_fixed -b fixedr.bpl
+[root] - Running soot with  -keep-line-number -pp -f jimple -d ./dump -allow-phantom-refs -cp /home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/rt.jar:/home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/jce.jar: -src-prec class -process-path ../verification/bin_fixed
+Soot started on Thu Jul 04 21:57:53 SGT 2024
+Warning: org.eclipse.jdt.core.compiler.CategorizedProblem is a phantom class!
+Warning: org.slf4j.Logger is a phantom class!
+Warning: org.openmrs.api.APIException is a phantom class!
+Warning: org.slf4j.LoggerFactory is a phantom class!
+Warning: org.openmrs.api.context.Context is a phantom class!
+Warning: org.springframework.util.StringUtils is a phantom class!
+Transforming org.openmrs.util.Security... 
+Transforming fakejava.nio.charset.Charset... 
+Transforming fakejava.lang.StringBuilder... 
+Transforming fakejava.lang.String... 
+Transforming fakejava.lang.Boolean... 
+Transforming sg.edu.nus.comp.tsunami.safe.Safe... 
+Writing to ./dump/org.openmrs.util.Security.jimple
+Writing to ./dump/fakejava.nio.charset.Charset.jimple
+Writing to ./dump/fakejava.lang.StringBuilder.jimple
+Writing to ./dump/fakejava.lang.String.jimple
+Writing to ./dump/fakejava.lang.Boolean.jimple
+Writing to ./dump/sg.edu.nus.comp.tsunami.safe.Safe.jimple
+Soot finished on Thu Jul 04 21:57:54 SGT 2024
+Soot has run for 0 min. 0 sec.
+[root] - Done parsing.
+++ sed -n -E 's#.*(fake(java(\.[[:alnum:]_]+)+)).*#\2#p' fixedr.bpl
+++ sort
+++ uniq
++ stubbed='java.lang.Boolean
+java.lang.String
+java.lang.StringBuilder
+java.nio.charset.Charset'
++ for x in $stubbed
++ echo java.lang.Boolean is stubbed
+java.lang.Boolean is stubbed
++ for x in $stubbed
++ echo java.lang.String is stubbed
+java.lang.String is stubbed
++ for x in $stubbed
++ echo java.lang.StringBuilder is stubbed
+java.lang.StringBuilder is stubbed
++ for x in $stubbed
++ echo java.nio.charset.Charset is stubbed
+java.nio.charset.Charset is stubbed
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.lang.Boolean.*#//\0#' fixedr.bpl
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.lang.String.*#//\0#' fixedr.bpl
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.lang.StringBuilder.*#//\0#' fixedr.bpl
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.nio.charset.Charset.*#//\0#' fixedr.bpl
++ sed -i -E '/.*fakejava.*/{h; s#fakejava#java#g; x; s#.*#//&#; G}' fixedr.bpl
++ '[' -noExtractLoops == -noExtractLoops ']'
++ cp fixedr.bpl fixed.bpl
++ sed -i -E '/java.lang.Class: javaType/{s#.*#//\0#}' fixedr.bpl fixed.bpl

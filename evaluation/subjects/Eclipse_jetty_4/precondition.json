@@ -1,0 +1,6 @@
+{
+	"Credential$stringEquals_original$java.lang.String_java.lang.String": [
+		"free requires $stringSizeHeap[$in_parameter__0] == 16;",
+		"free requires $stringSizeHeap[$in_parameter__1] == 16;"
+	]
+}

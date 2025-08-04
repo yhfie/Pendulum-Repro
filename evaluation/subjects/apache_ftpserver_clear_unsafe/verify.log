@@ -1,0 +1,384 @@
+=> Compiling unsafe and fixed java files
++ make compile
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/QDriver.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/PassivePorts.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/DefaultFtpRequest.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/LocalizedFtpReply.java -d bin
+Note: src/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/DefaultFtpHandler.java -d bin
+Note: src/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/DefaultFtpServerContext.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/impl/DefaultFtpServer.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/main/AddUser.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/main/Daemon.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/usermanager/impl/DbUserManager.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/usermanager/UserFactory.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/usermanager/SaltedPasswordEncryptor.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/ftplet/DefaultFtplet.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/Version.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/ssl/impl/DefaultSslConfiguration.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/command/NotSupportedCommand.java -d bin
+Note: src/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/UserManagerBeanDefinitionParser.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/factorybeans/ListenerFactoryBean.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/factorybeans/FtpServerFactoryBean.java -d bin
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/factorybeans/SslConfigurationFactoryBean.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/factorybeans/DataConnectionConfigurationFactoryBean.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/config/spring/factorybeans/ConnectionConfigFactoryBean.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/org/apache/ftpserver/util/FileRegularFilter.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Clear.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_Greedy.java -d bin
+javac -cp "src:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src/Driver_KDynamic.java -d bin
++ make compile_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/QDriver.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/PassivePorts.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/DefaultFtpRequest.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/LocalizedFtpReply.java -d bin_fixed
+Note: src_fixed/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/DefaultFtpHandler.java -d bin_fixed
+Note: src_fixed/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/DefaultFtpServerContext.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/impl/DefaultFtpServer.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/main/AddUser.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/main/Daemon.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/usermanager/impl/DbUserManager.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/usermanager/UserFactory.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/usermanager/SaltedPasswordEncryptor.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/ftplet/DefaultFtplet.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/Version.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/ssl/impl/DefaultSslConfiguration.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/command/NotSupportedCommand.java -d bin_fixed
+Note: src_fixed/org/apache/ftpserver/impl/FtpIoSession.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/UserManagerBeanDefinitionParser.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/factorybeans/ListenerFactoryBean.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/factorybeans/FtpServerFactoryBean.java -d bin_fixed
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/factorybeans/SslConfigurationFactoryBean.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/factorybeans/DataConnectionConfigurationFactoryBean.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/config/spring/factorybeans/ConnectionConfigFactoryBean.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/org/apache/ftpserver/util/FileRegularFilter.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Clear.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/sg/edu/nus/comp/tsunami/safe/Safe.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_Greedy.java -d bin_fixed
+javac -cp "src_fixed:../../../tool/instrumentor/build/libs/kelinci.jar:../../../tool/pendulum/build/libs/pendulum.jar:lib/*" src_fixed/Driver_KDynamic.java -d bin_fixed
+
+=> Copying class files to verification/
++ mkdir -p verification
++ cp -r bin verification/bin
++ cp -r bin_fixed verification/bin_fixed
+
+=> Removing unchanged class files
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpServer.class verification/bin/org/apache/ftpserver/impl/DefaultFtpServer.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpStatistics$UserLogins.class' 'verification/bin/org/apache/ftpserver/impl/DefaultFtpStatistics$UserLogins.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/LocalizedRenameFtpReply.class verification/bin/org/apache/ftpserver/impl/LocalizedRenameFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/FileObserver.class verification/bin/org/apache/ftpserver/impl/FileObserver.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/FtpIoSession.class verification/bin/org/apache/ftpserver/impl/FtpIoSession.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/FtpReplyTranslator.class verification/bin/org/apache/ftpserver/impl/FtpReplyTranslator.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/StatisticsObserver.class verification/bin/org/apache/ftpserver/impl/StatisticsObserver.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/LocalizedFileActionFtpReply.class verification/bin/org/apache/ftpserver/impl/LocalizedFileActionFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/IODataConnection.class verification/bin/org/apache/ftpserver/impl/IODataConnection.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpSession.class verification/bin/org/apache/ftpserver/impl/DefaultFtpSession.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/ServerFtpStatistics.class verification/bin/org/apache/ftpserver/impl/ServerFtpStatistics.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpStatistics.class verification/bin/org/apache/ftpserver/impl/DefaultFtpStatistics.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultDataConnectionConfiguration.class verification/bin/org/apache/ftpserver/impl/DefaultDataConnectionConfiguration.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/ServerDataConnectionFactory.class verification/bin/org/apache/ftpserver/impl/ServerDataConnectionFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpHandler.class verification/bin/org/apache/ftpserver/impl/DefaultFtpHandler.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/FtpHandler.class verification/bin/org/apache/ftpserver/impl/FtpHandler.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpServerContext.class verification/bin/org/apache/ftpserver/impl/DefaultFtpServerContext.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/LocalizedDataTransferFtpReply.class verification/bin/org/apache/ftpserver/impl/LocalizedDataTransferFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/FtpServerContext.class verification/bin/org/apache/ftpserver/impl/FtpServerContext.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/LocalizedFtpReply.class verification/bin/org/apache/ftpserver/impl/LocalizedFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/PassivePorts.class verification/bin/org/apache/ftpserver/impl/PassivePorts.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultConnectionConfig.class verification/bin/org/apache/ftpserver/impl/DefaultConnectionConfig.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/IODataConnectionFactory.class verification/bin/org/apache/ftpserver/impl/IODataConnectionFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/impl/DefaultFtpRequest.class verification/bin/org/apache/ftpserver/impl/DefaultFtpRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/DataConnectionConfiguration.class verification/bin/org/apache/ftpserver/DataConnectionConfiguration.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/FtpServerFactory.class verification/bin/org/apache/ftpserver/FtpServerFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/AbstractListener.class verification/bin/org/apache/ftpserver/listener/nio/AbstractListener.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/FtpLoggingFilter.class verification/bin/org/apache/ftpserver/listener/nio/FtpLoggingFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/FtpServerProtocolCodecFactory.class verification/bin/org/apache/ftpserver/listener/nio/FtpServerProtocolCodecFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.class verification/bin/org/apache/ftpserver/listener/nio/FtpHandlerAdapter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/NioListener.class verification/bin/org/apache/ftpserver/listener/nio/NioListener.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/nio/FtpResponseEncoder.class verification/bin/org/apache/ftpserver/listener/nio/FtpResponseEncoder.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/ListenerFactory.class verification/bin/org/apache/ftpserver/listener/ListenerFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/listener/Listener.class verification/bin/org/apache/ftpserver/listener/Listener.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/Version.class verification/bin/org/apache/ftpserver/Version.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/FtpServer.class verification/bin/org/apache/ftpserver/FtpServer.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftpletcontainer/impl/DefaultFtpletContainer.class verification/bin/org/apache/ftpserver/ftpletcontainer/impl/DefaultFtpletContainer.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftpletcontainer/FtpletContainer.class verification/bin/org/apache/ftpserver/ftpletcontainer/FtpletContainer.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/main/AddUser.class verification/bin/org/apache/ftpserver/main/AddUser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/main/CommandLine.class verification/bin/org/apache/ftpserver/main/CommandLine.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/main/CommandLine$1.class' 'verification/bin/org/apache/ftpserver/main/CommandLine$1.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/main/Daemon.class verification/bin/org/apache/ftpserver/main/Daemon.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$1.class' 'verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$1.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NativeFileSystemView.class verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NativeFileSystemView.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NameEqualsFileFilter.class verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NameEqualsFileFilter.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$2.class' 'verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$2.class'
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$3.class' 'verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile$3.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile.class verification/bin/org/apache/ftpserver/filesystem/nativefs/impl/NativeFtpFile.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/filesystem/nativefs/NativeFileSystemFactory.class verification/bin/org/apache/ftpserver/filesystem/nativefs/NativeFileSystemFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/FtpServerConfigurationException.class verification/bin/org/apache/ftpserver/FtpServerConfigurationException.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ConnectionConfig.class verification/bin/org/apache/ftpserver/ConnectionConfig.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/DataConnectionException.class verification/bin/org/apache/ftpserver/DataConnectionException.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/WriteRequest.class verification/bin/org/apache/ftpserver/usermanager/impl/WriteRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/ConcurrentLoginPermission.class verification/bin/org/apache/ftpserver/usermanager/impl/ConcurrentLoginPermission.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/ConcurrentLoginRequest.class verification/bin/org/apache/ftpserver/usermanager/impl/ConcurrentLoginRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/UserMetadata.class verification/bin/org/apache/ftpserver/usermanager/impl/UserMetadata.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/PropertiesUserManager.class verification/bin/org/apache/ftpserver/usermanager/impl/PropertiesUserManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/BaseUser.class verification/bin/org/apache/ftpserver/usermanager/impl/BaseUser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/AbstractUserManager.class verification/bin/org/apache/ftpserver/usermanager/impl/AbstractUserManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/TransferRatePermission.class verification/bin/org/apache/ftpserver/usermanager/impl/TransferRatePermission.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/TransferRateRequest.class verification/bin/org/apache/ftpserver/usermanager/impl/TransferRateRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/WritePermission.class verification/bin/org/apache/ftpserver/usermanager/impl/WritePermission.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/impl/DbUserManager.class verification/bin/org/apache/ftpserver/usermanager/impl/DbUserManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/UserManagerFactory.class verification/bin/org/apache/ftpserver/usermanager/UserManagerFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/PropertiesUserManagerFactory.class verification/bin/org/apache/ftpserver/usermanager/PropertiesUserManagerFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/UserFactory.class verification/bin/org/apache/ftpserver/usermanager/UserFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/PasswordEncryptor.class verification/bin/org/apache/ftpserver/usermanager/PasswordEncryptor.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/Md5PasswordEncryptor.class verification/bin/org/apache/ftpserver/usermanager/Md5PasswordEncryptor.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/PasswordUtil.class verification/bin/org/apache/ftpserver/usermanager/PasswordUtil.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/SaltedPasswordEncryptor.class verification/bin/org/apache/ftpserver/usermanager/SaltedPasswordEncryptor.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/UsernamePasswordAuthentication.class verification/bin/org/apache/ftpserver/usermanager/UsernamePasswordAuthentication.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/DbUserManagerFactory.class verification/bin/org/apache/ftpserver/usermanager/DbUserManagerFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/usermanager/AnonymousAuthentication.class verification/bin/org/apache/ftpserver/usermanager/AnonymousAuthentication.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/message/impl/DefaultMessageResource$PropertiesPair.class' 'verification/bin/org/apache/ftpserver/message/impl/DefaultMessageResource$PropertiesPair.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/message/impl/DefaultMessageResource.class verification/bin/org/apache/ftpserver/message/impl/DefaultMessageResource.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/message/impl/DefaultMessageResource$1.class' 'verification/bin/org/apache/ftpserver/message/impl/DefaultMessageResource$1.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/message/MessageResourceFactory.class verification/bin/org/apache/ftpserver/message/MessageResourceFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/message/MessageResource.class verification/bin/org/apache/ftpserver/message/MessageResource.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpStatistics.class verification/bin/org/apache/ftpserver/ftplet/FtpStatistics.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpSession.class verification/bin/org/apache/ftpserver/ftplet/FtpSession.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FileSystemView.class verification/bin/org/apache/ftpserver/ftplet/FileSystemView.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpletResult.class verification/bin/org/apache/ftpserver/ftplet/FtpletResult.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DefaultFtplet.class verification/bin/org/apache/ftpserver/ftplet/DefaultFtplet.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/Ftplet.class verification/bin/org/apache/ftpserver/ftplet/Ftplet.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DefaultFtpReply.class verification/bin/org/apache/ftpserver/ftplet/DefaultFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/UserManager.class verification/bin/org/apache/ftpserver/ftplet/UserManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/AuthenticationFailedException.class verification/bin/org/apache/ftpserver/ftplet/AuthenticationFailedException.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/Authority.class verification/bin/org/apache/ftpserver/ftplet/Authority.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DataConnection.class verification/bin/org/apache/ftpserver/ftplet/DataConnection.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/Structure.class verification/bin/org/apache/ftpserver/ftplet/Structure.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FileActionFtpReply.class verification/bin/org/apache/ftpserver/ftplet/FileActionFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpFile.class verification/bin/org/apache/ftpserver/ftplet/FtpFile.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpRequest.class verification/bin/org/apache/ftpserver/ftplet/FtpRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/Authentication.class verification/bin/org/apache/ftpserver/ftplet/Authentication.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpletContext.class verification/bin/org/apache/ftpserver/ftplet/FtpletContext.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpReply.class verification/bin/org/apache/ftpserver/ftplet/FtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/RenameFtpReply.class verification/bin/org/apache/ftpserver/ftplet/RenameFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DataType.class verification/bin/org/apache/ftpserver/ftplet/DataType.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/User.class verification/bin/org/apache/ftpserver/ftplet/User.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FileSystemFactory.class verification/bin/org/apache/ftpserver/ftplet/FileSystemFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DataConnectionFactory.class verification/bin/org/apache/ftpserver/ftplet/DataConnectionFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/FtpException.class verification/bin/org/apache/ftpserver/ftplet/FtpException.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/DataTransferFtpReply.class verification/bin/org/apache/ftpserver/ftplet/DataTransferFtpReply.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ftplet/AuthorizationRequest.class verification/bin/org/apache/ftpserver/ftplet/AuthorizationRequest.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ipfilter/RemoteIpFilter.class verification/bin/org/apache/ftpserver/ipfilter/RemoteIpFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ipfilter/MinaSessionFilter.class verification/bin/org/apache/ftpserver/ipfilter/MinaSessionFilter.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/ipfilter/RemoteIpFilter$1.class' 'verification/bin/org/apache/ftpserver/ipfilter/RemoteIpFilter$1.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/ipfilter/SessionFilter.class verification/bin/org/apache/ftpserver/ipfilter/SessionFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ipfilter/IpFilterType.class verification/bin/org/apache/ftpserver/ipfilter/IpFilterType.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ConnectionConfigFactory.class verification/bin/org/apache/ftpserver/ConnectionConfigFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/DataConnectionConfigurationFactory.class verification/bin/org/apache/ftpserver/DataConnectionConfigurationFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/impl/AliasKeyManager.class verification/bin/org/apache/ftpserver/ssl/impl/AliasKeyManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/impl/DefaultSslConfiguration.class verification/bin/org/apache/ftpserver/ssl/impl/DefaultSslConfiguration.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/impl/ExtendedAliasKeyManager.class verification/bin/org/apache/ftpserver/ssl/impl/ExtendedAliasKeyManager.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/SslConfiguration.class verification/bin/org/apache/ftpserver/ssl/SslConfiguration.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/SslConfigurationFactory.class verification/bin/org/apache/ftpserver/ssl/SslConfigurationFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/ssl/ClientAuth.class verification/bin/org/apache/ftpserver/ssl/ClientAuth.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/RETR.class verification/bin/org/apache/ftpserver/command/impl/RETR.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/OPTS_UTF8.class verification/bin/org/apache/ftpserver/command/impl/OPTS_UTF8.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/STOU.class verification/bin/org/apache/ftpserver/command/impl/STOU.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PBSZ.class verification/bin/org/apache/ftpserver/command/impl/PBSZ.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MFMT.class verification/bin/org/apache/ftpserver/command/impl/MFMT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE_ZONE.class verification/bin/org/apache/ftpserver/command/impl/SITE_ZONE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/LANG.class verification/bin/org/apache/ftpserver/command/impl/LANG.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/NOOP.class verification/bin/org/apache/ftpserver/command/impl/NOOP.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MD5.class verification/bin/org/apache/ftpserver/command/impl/MD5.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/RNTO.class verification/bin/org/apache/ftpserver/command/impl/RNTO.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PROT.class verification/bin/org/apache/ftpserver/command/impl/PROT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/REIN.class verification/bin/org/apache/ftpserver/command/impl/REIN.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PWD.class verification/bin/org/apache/ftpserver/command/impl/PWD.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SYST.class verification/bin/org/apache/ftpserver/command/impl/SYST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/LIST.class verification/bin/org/apache/ftpserver/command/impl/LIST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MLSD.class verification/bin/org/apache/ftpserver/command/impl/MLSD.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/STAT.class verification/bin/org/apache/ftpserver/command/impl/STAT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE_WHO.class verification/bin/org/apache/ftpserver/command/impl/SITE_WHO.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/HELP.class verification/bin/org/apache/ftpserver/command/impl/HELP.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/QUIT.class verification/bin/org/apache/ftpserver/command/impl/QUIT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/NLST.class verification/bin/org/apache/ftpserver/command/impl/NLST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MKD.class verification/bin/org/apache/ftpserver/command/impl/MKD.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/DELE.class verification/bin/org/apache/ftpserver/command/impl/DELE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE.class verification/bin/org/apache/ftpserver/command/impl/SITE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MODE.class verification/bin/org/apache/ftpserver/command/impl/MODE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE_DESCUSER.class verification/bin/org/apache/ftpserver/command/impl/SITE_DESCUSER.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PASV.class verification/bin/org/apache/ftpserver/command/impl/PASV.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/STOR.class verification/bin/org/apache/ftpserver/command/impl/STOR.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/RNFR.class verification/bin/org/apache/ftpserver/command/impl/RNFR.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/CDUP.class verification/bin/org/apache/ftpserver/command/impl/CDUP.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/FEAT.class verification/bin/org/apache/ftpserver/command/impl/FEAT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SIZE.class verification/bin/org/apache/ftpserver/command/impl/SIZE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PASS.class verification/bin/org/apache/ftpserver/command/impl/PASS.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/AUTH.class verification/bin/org/apache/ftpserver/command/impl/AUTH.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/REST.class verification/bin/org/apache/ftpserver/command/impl/REST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/DefaultCommandFactory.class verification/bin/org/apache/ftpserver/command/impl/DefaultCommandFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE_HELP.class verification/bin/org/apache/ftpserver/command/impl/SITE_HELP.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/STRU.class verification/bin/org/apache/ftpserver/command/impl/STRU.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/PORT.class verification/bin/org/apache/ftpserver/command/impl/PORT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/NLSTFileFormater.class verification/bin/org/apache/ftpserver/command/impl/listing/NLSTFileFormater.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/ListArgument.class verification/bin/org/apache/ftpserver/command/impl/listing/ListArgument.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/MLSTFileFormater.class verification/bin/org/apache/ftpserver/command/impl/listing/MLSTFileFormater.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/RegexFileFilter.class verification/bin/org/apache/ftpserver/command/impl/listing/RegexFileFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/FileFilter.class verification/bin/org/apache/ftpserver/command/impl/listing/FileFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/VisibleFileFilter.class verification/bin/org/apache/ftpserver/command/impl/listing/VisibleFileFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/ListArgumentParser.class verification/bin/org/apache/ftpserver/command/impl/listing/ListArgumentParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/LISTFileFormater.class verification/bin/org/apache/ftpserver/command/impl/listing/LISTFileFormater.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/FileFormater.class verification/bin/org/apache/ftpserver/command/impl/listing/FileFormater.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/listing/DirectoryLister.class verification/bin/org/apache/ftpserver/command/impl/listing/DirectoryLister.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/ACCT.class verification/bin/org/apache/ftpserver/command/impl/ACCT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/APPE.class verification/bin/org/apache/ftpserver/command/impl/APPE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/SITE_STAT.class verification/bin/org/apache/ftpserver/command/impl/SITE_STAT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/CWD.class verification/bin/org/apache/ftpserver/command/impl/CWD.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/OPTS.class verification/bin/org/apache/ftpserver/command/impl/OPTS.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/RMD.class verification/bin/org/apache/ftpserver/command/impl/RMD.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MLST.class verification/bin/org/apache/ftpserver/command/impl/MLST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/ABOR.class verification/bin/org/apache/ftpserver/command/impl/ABOR.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/EPSV.class verification/bin/org/apache/ftpserver/command/impl/EPSV.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/USER.class verification/bin/org/apache/ftpserver/command/impl/USER.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/MDTM.class verification/bin/org/apache/ftpserver/command/impl/MDTM.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/OPTS_MLST.class verification/bin/org/apache/ftpserver/command/impl/OPTS_MLST.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/TYPE.class verification/bin/org/apache/ftpserver/command/impl/TYPE.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/impl/EPRT.class verification/bin/org/apache/ftpserver/command/impl/EPRT.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/CommandFactoryFactory.class verification/bin/org/apache/ftpserver/command/CommandFactoryFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/NotSupportedCommand.class verification/bin/org/apache/ftpserver/command/NotSupportedCommand.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/CommandFactory.class verification/bin/org/apache/ftpserver/command/CommandFactory.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/AbstractCommand.class verification/bin/org/apache/ftpserver/command/AbstractCommand.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/command/Command.class verification/bin/org/apache/ftpserver/command/Command.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/ListenerBeanDefinitionParser.class verification/bin/org/apache/ftpserver/config/spring/ListenerBeanDefinitionParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/CommandFactoryBeanDefinitionParser.class verification/bin/org/apache/ftpserver/config/spring/CommandFactoryBeanDefinitionParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/factorybeans/ListenerFactoryBean.class verification/bin/org/apache/ftpserver/config/spring/factorybeans/ListenerFactoryBean.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/factorybeans/DataConnectionConfigurationFactoryBean.class verification/bin/org/apache/ftpserver/config/spring/factorybeans/DataConnectionConfigurationFactoryBean.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/factorybeans/FtpServerFactoryBean.class verification/bin/org/apache/ftpserver/config/spring/factorybeans/FtpServerFactoryBean.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/factorybeans/ConnectionConfigFactoryBean.class verification/bin/org/apache/ftpserver/config/spring/factorybeans/ConnectionConfigFactoryBean.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/factorybeans/SslConfigurationFactoryBean.class verification/bin/org/apache/ftpserver/config/spring/factorybeans/SslConfigurationFactoryBean.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/FtpServerNamespaceHandler.class verification/bin/org/apache/ftpserver/config/spring/FtpServerNamespaceHandler.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/ServerBeanDefinitionParser.class verification/bin/org/apache/ftpserver/config/spring/ServerBeanDefinitionParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/SpringUtil.class verification/bin/org/apache/ftpserver/config/spring/SpringUtil.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/UserManagerBeanDefinitionParser.class verification/bin/org/apache/ftpserver/config/spring/UserManagerBeanDefinitionParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/config/spring/FileSystemBeanDefinitionParser.class verification/bin/org/apache/ftpserver/config/spring/FileSystemBeanDefinitionParser.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/BaseProperties.class verification/bin/org/apache/ftpserver/util/BaseProperties.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/SocketAddressEncoder.class verification/bin/org/apache/ftpserver/util/SocketAddressEncoder.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/EncryptUtils.class verification/bin/org/apache/ftpserver/util/EncryptUtils.class
++ rm -f 'verification/bin_fixed/org/apache/ftpserver/util/DateUtils$1.class' 'verification/bin/org/apache/ftpserver/util/DateUtils$1.class'
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/OS.class verification/bin/org/apache/ftpserver/util/OS.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/ClassUtils.class verification/bin/org/apache/ftpserver/util/ClassUtils.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/FileRegularFilter.class verification/bin/org/apache/ftpserver/util/FileRegularFilter.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/DateUtils.class verification/bin/org/apache/ftpserver/util/DateUtils.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/IoUtils.class verification/bin/org/apache/ftpserver/util/IoUtils.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/IllegalPortException.class verification/bin/org/apache/ftpserver/util/IllegalPortException.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/RegularExpr.class verification/bin/org/apache/ftpserver/util/RegularExpr.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/StringUtils.class verification/bin/org/apache/ftpserver/util/StringUtils.class
++ rm -f verification/bin_fixed/org/apache/ftpserver/util/IllegalInetAddressException.class verification/bin/org/apache/ftpserver/util/IllegalInetAddressException.class
++ rm -f verification/bin_fixed/QDriver.class verification/bin/QDriver.class
++ rm -f verification/bin_fixed/Driver_Greedy.class verification/bin/Driver_Greedy.class
++ rm -f verification/bin_fixed/Driver_Clear.class verification/bin/Driver_Clear.class
++ rm -f verification/bin_fixed/Driver_KDynamic.class verification/bin/Driver_KDynamic.class
+
+=> Compiling stubs
++ mvn clean compile
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ my-app ---
+[INFO] Deleting /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/apache_ftpserver_clear_unsafe/stubs/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ my-app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/apache_ftpserver_clear_unsafe/stubs/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ my-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /home/crhf/projects/pendulum/sc-fix-clean/evaluation/subjects/apache_ftpserver_clear_unsafe/stubs/target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.614 s
+[INFO] Finished at: 2024-07-04T21:28:10+08:00
+[INFO] ------------------------------------------------------------------------
+=> Copying stubs over
++ rsync -avz stubs/target/classes/fakejava verification/bin
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+fakejava/lang/String.class
+
+sent 914 bytes  received 66 bytes  1,960.00 bytes/sec
+total size is 1,132  speedup is 1.16
++ rsync -avz stubs/target/classes/fakejava verification/bin_fixed
+sending incremental file list
+fakejava/
+fakejava/lang/
+fakejava/lang/Boolean.class
+fakejava/lang/String.class
+
+sent 914 bytes  received 66 bytes  1,960.00 bytes/sec
+total size is 1,132  speedup is 1.16
+
+=> Entering directory verification/\n
+=> Translating bytecode to Boogie with jar2bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin unsafe.bpl
++ bash -x /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh trans ../verification/bin_fixed fixed.bpl
+
+=> Adding preconditions
++ sed -i '/\<procedure org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor$matches$java.lang.String_java.lang.String\>/{:loop;n;/^[[:space:]]*$/s#$# free requires $in_parameter__0 != $null; free requires $in_parameter__1 != $null; free requires $stringSizeHeap[$in_parameter__0] == 16; free requires $stringSizeHeap[$in_parameter__1] == 16;#;t;b loop}' unsafe.bpl fixed.bpl
+
+=> Inferring verification config using Symdiff
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh infer unsafe.bpl fixed.bpl
+
+=> Diffing with Symdiff; results will be dumped to symdiff.log
++ /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh diff unsafe.bpl fixed.bpl verify.cfg
+Leaving directory verification/
+
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (7,0,0,0,4946)
+
+Verification passed

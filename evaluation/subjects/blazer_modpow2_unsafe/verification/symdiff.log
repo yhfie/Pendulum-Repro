@@ -1,0 +1,97 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.lang.ArithmeticException$$la$init$ra$$ and fixed.java.lang.ArithmeticException$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.Object$getClass$ and fixed.java.lang.Object$getClass$ are equivalent
+Assuming unsafe.java.lang.Math$max$int_int and fixed.java.lang.Math$max$int_int are equivalent
+Assuming unsafe.java.lang.Math$abs$int and fixed.java.lang.Math$abs$int are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$$la$init$ra$$long, fixed.java.math.BigInteger$$la$init$ra$$long
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$valueOf$long, fixed.java.math.BigInteger$valueOf$long
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$multiply$java.math.BigInteger, fixed.java.math.BigInteger$multiply$java.math.BigInteger
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$shiftRight$int, fixed.java.math.BigInteger$shiftRight$int
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$shiftLeft$int, fixed.java.math.BigInteger$shiftLeft$int
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$subtract$java.math.BigInteger, fixed.java.math.BigInteger$subtract$java.math.BigInteger
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$add$java.math.BigInteger, fixed.java.math.BigInteger$add$java.math.BigInteger
+Missing procedure for unsafe.java.lang.ArithmeticException$$la$init$ra$$ or fixed.java.lang.ArithmeticException$$la$init$ra$$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$mod$java.math.BigInteger, fixed.java.math.BigInteger$mod$java.math.BigInteger
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$bitLength$, fixed.java.math.BigInteger$bitLength$
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$testBit$int, fixed.java.math.BigInteger$testBit$int
+Missing procedure for unsafe.java.lang.Object$getClass$ or fixed.java.lang.Object$getClass$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.math.BigInteger$equals$java.lang.Object, fixed.java.math.BigInteger$equals$java.lang.Object
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.math.BigInteger$$la$clinit$ra$$ and fixed.java.math.BigInteger$$la$clinit$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.math.BigInteger$$la$clinit$ra$$_EQ_unsafe__xx__fixed
+  [0.163861 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2096ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2096ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2096	0	0	0	14402	7	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.ModPow2$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.031708 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2089ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2089ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2089	0	0	0	16618	7	
+Missing procedure for unsafe.java.lang.Math$max$int_int or fixed.java.lang.Math$max$int_int: skipping...
+Missing procedure for unsafe.java.lang.Math$abs$int or fixed.java.lang.Math$abs$int: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.ModPow2$modPow2_unsafe$java.math.BigInteger_java.math.BigInteger_java.math.BigInteger_int and fixed.ModPow2$modPow2_unsafe$java.math.BigInteger_java.math.BigInteger_java.math.BigInteger_int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.ModPow2$modPow2_unsafe$java.math.BigInteger_java.math.BigInteger_java.math.BigInteger_int_EQ_unsafe__xx__fixed
+  [10.999764 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 14847ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 14847ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	14847	0	0	0	31609	11	
+nonmodular mode: Skipping non-root nodes unsafe.ModPow2$fastMultiply_inline$java.math.BigInteger_java.math.BigInteger, fixed.ModPow2$fastMultiply_inline$java.math.BigInteger_java.math.BigInteger
+nonmodular mode: Skipping non-root nodes unsafe.ModPow2$fastMultiply_1$java.math.BigInteger_java.math.BigInteger, fixed.ModPow2$fastMultiply_1$java.math.BigInteger_java.math.BigInteger
+Automatically ignoring $objIndex and new heap allocation for unsafe.ModPow2$standardMultiply$java.math.BigInteger_java.math.BigInteger and fixed.ModPow2$standardMultiply$java.math.BigInteger_java.math.BigInteger
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.ModPow2$standardMultiply$java.math.BigInteger_java.math.BigInteger_EQ_unsafe__xx__fixed
+  [0.093268 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2791ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2791ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2791	0	0	0	34586	11	
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (4,0,0,0,34586)

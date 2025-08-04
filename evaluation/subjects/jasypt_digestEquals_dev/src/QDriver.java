@@ -1,4 +1,4 @@
-import pendulum.AbstractQDriver;
+import sg.edu.nus.comp.tsunami.AbstractQDriver;
 
 import org.jasypt.digest.StandardByteDigester;
 
@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import edu.cmu.sv.kelinci.Mem;
 
-/* : subject comes from
+/* Rhf: subject comes from
 https://github.com/jasypt/jasypt/commit/de86f6f6083dedbd493a68e5f888112c0469dac3#diff-ed511ae4cbd288c8473bb9a18ae7e582f792c86988aec4b4025116c500ec1264L1067 */
 
 public class QDriver extends AbstractQDriver {

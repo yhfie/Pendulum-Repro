@@ -232,7 +232,7 @@ public class StringUtils {
     //     }
     // }
 
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     public final static String /*pad_safe*/pad_unsafe(String src, char padChar, boolean rightPad, int totalLength) {
         int srcLength = Math.min(src.length(), totalLength);
         int padLength = totalLength - srcLength;

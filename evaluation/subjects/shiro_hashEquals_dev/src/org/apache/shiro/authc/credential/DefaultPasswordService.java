@@ -42,7 +42,7 @@ public class DefaultPasswordService implements HashingPasswordService {
 
     public static final String DEFAULT_HASH_ALGORITHM = "SHA-256";
     // public static final int DEFAULT_HASH_ITERATIONS = 500000; //500,000
-    public static final int DEFAULT_HASH_ITERATIONS = 500; // : make this smaller to save some time
+    public static final int DEFAULT_HASH_ITERATIONS = 500; // Rhf: make this smaller to save some time
 
     private static final Logger log = LoggerFactory.getLogger(DefaultPasswordService.class);
 
@@ -81,7 +81,7 @@ public class DefaultPasswordService implements HashingPasswordService {
     }
 
     public boolean passwordsMatch(Object plaintext, Hash saved) {
-        return false;  // 
+        return false;  // RHf
         // ByteSource plaintextBytes = createByteSource(plaintext);
 
         // if (saved == null || saved.isEmpty()) {
@@ -117,7 +117,7 @@ public class DefaultPasswordService implements HashingPasswordService {
         return jdkStringEquals(saved.toString(), computed.toString());
     }
 
-    /* : this is indeed the developer fix */
+    /* Rhf: this is indeed the developer fix */
     /*private*/public static boolean /*constantEquals*/jdkStringEquals(Object o1, Object o2) {
         String savedHash = (String) o1;
         String computedHash = (String) o2;

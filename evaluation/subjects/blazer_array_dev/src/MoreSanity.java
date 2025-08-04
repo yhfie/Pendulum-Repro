@@ -1,5 +1,5 @@
 class MoreSanity {
-    /* : this is the developer fix */
+    /* Rhf: this is the developer fix */
     public static boolean /*array_safe*/array_unsafe(int a[], int taint) {
         int t;
         if (taint < 0) {

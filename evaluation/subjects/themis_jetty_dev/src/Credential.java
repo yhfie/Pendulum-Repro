@@ -2,7 +2,7 @@ import java.io.Serializable;
 
 public class Credential {
 
-    /* : this is indeed the developer fix */
+    /* RHf: this is indeed the developer fix */
     public static boolean /*stringEquals_safe*/stringEquals_original(String s1, String s2) {
         boolean result = true;
         int l1 = s1.length();

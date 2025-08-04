@@ -1,0 +1,14 @@
+public class fakejava.nio.charset.Charset extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        fakejava.nio.charset.Charset r0;
+
+        r0 := @this: fakejava.nio.charset.Charset;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+}

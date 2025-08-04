@@ -12,7 +12,7 @@ public abstract class PasswordCredentials implements Credentials {
 
         public Impl(char[] password) {
             // PasswordCredentials.Impl.this.password = password;
-            this.password = password;  // : to make DifFuzzAR compile
+            this.password = password;  // Rhf: to make DifFuzzAR compile
         }
 
         @Override
@@ -20,7 +20,7 @@ public abstract class PasswordCredentials implements Credentials {
             return password;
         }
 
-        // @Override  // : commented out to make DifFuzzAR compile
+        // @Override  // Rhf: commented out to make DifFuzzAR compile
         public boolean equals$Old(Object other) {
             if (PasswordCredentials.Impl.this == other) {
                 return true;

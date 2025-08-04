@@ -1,0 +1,6 @@
+{
+    "MoreSanity$array_unsafe$int$lp$$rp$_int": [
+        "free requires $arrSizeHeap[$in_parameter__0] > 0;",       
+        "free requires $in_parameter__0 != $null;" 
+    ]
+}

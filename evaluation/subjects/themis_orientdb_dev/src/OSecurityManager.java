@@ -135,7 +135,7 @@ public class OSecurityManager {
    * @param iPassword
    * @return
    */
-  /* : this is indeed the developer fix */
+  /* RHf: this is indeed the developer fix */
   public boolean /*checkPassword_safe*/checkPassword_unsafe(final String iPassword, final String iHash) {
     if (iHash.startsWith(HASH_ALGORITHM_PREFIX)) {
       final String s = iHash.substring(HASH_ALGORITHM_PREFIX.length());

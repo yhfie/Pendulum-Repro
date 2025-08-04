@@ -1,0 +1,38 @@
+{
+	"globals": [
+		"function increase_V$detPure$int(x: int) : int;",
+		"axiom (forall _x: int :: (increase_V$detPure$int(_x) >= _x));",
+		"function f_V$detPure$int(x: int) : int;",
+
+		"function increase_V$detPure$int_int(x: int) : int;",
+		"axiom (forall _x: int :: (increase_V$detPure$int_int(_x) >= _x));",
+		"function f_V$detPure$int_int(x: int, y: int) : int;",
+
+		"function increase_V$detPureCondition$int(x: int) : int;",
+		"axiom (forall _x: int :: (increase_V$detPureCondition$int(_x) >= _x));",
+		"function f_V$detPureCondition$int(x: int) : int;"
+	],
+	"procedures": {
+		"V$detPure$int": [
+			"free ensures ($exception == $null);",
+			"free ensures ($return == f_V$detPure$int($in_parameter__0));",
+			"modifies $objIndex, $heap;",
+			"free ensures (forall<_ty> r: ref, f: Field _ty :: $heap[r, f] == old($heap)[r, f] || !old($heap[r, $alloc]));",
+			"free ensures ($objIndex == increase_V$detPure$int(old($objIndex)));"
+		],
+		"V$detPure$int_int": [
+			"free ensures ($exception == $null);",
+			"free ensures ($return == f_V$detPure$int_int($in_parameter__0, $in_parameter__1));",
+			"modifies $objIndex, $heap;",
+			"free ensures (forall<_ty> r: ref, f: Field _ty :: $heap[r, f] == old($heap)[r, f] || !old($heap[r, $alloc]));",
+			"free ensures ($objIndex == increase_V$detPure$int_int(old($objIndex)));"
+		],
+		"V$detPureCondition$int": [
+			"free ensures ($exception == $null);",
+			"free ensures ($return == f_V$detPureCondition$int($in_parameter__0));",
+			"modifies $objIndex, $heap;",
+			"free ensures (forall<_ty> r: ref, f: Field _ty :: $heap[r, f] == old($heap)[r, f] || !old($heap[r, $alloc]));",
+			"free ensures ($objIndex == increase_V$detPureCondition$int(old($objIndex)));"
+		]
+	}
+}

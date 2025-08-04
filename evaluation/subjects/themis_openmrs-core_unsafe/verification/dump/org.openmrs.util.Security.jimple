@@ -1,0 +1,760 @@
+public class org.openmrs.util.Security extends java.lang.Object
+{
+    private static final org.slf4j.Logger log;
+
+    private void <init>()
+    {
+        org.openmrs.util.Security r0;
+
+        r0 := @this: org.openmrs.util.Security;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static boolean hashMatches(java.lang.String, java.lang.String)
+    {
+        java.lang.String r0, r1, $r4, $r5, $r6;
+        java.lang.Object[] $r3;
+        boolean $z0, $z1, $z2, $z3, $z4;
+        org.openmrs.api.APIException r7;
+        java.lang.Throwable r8;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: java.lang.String;
+
+        if r0 == null goto label1;
+
+        if r1 != null goto label2;
+
+     label1:
+        r7 = new org.openmrs.api.APIException;
+
+        $r3 = (java.lang.Object[]) null;
+
+        specialinvoke r7.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[])>("password.cannot.be.null", $r3);
+
+        r8 = (java.lang.Throwable) r7;
+
+        throw r8;
+
+     label2:
+        $r4 = staticinvoke <org.openmrs.util.Security: java.lang.String encodeString(java.lang.String)>(r1);
+
+        $z0 = virtualinvoke r0.<java.lang.String: boolean equals(java.lang.Object)>($r4);
+
+        $r5 = staticinvoke <org.openmrs.util.Security: java.lang.String encodeStringSHA1(java.lang.String)>(r1);
+
+        $z1 = virtualinvoke r0.<java.lang.String: boolean equals(java.lang.Object)>($r5);
+
+        $z2 = staticinvoke <sg.edu.nus.comp.tsunami.safe.Safe: boolean or(boolean,boolean)>($z0, $z1);
+
+        if $z2 != 0 goto label3;
+
+        $r6 = staticinvoke <org.openmrs.util.Security: java.lang.String incorrectlyEncodeString(java.lang.String)>(r1);
+
+        $z3 = virtualinvoke r0.<java.lang.String: boolean equals(java.lang.Object)>($r6);
+
+        if $z3 == 0 goto label4;
+
+     label3:
+        $z4 = 1;
+
+        goto label5;
+
+     label4:
+        $z4 = 0;
+
+     label5:
+        return $z4;
+    }
+
+    private static java.lang.String getPasswordEncodeFailMessage(java.lang.String)
+    {
+        java.lang.String r0, $r5;
+        java.lang.StringBuilder $r1, $r2, $r3, $r4;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = new java.lang.StringBuilder;
+
+        specialinvoke $r1.<java.lang.StringBuilder: void <init>()>();
+
+        $r2 = virtualinvoke $r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>("Can\'t encode password because the given algorithm: ");
+
+        $r3 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(r0);
+
+        $r4 = virtualinvoke $r3.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(" was not found! (fail)");
+
+        $r5 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r5;
+    }
+
+    public static java.lang.String encodeString(java.lang.String) throws org.openmrs.api.APIException
+    {
+        java.lang.String r0, r1, $r7, $r10;
+        java.security.MessageDigest r2;
+        byte[] r3, $r6;
+        java.security.NoSuchAlgorithmException r4, $r8;
+        java.nio.charset.Charset $r5;
+        org.slf4j.Logger $r9;
+        org.openmrs.api.APIException r12;
+        java.lang.Throwable r13;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 = "SHA-512";
+
+     label1:
+        r2 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>(r1);
+
+        $r5 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        r3 = virtualinvoke r0.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r5);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r8 := @caughtexception;
+
+        r4 = $r8;
+
+        $r9 = <org.openmrs.util.Security: org.slf4j.Logger log>;
+
+        $r10 = staticinvoke <org.openmrs.util.Security: java.lang.String getPasswordEncodeFailMessage(java.lang.String)>(r1);
+
+        interfaceinvoke $r9.<org.slf4j.Logger: void error(java.lang.String,java.lang.Throwable)>($r10, r4);
+
+        r12 = new org.openmrs.api.APIException;
+
+        specialinvoke r12.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("system.cannot.find.password.encryption.algorithm", null, r4);
+
+        r13 = (java.lang.Throwable) r12;
+
+        throw r13;
+
+     label4:
+        $r6 = virtualinvoke r2.<java.security.MessageDigest: byte[] digest(byte[])>(r3);
+
+        $r7 = staticinvoke <org.openmrs.util.Security: java.lang.String hexString(byte[])>($r6);
+
+        return $r7;
+
+        catch java.security.NoSuchAlgorithmException from label1 to label2 with label3;
+    }
+
+    private static java.lang.String encodeStringSHA1(java.lang.String) throws org.openmrs.api.APIException
+    {
+        java.lang.String r0, r1, $r7, $r10;
+        java.security.MessageDigest r2;
+        byte[] r3, $r6;
+        java.security.NoSuchAlgorithmException r4, $r8;
+        java.nio.charset.Charset $r5;
+        org.slf4j.Logger $r9;
+        org.openmrs.api.APIException r12;
+        java.lang.Throwable r13;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 = "SHA1";
+
+     label1:
+        r2 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>(r1);
+
+        $r5 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        r3 = virtualinvoke r0.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r5);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r8 := @caughtexception;
+
+        r4 = $r8;
+
+        $r9 = <org.openmrs.util.Security: org.slf4j.Logger log>;
+
+        $r10 = staticinvoke <org.openmrs.util.Security: java.lang.String getPasswordEncodeFailMessage(java.lang.String)>(r1);
+
+        interfaceinvoke $r9.<org.slf4j.Logger: void error(java.lang.String,java.lang.Throwable)>($r10, r4);
+
+        r12 = new org.openmrs.api.APIException;
+
+        specialinvoke r12.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("system.cannot.find.encryption.algorithm", null, r4);
+
+        r13 = (java.lang.Throwable) r12;
+
+        throw r13;
+
+     label4:
+        $r6 = virtualinvoke r2.<java.security.MessageDigest: byte[] digest(byte[])>(r3);
+
+        $r7 = staticinvoke <org.openmrs.util.Security: java.lang.String hexString(byte[])>($r6);
+
+        return $r7;
+
+        catch java.security.NoSuchAlgorithmException from label1 to label2 with label3;
+    }
+
+    private static java.lang.String hexString(byte[])
+    {
+        byte[] r0, r3;
+        java.lang.StringBuilder r1, $r4;
+        char[] r2, $r5;
+        short s0, $s4;
+        byte b1, b3;
+        int i2, i7;
+        java.lang.String $r6;
+        char $c5, $c6;
+
+        r0 := @parameter0: byte[];
+
+        $r4 = new java.lang.StringBuilder;
+
+        specialinvoke $r4.<java.lang.StringBuilder: void <init>()>();
+
+        r1 = $r4;
+
+        $r5 = newarray (char)[16];
+
+        $r5[0] = 48;
+
+        $r5[1] = 49;
+
+        $r5[2] = 50;
+
+        $r5[3] = 51;
+
+        $r5[4] = 52;
+
+        $r5[5] = 53;
+
+        $r5[6] = 54;
+
+        $r5[7] = 55;
+
+        $r5[8] = 56;
+
+        $r5[9] = 57;
+
+        $r5[10] = 97;
+
+        $r5[11] = 98;
+
+        $r5[12] = 99;
+
+        $r5[13] = 100;
+
+        $r5[14] = 101;
+
+        $r5[15] = 102;
+
+        r2 = $r5;
+
+        r3 = r0;
+
+        i2 = lengthof r3;
+
+        i7 = 0;
+
+     label1:
+        if i7 >= i2 goto label2;
+
+        b3 = r3[i7];
+
+        $s4 = b3 & 240;
+
+        s0 = $s4 >> 4;
+
+        b1 = b3 & 15;
+
+        $c5 = r2[s0];
+
+        virtualinvoke r1.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c5);
+
+        $c6 = r2[b1];
+
+        virtualinvoke r1.<java.lang.StringBuilder: java.lang.StringBuilder append(char)>($c6);
+
+        i7 = i7 + 1;
+
+        goto label1;
+
+     label2:
+        $r6 = virtualinvoke r1.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        return $r6;
+    }
+
+    private static java.lang.String incorrectlyEncodeString(java.lang.String) throws org.openmrs.api.APIException
+    {
+        java.lang.String r0, r1, $r7, $r10;
+        java.security.MessageDigest r2;
+        byte[] r3, $r6;
+        java.security.NoSuchAlgorithmException r4, $r8;
+        java.nio.charset.Charset $r5;
+        org.slf4j.Logger $r9;
+        org.openmrs.api.APIException r12;
+        java.lang.Throwable r13;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 = "SHA1";
+
+     label1:
+        r2 = staticinvoke <java.security.MessageDigest: java.security.MessageDigest getInstance(java.lang.String)>(r1);
+
+        $r5 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        r3 = virtualinvoke r0.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r5);
+
+     label2:
+        goto label4;
+
+     label3:
+        $r8 := @caughtexception;
+
+        r4 = $r8;
+
+        $r9 = <org.openmrs.util.Security: org.slf4j.Logger log>;
+
+        $r10 = staticinvoke <org.openmrs.util.Security: java.lang.String getPasswordEncodeFailMessage(java.lang.String)>(r1);
+
+        interfaceinvoke $r9.<org.slf4j.Logger: void error(java.lang.String,java.lang.Throwable)>($r10, r4);
+
+        r12 = new org.openmrs.api.APIException;
+
+        specialinvoke r12.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("system.cannot.find.encryption.algorithm", null, r4);
+
+        r13 = (java.lang.Throwable) r12;
+
+        throw r13;
+
+     label4:
+        $r6 = virtualinvoke r2.<java.security.MessageDigest: byte[] digest(byte[])>(r3);
+
+        $r7 = staticinvoke <org.openmrs.util.Security: java.lang.String incorrectHexString(byte[])>($r6);
+
+        return $r7;
+
+        catch java.security.NoSuchAlgorithmException from label1 to label2 with label3;
+    }
+
+    private static java.lang.String incorrectHexString(byte[])
+    {
+        byte[] r0, r2;
+        java.lang.StringBuilder r1, $r3;
+        int i0, $i2, i4;
+        byte b1;
+        java.lang.String $r4, $r5;
+        short $s3;
+
+        r0 := @parameter0: byte[];
+
+        if r0 == null goto label1;
+
+        $i2 = lengthof r0;
+
+        if $i2 >= 1 goto label2;
+
+     label1:
+        return "";
+
+     label2:
+        $r3 = new java.lang.StringBuilder;
+
+        specialinvoke $r3.<java.lang.StringBuilder: void <init>()>();
+
+        r1 = $r3;
+
+        r2 = r0;
+
+        i0 = lengthof r2;
+
+        i4 = 0;
+
+     label3:
+        if i4 >= i0 goto label4;
+
+        b1 = r2[i4];
+
+        $s3 = b1 & 255;
+
+        $r5 = staticinvoke <java.lang.Integer: java.lang.String toHexString(int)>($s3);
+
+        virtualinvoke r1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        i4 = i4 + 1;
+
+        goto label3;
+
+     label4:
+        $r4 = new java.lang.String;
+
+        specialinvoke $r4.<java.lang.String: void <init>(java.lang.StringBuilder)>(r1);
+
+        return $r4;
+    }
+
+    public static java.lang.String getRandomToken() throws org.openmrs.api.APIException
+    {
+        java.util.Random r0, $r1;
+        java.lang.StringBuilder $r2, $r4, $r6;
+        long $l0, $l1;
+        java.lang.String $r3, $r5, $r7, $r8;
+
+        $r1 = new java.util.Random;
+
+        specialinvoke $r1.<java.util.Random: void <init>()>();
+
+        r0 = $r1;
+
+        $r2 = new java.lang.StringBuilder;
+
+        specialinvoke $r2.<java.lang.StringBuilder: void <init>()>();
+
+        $l0 = staticinvoke <java.lang.System: long currentTimeMillis()>();
+
+        $r3 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l0);
+
+        $r4 = virtualinvoke $r2.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r3);
+
+        $l1 = virtualinvoke r0.<java.util.Random: long nextLong()>();
+
+        $r5 = staticinvoke <java.lang.Long: java.lang.String toString(long)>($l1);
+
+        $r6 = virtualinvoke $r4.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($r5);
+
+        $r7 = virtualinvoke $r6.<java.lang.StringBuilder: java.lang.String toString()>();
+
+        $r8 = staticinvoke <org.openmrs.util.Security: java.lang.String encodeString(java.lang.String)>($r7);
+
+        return $r8;
+    }
+
+    public static java.lang.String encrypt(java.lang.String, byte[], byte[])
+    {
+        java.lang.String r0, r6, r21;
+        byte[] r1, r2, r5, $r10, $r13;
+        javax.crypto.spec.IvParameterSpec r3, r19;
+        javax.crypto.spec.SecretKeySpec r4, r20;
+        java.nio.charset.Charset $r9, $r14;
+        java.util.Base64$Encoder $r12;
+        java.security.GeneralSecurityException $r15, r18;
+        javax.crypto.Cipher r17;
+        org.openmrs.api.APIException r22;
+        java.lang.Throwable r23;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: byte[];
+
+        r2 := @parameter2: byte[];
+
+        r19 = new javax.crypto.spec.IvParameterSpec;
+
+        specialinvoke r19.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>(r1);
+
+        r3 = r19;
+
+        r20 = new javax.crypto.spec.SecretKeySpec;
+
+        specialinvoke r20.<javax.crypto.spec.SecretKeySpec: void <init>(byte[],java.lang.String)>(r2, "AES");
+
+        r4 = r20;
+
+     label1:
+        r17 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+        virtualinvoke r17.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(1, r4, r3);
+
+        $r9 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        $r10 = virtualinvoke r0.<java.lang.String: byte[] getBytes(java.nio.charset.Charset)>($r9);
+
+        r5 = virtualinvoke r17.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r10);
+
+        r21 = new java.lang.String;
+
+        $r12 = staticinvoke <java.util.Base64: java.util.Base64$Encoder getEncoder()>();
+
+        $r13 = virtualinvoke $r12.<java.util.Base64$Encoder: byte[] encode(byte[])>(r5);
+
+        $r14 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        specialinvoke r21.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>($r13, $r14);
+
+        r6 = r21;
+
+     label2:
+        goto label4;
+
+     label3:
+        $r15 := @caughtexception;
+
+        r18 = $r15;
+
+        r22 = new org.openmrs.api.APIException;
+
+        specialinvoke r22.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("could.not.encrypt.text", null, r18);
+
+        r23 = (java.lang.Throwable) r22;
+
+        throw r23;
+
+     label4:
+        return r6;
+
+        catch java.security.GeneralSecurityException from label1 to label2 with label3;
+    }
+
+    public static java.lang.String encrypt(java.lang.String)
+    {
+        java.lang.String r0, $r3;
+        byte[] $r1, $r2;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = staticinvoke <org.openmrs.util.Security: byte[] getSavedInitVector()>();
+
+        $r2 = staticinvoke <org.openmrs.util.Security: byte[] getSavedSecretKey()>();
+
+        $r3 = staticinvoke <org.openmrs.util.Security: java.lang.String encrypt(java.lang.String,byte[],byte[])>(r0, $r1, $r2);
+
+        return $r3;
+    }
+
+    public static java.lang.String decrypt(java.lang.String, byte[], byte[])
+    {
+        java.lang.String r0, r5, r19;
+        byte[] r1, r2, r6, $r10;
+        javax.crypto.spec.IvParameterSpec r3, r17;
+        javax.crypto.spec.SecretKeySpec r4, r18;
+        java.util.Base64$Decoder $r9;
+        java.nio.charset.Charset $r12;
+        java.security.GeneralSecurityException $r13, r16;
+        javax.crypto.Cipher r15;
+        org.openmrs.api.APIException r20;
+        java.lang.Throwable r21;
+
+        r0 := @parameter0: java.lang.String;
+
+        r1 := @parameter1: byte[];
+
+        r2 := @parameter2: byte[];
+
+        r17 = new javax.crypto.spec.IvParameterSpec;
+
+        specialinvoke r17.<javax.crypto.spec.IvParameterSpec: void <init>(byte[])>(r1);
+
+        r3 = r17;
+
+        r18 = new javax.crypto.spec.SecretKeySpec;
+
+        specialinvoke r18.<javax.crypto.spec.SecretKeySpec: void <init>(byte[],java.lang.String)>(r2, "AES");
+
+        r4 = r18;
+
+     label1:
+        r15 = staticinvoke <javax.crypto.Cipher: javax.crypto.Cipher getInstance(java.lang.String)>("AES/CBC/PKCS5Padding");
+
+        virtualinvoke r15.<javax.crypto.Cipher: void init(int,java.security.Key,java.security.spec.AlgorithmParameterSpec)>(2, r4, r3);
+
+        $r9 = staticinvoke <java.util.Base64: java.util.Base64$Decoder getDecoder()>();
+
+        $r10 = virtualinvoke $r9.<java.util.Base64$Decoder: byte[] decode(java.lang.String)>(r0);
+
+        r6 = virtualinvoke r15.<javax.crypto.Cipher: byte[] doFinal(byte[])>($r10);
+
+        r19 = new java.lang.String;
+
+        $r12 = <java.nio.charset.StandardCharsets: java.nio.charset.Charset UTF_8>;
+
+        specialinvoke r19.<java.lang.String: void <init>(byte[],java.nio.charset.Charset)>(r6, $r12);
+
+        r5 = r19;
+
+     label2:
+        goto label4;
+
+     label3:
+        $r13 := @caughtexception;
+
+        r16 = $r13;
+
+        r20 = new org.openmrs.api.APIException;
+
+        specialinvoke r20.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("could.not.decrypt.text", null, r16);
+
+        r21 = (java.lang.Throwable) r20;
+
+        throw r21;
+
+     label4:
+        return r5;
+
+        catch java.security.GeneralSecurityException from label1 to label2 with label3;
+    }
+
+    public static java.lang.String decrypt(java.lang.String)
+    {
+        java.lang.String r0, $r3;
+        byte[] $r1, $r2;
+
+        r0 := @parameter0: java.lang.String;
+
+        $r1 = staticinvoke <org.openmrs.util.Security: byte[] getSavedInitVector()>();
+
+        $r2 = staticinvoke <org.openmrs.util.Security: byte[] getSavedSecretKey()>();
+
+        $r3 = staticinvoke <org.openmrs.util.Security: java.lang.String decrypt(java.lang.String,byte[],byte[])>(r0, $r1, $r2);
+
+        return $r3;
+    }
+
+    public static byte[] getSavedInitVector()
+    {
+        java.lang.String r0;
+        java.util.Properties $r1;
+        boolean $z0;
+        java.lang.Object[] $r3;
+        java.util.Base64$Decoder $r4;
+        byte[] $r5;
+        org.openmrs.api.APIException r6;
+        java.lang.Throwable r7;
+
+        $r1 = staticinvoke <org.openmrs.api.context.Context: java.util.Properties getRuntimeProperties()>();
+
+        r0 = virtualinvoke $r1.<java.util.Properties: java.lang.String getProperty(java.lang.String,java.lang.String)>("encryption.vector", "9wyBUNglFCRVSUhMfsTa3Q==");
+
+        $z0 = staticinvoke <org.springframework.util.StringUtils: boolean hasText(java.lang.String)>(r0);
+
+        if $z0 == 0 goto label1;
+
+        $r4 = staticinvoke <java.util.Base64: java.util.Base64$Decoder getDecoder()>();
+
+        $r5 = virtualinvoke $r4.<java.util.Base64$Decoder: byte[] decode(java.lang.String)>(r0);
+
+        return $r5;
+
+     label1:
+        r6 = new org.openmrs.api.APIException;
+
+        $r3 = (java.lang.Object[]) null;
+
+        specialinvoke r6.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[])>("no.encryption.initialization.vector.found", $r3);
+
+        r7 = (java.lang.Throwable) r6;
+
+        throw r7;
+    }
+
+    public static byte[] generateNewInitVector()
+    {
+        byte[] r0;
+        java.security.SecureRandom $r1;
+
+        r0 = newarray (byte)[16];
+
+        $r1 = new java.security.SecureRandom;
+
+        specialinvoke $r1.<java.security.SecureRandom: void <init>()>();
+
+        virtualinvoke $r1.<java.security.SecureRandom: void nextBytes(byte[])>(r0);
+
+        return r0;
+    }
+
+    public static byte[] getSavedSecretKey()
+    {
+        java.lang.String r0;
+        java.util.Properties $r1;
+        boolean $z0;
+        java.lang.Object[] $r3;
+        java.util.Base64$Decoder $r4;
+        byte[] $r5;
+        org.openmrs.api.APIException r6;
+        java.lang.Throwable r7;
+
+        $r1 = staticinvoke <org.openmrs.api.context.Context: java.util.Properties getRuntimeProperties()>();
+
+        r0 = virtualinvoke $r1.<java.util.Properties: java.lang.String getProperty(java.lang.String,java.lang.String)>("encryption.key", "dTfyELRrAICGDwzjHDjuhw==");
+
+        $z0 = staticinvoke <org.springframework.util.StringUtils: boolean hasText(java.lang.String)>(r0);
+
+        if $z0 == 0 goto label1;
+
+        $r4 = staticinvoke <java.util.Base64: java.util.Base64$Decoder getDecoder()>();
+
+        $r5 = virtualinvoke $r4.<java.util.Base64$Decoder: byte[] decode(java.lang.String)>(r0);
+
+        return $r5;
+
+     label1:
+        r6 = new org.openmrs.api.APIException;
+
+        $r3 = (java.lang.Object[]) null;
+
+        specialinvoke r6.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[])>("no.encryption.secret.key.found", $r3);
+
+        r7 = (java.lang.Throwable) r6;
+
+        throw r7;
+    }
+
+    public static byte[] generateNewSecretKey()
+    {
+        javax.crypto.KeyGenerator r0;
+        byte[] $r1;
+        java.security.NoSuchAlgorithmException $r2, r4;
+        javax.crypto.SecretKey r5;
+        org.openmrs.api.APIException r6;
+        java.lang.Throwable r7;
+
+     label1:
+        r0 = staticinvoke <javax.crypto.KeyGenerator: javax.crypto.KeyGenerator getInstance(java.lang.String)>("AES");
+
+     label2:
+        goto label4;
+
+     label3:
+        $r2 := @caughtexception;
+
+        r4 = $r2;
+
+        r6 = new org.openmrs.api.APIException;
+
+        specialinvoke r6.<org.openmrs.api.APIException: void <init>(java.lang.String,java.lang.Object[],java.lang.Throwable)>("could.not.generate.cipher.key", null, r4);
+
+        r7 = (java.lang.Throwable) r6;
+
+        throw r7;
+
+     label4:
+        virtualinvoke r0.<javax.crypto.KeyGenerator: void init(int)>(128);
+
+        r5 = virtualinvoke r0.<javax.crypto.KeyGenerator: javax.crypto.SecretKey generateKey()>();
+
+        $r1 = interfaceinvoke r5.<javax.crypto.SecretKey: byte[] getEncoded()>();
+
+        return $r1;
+
+        catch java.security.NoSuchAlgorithmException from label1 to label2 with label3;
+    }
+
+    static void <clinit>()
+    {
+        org.slf4j.Logger $r0;
+
+        $r0 = staticinvoke <org.slf4j.LoggerFactory: org.slf4j.Logger getLogger(java.lang.Class)>(class "org/openmrs/util/Security");
+
+        <org.openmrs.util.Security: org.slf4j.Logger log> = $r0;
+
+        return;
+    }
+}

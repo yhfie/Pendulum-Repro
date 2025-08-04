@@ -1,0 +1,47 @@
++++ dirname -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh
+++ cd -- /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
+++ pwd
++ SCRIPT_DIR=/home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification
++ '[' trans == infer ']'
++ '[' trans == diff ']'
++ '[' trans == extract ']'
++ '[' trans == trans ']'
++ shift
+++ basename fixed.bpl .bpl
++ raw=fixedr.bpl
++ java -jar /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/jar2bpl.jar -debug-mode -err -j ../verification/bin_fixed -b fixedr.bpl
+[root] - Running soot with  -keep-line-number -pp -f jimple -d ./dump -allow-phantom-refs -cp /home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/rt.jar:/home/crhf/.sdkman/candidates/java/8.0.352-zulu/jre/lib/jce.jar: -src-prec class -process-path ../verification/bin_fixed
+Soot started on Thu Jul 04 21:28:11 SGT 2024
+Warning: org.eclipse.jdt.core.compiler.CategorizedProblem is a phantom class!
+Warning: org.apache.ftpserver.usermanager.PasswordEncryptor is a phantom class!
+Transforming org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor... 
+Transforming fakejava.lang.String... 
+Transforming fakejava.lang.Boolean... 
+Transforming sg.edu.nus.comp.tsunami.safe.Safe... 
+Writing to ./dump/org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor.jimple
+Writing to ./dump/fakejava.lang.String.jimple
+Writing to ./dump/fakejava.lang.Boolean.jimple
+Writing to ./dump/sg.edu.nus.comp.tsunami.safe.Safe.jimple
+Soot finished on Thu Jul 04 21:28:11 SGT 2024
+Soot has run for 0 min. 0 sec.
+[root] - Done parsing.
+++ sed -n -E 's#.*(fake(java(\.[[:alnum:]_]+)+)).*#\2#p' fixedr.bpl
+++ sort
+++ uniq
++ stubbed='java.lang.Boolean
+java.lang.String'
++ for x in $stubbed
++ echo java.lang.Boolean is stubbed
+java.lang.Boolean is stubbed
++ for x in $stubbed
++ echo java.lang.String is stubbed
+java.lang.String is stubbed
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.lang.Boolean.*#//\0#' fixedr.bpl
++ for x in $stubbed
++ sed -i -E 's#(procedure|const).* java.lang.String.*#//\0#' fixedr.bpl
++ sed -i -E '/.*fakejava.*/{h; s#fakejava#java#g; x; s#.*#//&#; G}' fixedr.bpl
++ '[' == -noExtractLoops ']'
+/home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff.sh: line 35: [: ==: unary operator expected
++ mono /home/crhf/projects/pendulum/sc-fix/evaluation/scripts/verification/symdiff/Sources/SymDiff/bin/x86/Debug/SymDiff.exe -extractLoops fixedr.bpl fixed.bpl
++ sed -i -E '/java.lang.Class: javaType/{s#.*#//\0#}' fixedr.bpl fixed.bpl

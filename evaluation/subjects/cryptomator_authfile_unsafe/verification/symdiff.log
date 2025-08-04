@@ -1,0 +1,489 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Assuming unsafe.java.nio.file.PathMatcher$matches$java.nio.file.Path and fixed.java.nio.file.PathMatcher$matches$java.nio.file.Path are equivalent
+Assuming unsafe.org.cryptomator.crypto.AbstractCryptor$$la$init$ra$$ and fixed.org.cryptomator.crypto.AbstractCryptor$$la$init$ra$$ are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ and fixed.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ are equivalent
+Assuming unsafe.java.security.SecureRandom$generateSeed$int and fixed.java.security.SecureRandom$generateSeed$int are equivalent
+Assuming unsafe.java.security.SecureRandom$setSeed$byte$lp$$rp$ and fixed.java.security.SecureRandom$setSeed$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ and fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String and fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String are equivalent
+Assuming unsafe.java.util.Arrays$fill$byte$lp$$rp$_byte and fixed.java.util.Arrays$fill$byte$lp$$rp$_byte are equivalent
+Assuming unsafe.java.util.Random$nextBytes$byte$lp$$rp$ and fixed.java.util.Random$nextBytes$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.crypto.Cipher$wrap$java.security.Key and fixed.javax.crypto.Cipher$wrap$java.security.Key are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$$la$init$ra$$ and fixed.org.cryptomator.crypto.aes256.KeyFile$$la$init$ra$$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptSalt$byte$lp$$rp$ and fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptSalt$byte$lp$$rp$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptCostParam$int and fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptCostParam$int are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptBlockSize$int and fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptBlockSize$int are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setKeyLength$int and fixed.org.cryptomator.crypto.aes256.KeyFile$setKeyLength$int are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setPrimaryMasterKey$byte$lp$$rp$ and fixed.org.cryptomator.crypto.aes256.KeyFile$setPrimaryMasterKey$byte$lp$$rp$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$setHMacMasterKey$byte$lp$$rp$ and fixed.org.cryptomator.crypto.aes256.KeyFile$setHMacMasterKey$byte$lp$$rp$ are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValue$java.io.OutputStream_java.lang.Object and fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValue$java.io.OutputStream_java.lang.Object are equivalent
+Assuming unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable and fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$readValue$java.io.InputStream_java.lang.Class and fixed.com.fasterxml.jackson.databind.ObjectMapper$readValue$java.io.InputStream_java.lang.Class are equivalent
+Assuming unsafe.javax.crypto.Cipher$getMaxAllowedKeyLength$java.lang.String and fixed.javax.crypto.Cipher$getMaxAllowedKeyLength$java.lang.String are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getKeyLength$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getKeyLength$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.exceptions.UnsupportedKeyLengthException$$la$init$ra$$int_int and fixed.org.cryptomator.crypto.exceptions.UnsupportedKeyLengthException$$la$init$ra$$int_int are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptSalt$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptSalt$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptCostParam$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptCostParam$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptBlockSize$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptBlockSize$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getPrimaryMasterKey$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getPrimaryMasterKey$ are equivalent
+Assuming unsafe.javax.crypto.Cipher$unwrap$byte$lp$$rp$_java.lang.String_int and fixed.javax.crypto.Cipher$unwrap$byte$lp$$rp$_java.lang.String_int are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.KeyFile$getHMacMasterKey$ and fixed.org.cryptomator.crypto.aes256.KeyFile$getHMacMasterKey$ are equivalent
+Assuming unsafe.org.cryptomator.crypto.exceptions.WrongPasswordException$$la$init$ra$$ and fixed.org.cryptomator.crypto.exceptions.WrongPasswordException$$la$init$ra$$ are equivalent
+Assuming unsafe.javax.security.auth.Destroyable$destroy$ and fixed.javax.security.auth.Destroyable$destroy$ are equivalent
+Assuming unsafe.javax.crypto.Cipher$getInstance$java.lang.String and fixed.javax.crypto.Cipher$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Cipher$init$int_java.security.Key and fixed.javax.crypto.Cipher$init$int_java.security.Key are equivalent
+Assuming unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String_java.lang.Throwable and fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String_java.lang.Throwable are equivalent
+Assuming unsafe.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ and fixed.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ are equivalent
+Assuming unsafe.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec and fixed.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec are equivalent
+Assuming unsafe.java.lang.AssertionError$$la$init$ra$$java.lang.String_java.lang.Throwable and fixed.java.lang.AssertionError$$la$init$ra$$java.lang.String_java.lang.Throwable are equivalent
+Assuming unsafe.javax.crypto.Mac$getInstance$java.lang.String and fixed.javax.crypto.Mac$getInstance$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Mac$init$java.security.Key and fixed.javax.crypto.Mac$init$java.security.Key are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$java.lang.CharSequence and fixed.java.lang.StringBuilder$$la$init$ra$$java.lang.CharSequence are equivalent
+Assuming unsafe.java.lang.StringBuilder$toString$ and fixed.java.lang.StringBuilder$toString$ are equivalent
+Assuming unsafe.java.lang.String$getBytes$ and fixed.java.lang.String$getBytes$ are equivalent
+Assuming unsafe.org.bouncycastle.crypto.generators.SCrypt$generate$byte$lp$$rp$_byte$lp$$rp$_int_int_int_int and fixed.org.bouncycastle.crypto.generators.SCrypt$generate$byte$lp$$rp$_byte$lp$$rp$_int_int_int_int are equivalent
+Assuming unsafe.java.lang.CharSequence$length$ and fixed.java.lang.CharSequence$length$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$setCharAt$int_char and fixed.java.lang.StringBuilder$setCharAt$int_char are equivalent
+Assuming unsafe.java.util.zip.CRC32$$la$init$ra$$ and fixed.java.util.zip.CRC32$$la$init$ra$$ are equivalent
+Assuming unsafe.java.util.zip.CRC32$update$byte$lp$$rp$ and fixed.java.util.zip.CRC32$update$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.util.zip.CRC32$getValue$ and fixed.java.util.zip.CRC32$getValue$ are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$split$java.lang.String_char and fixed.org.apache.commons.lang3.StringUtils$split$java.lang.String_char are equivalent
+Assuming unsafe.java.util.ArrayList$$la$init$ra$$int and fixed.java.util.ArrayList$$la$init$ra$$int are equivalent
+Assuming unsafe.java.util.List$add$java.lang.Object and fixed.java.util.List$add$java.lang.Object are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$join$java.lang.Iterable_char and fixed.org.apache.commons.lang3.StringUtils$join$java.lang.Iterable_char are equivalent
+Assuming unsafe.java.lang.StringBuilder$$la$init$ra$$ and fixed.java.lang.StringBuilder$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.StringBuilder$append$java.lang.String and fixed.java.lang.StringBuilder$append$java.lang.String are equivalent
+Assuming unsafe.javax.crypto.Mac$doFinal$byte$lp$$rp$ and fixed.javax.crypto.Mac$doFinal$byte$lp$$rp$ are equivalent
+Assuming unsafe.org.apache.commons.lang3.ArrayUtils$subarray$byte$lp$$rp$_int_int and fixed.org.apache.commons.lang3.ArrayUtils$subarray$byte$lp$$rp$_int_int are equivalent
+Assuming unsafe.java.nio.ByteBuffer$allocate$int and fixed.java.nio.ByteBuffer$allocate$int are equivalent
+Assuming unsafe.java.nio.ByteBuffer$put$byte$lp$$rp$ and fixed.java.nio.ByteBuffer$put$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.nio.ByteBuffer$array$ and fixed.java.nio.ByteBuffer$array$ are equivalent
+Assuming unsafe.java.lang.String$getBytes$java.nio.charset.Charset and fixed.java.lang.String$getBytes$java.nio.charset.Charset are equivalent
+Assuming unsafe.javax.crypto.Cipher$doFinal$byte$lp$$rp$ and fixed.javax.crypto.Cipher$doFinal$byte$lp$$rp$ are equivalent
+Assuming unsafe.org.apache.commons.codec.binary.BaseNCodec$encodeAsString$byte$lp$$rp$ and fixed.org.apache.commons.codec.binary.BaseNCodec$encodeAsString$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.lang.Long$toHexString$long and fixed.java.lang.Long$toHexString$long are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$getOrCreateUuidForEncryptedFilename$java.lang.String and fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$getOrCreateUuidForEncryptedFilename$java.lang.String are equivalent
+Assuming unsafe.java.util.UUID$toString$ and fixed.java.util.UUID$toString$ are equivalent
+Assuming unsafe.java.lang.String$$la$init$ra$$java.lang.String and fixed.java.lang.String$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.java.lang.String$endsWith$java.lang.String and fixed.java.lang.String$endsWith$java.lang.String are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$removeEnd$java.lang.String_java.lang.String and fixed.org.apache.commons.lang3.StringUtils$removeEnd$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$substringBefore$java.lang.String_java.lang.String and fixed.org.apache.commons.lang3.StringUtils$substringBefore$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$substringAfter$java.lang.String_java.lang.String and fixed.org.apache.commons.lang3.StringUtils$substringAfter$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.java.util.UUID$fromString$java.lang.String and fixed.java.util.UUID$fromString$java.lang.String are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$getEncryptedFilenameForUUID$java.util.UUID and fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$getEncryptedFilenameForUUID$java.util.UUID are equivalent
+Assuming unsafe.org.apache.commons.lang3.StringUtils$removeEndIgnoreCase$java.lang.String_java.lang.String and fixed.org.apache.commons.lang3.StringUtils$removeEndIgnoreCase$java.lang.String_java.lang.String are equivalent
+Assuming unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String and fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.org.apache.commons.codec.binary.BaseNCodec$decode$java.lang.String and fixed.org.apache.commons.codec.binary.BaseNCodec$decode$java.lang.String are equivalent
+Assuming unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset and fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset are equivalent
+Assuming unsafe.org.cryptomator.crypto.CryptorIOSupport$readPathSpecificMetadata$java.lang.String and fixed.org.cryptomator.crypto.CryptorIOSupport$readPathSpecificMetadata$java.lang.String are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$$la$init$ra$$ and fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$$la$init$ra$$ are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$readValue$byte$lp$$rp$_java.lang.Class and fixed.com.fasterxml.jackson.databind.ObjectMapper$readValue$byte$lp$$rp$_java.lang.Class are equivalent
+Assuming unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object and fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object are equivalent
+Assuming unsafe.org.cryptomator.crypto.CryptorIOSupport$writePathSpecificMetadata$java.lang.String_byte$lp$$rp$ and fixed.org.cryptomator.crypto.CryptorIOSupport$writePathSpecificMetadata$java.lang.String_byte$lp$$rp$ are equivalent
+Assuming unsafe.java.nio.channels.SeekableByteChannel$position$long and fixed.java.nio.channels.SeekableByteChannel$position$long are equivalent
+Assuming unsafe.javax.crypto.Mac$getMacLength$ and fixed.javax.crypto.Mac$getMacLength$ are equivalent
+Assuming unsafe.java.nio.channels.SeekableByteChannel$read$java.nio.ByteBuffer and fixed.java.nio.channels.SeekableByteChannel$read$java.nio.ByteBuffer are equivalent
+Assuming unsafe.java.io.IOException$$la$init$ra$$java.lang.String and fixed.java.io.IOException$$la$init$ra$$java.lang.String are equivalent
+Assuming unsafe.org.cryptomator.crypto.io.SeekableByteChannelInputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel and fixed.org.cryptomator.crypto.io.SeekableByteChannelInputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.MacInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Mac and fixed.org.cryptomator.crypto.aes256.MacInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Mac are equivalent
+Assuming unsafe.org.apache.commons.io.output.NullOutputStream$$la$init$ra$$ and fixed.org.apache.commons.io.output.NullOutputStream$$la$init$ra$$ are equivalent
+Assuming unsafe.java.lang.Long$longValue$ and fixed.java.lang.Long$longValue$ are equivalent
+Assuming unsafe.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream_long_long and fixed.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream_long_long are equivalent
+Assuming unsafe.javax.crypto.Mac$doFinal$ and fixed.javax.crypto.Mac$doFinal$ are equivalent
+Assuming unsafe.java.nio.Buffer$capacity$ and fixed.java.nio.Buffer$capacity$ are equivalent
+Assuming unsafe.java.nio.ByteBuffer$wrap$byte$lp$$rp$ and fixed.java.nio.ByteBuffer$wrap$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.nio.ByteBuffer$getLong$ and fixed.java.nio.ByteBuffer$getLong$ are equivalent
+Assuming unsafe.java.lang.Long$valueOf$long and fixed.java.lang.Long$valueOf$long are equivalent
+Assuming unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable and fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable are equivalent
+Assuming unsafe.javax.crypto.CipherInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Cipher and fixed.javax.crypto.CipherInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Cipher are equivalent
+Assuming unsafe.java.nio.ByteBuffer$putLong$int_long and fixed.java.nio.ByteBuffer$putLong$int_long are equivalent
+Assuming unsafe.java.nio.channels.SeekableByteChannel$truncate$long and fixed.java.nio.channels.SeekableByteChannel$truncate$long are equivalent
+Assuming unsafe.java.nio.Buffer$position$int and fixed.java.nio.Buffer$position$int are equivalent
+Assuming unsafe.java.nio.channels.SeekableByteChannel$write$java.nio.ByteBuffer and fixed.java.nio.channels.SeekableByteChannel$write$java.nio.ByteBuffer are equivalent
+Assuming unsafe.org.cryptomator.crypto.io.SeekableByteChannelOutputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel and fixed.org.cryptomator.crypto.io.SeekableByteChannelOutputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel are equivalent
+Assuming unsafe.org.cryptomator.crypto.aes256.MacOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Mac and fixed.org.cryptomator.crypto.aes256.MacOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Mac are equivalent
+Assuming unsafe.javax.crypto.CipherOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Cipher and fixed.javax.crypto.CipherOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Cipher are equivalent
+Assuming unsafe.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream and fixed.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream are equivalent
+Assuming unsafe.java.lang.Math$random$ and fixed.java.lang.Math$random$ are equivalent
+Assuming unsafe.java.lang.Math$ceil$double and fixed.java.lang.Math$ceil$double are equivalent
+Assuming unsafe.java.io.OutputStream$write$byte$lp$$rp$ and fixed.java.io.OutputStream$write$byte$lp$$rp$ are equivalent
+Assuming unsafe.java.io.OutputStream$flush$ and fixed.java.io.OutputStream$flush$ are equivalent
+Assuming unsafe.java.nio.ByteBuffer$putLong$long and fixed.java.nio.ByteBuffer$putLong$long are equivalent
+Assuming unsafe.java.security.SecureRandom$getInstance$java.lang.String and fixed.java.security.SecureRandom$getInstance$java.lang.String are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$1$$la$init$ra$$org.cryptomator.crypto.aes256.Aes256Cryptor, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$1$$la$init$ra$$org.cryptomator.crypto.aes256.Aes256Cryptor
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Missing procedure for unsafe.java.nio.file.PathMatcher$matches$java.nio.file.Path or fixed.java.nio.file.PathMatcher$matches$java.nio.file.Path: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$1$accept$java.nio.file.Path, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$1$accept$java.nio.file.Path
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$1$accept$java.lang.Object and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$1$accept$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$1$accept$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.211512 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1222ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1222ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1222	0	0	0	4839	7	
+Missing procedure for unsafe.org.cryptomator.crypto.AbstractCryptor$$la$init$ra$$ or fixed.org.cryptomator.crypto.AbstractCryptor$$la$init$ra$$: skipping...
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$ or fixed.com.fasterxml.jackson.databind.ObjectMapper$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$generateSeed$int or fixed.java.security.SecureRandom$generateSeed$int: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$setSeed$byte$lp$$rp$ or fixed.java.security.SecureRandom$setSeed$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.util.Arrays$fill$byte$lp$$rp$_byte or fixed.java.util.Arrays$fill$byte$lp$$rp$_byte: skipping...
+Missing procedure for unsafe.java.security.SecureRandom$nextBytes$byte$lp$$rp$ or fixed.java.security.SecureRandom$nextBytes$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String or fixed.javax.crypto.spec.SecretKeySpec$$la$init$ra$$byte$lp$$rp$_java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$ and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.084227 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1130ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1130ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1130	0	0	0	6028	11	
+Missing procedure for unsafe.java.util.Random$nextBytes$byte$lp$$rp$ or fixed.java.util.Random$nextBytes$byte$lp$$rp$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$java.util.Random and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$java.util.Random
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$init$ra$$java.util.Random_EQ_unsafe__xx__fixed
+  [0.081554 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1153ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1153ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1153	0	0	0	7241	11	
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$java.lang.CharSequence or fixed.java.lang.StringBuilder$$la$init$ra$$java.lang.CharSequence: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$toString$ or fixed.java.lang.StringBuilder$toString$: skipping...
+Missing procedure for unsafe.java.lang.String$getBytes$ or fixed.java.lang.String$getBytes$: skipping...
+Missing procedure for unsafe.java.lang.CharSequence$length$ or fixed.java.lang.CharSequence$length$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$setCharAt$int_char or fixed.java.lang.StringBuilder$setCharAt$int_char: skipping...
+Missing procedure for unsafe.org.bouncycastle.crypto.generators.SCrypt$generate$byte$lp$$rp$_byte$lp$$rp$_int_int_int_int or fixed.org.bouncycastle.crypto.generators.SCrypt$generate$byte$lp$$rp$_byte$lp$$rp$_int_int_int_int: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$getInstance$java.lang.String or fixed.javax.crypto.Cipher$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$init$int_java.security.Key or fixed.javax.crypto.Cipher$init$int_java.security.Key: skipping...
+Missing procedure for unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String_java.lang.Throwable or fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String_java.lang.Throwable: skipping...
+Missing procedure for unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable or fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.String_java.lang.Throwable: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$wrap$java.security.Key or fixed.javax.crypto.Cipher$wrap$java.security.Key: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$$la$init$ra$$ or fixed.org.cryptomator.crypto.aes256.KeyFile$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptSalt$byte$lp$$rp$ or fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptSalt$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptCostParam$int or fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptCostParam$int: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setScryptBlockSize$int or fixed.org.cryptomator.crypto.aes256.KeyFile$setScryptBlockSize$int: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setKeyLength$int or fixed.org.cryptomator.crypto.aes256.KeyFile$setKeyLength$int: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setPrimaryMasterKey$byte$lp$$rp$ or fixed.org.cryptomator.crypto.aes256.KeyFile$setPrimaryMasterKey$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$setHMacMasterKey$byte$lp$$rp$ or fixed.org.cryptomator.crypto.aes256.KeyFile$setHMacMasterKey$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValue$java.io.OutputStream_java.lang.Object or fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValue$java.io.OutputStream_java.lang.Object: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptMasterKey$java.io.OutputStream_java.lang.CharSequence and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptMasterKey$java.io.OutputStream_java.lang.CharSequence
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptMasterKey$java.io.OutputStream_java.lang.CharSequence_EQ_unsafe__xx__fixed
+  [0.136829 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1272ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1272ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1272	0	0	0	8572	13	
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$randomData$int, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$randomData$int
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$aesKeyWrapCipher$javax.crypto.SecretKey_int, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$aesKeyWrapCipher$javax.crypto.SecretKey_int
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$readValue$java.io.InputStream_java.lang.Class or fixed.com.fasterxml.jackson.databind.ObjectMapper$readValue$java.io.InputStream_java.lang.Class: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$getMaxAllowedKeyLength$java.lang.String or fixed.javax.crypto.Cipher$getMaxAllowedKeyLength$java.lang.String: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getKeyLength$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getKeyLength$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.exceptions.UnsupportedKeyLengthException$$la$init$ra$$int_int or fixed.org.cryptomator.crypto.exceptions.UnsupportedKeyLengthException$$la$init$ra$$int_int: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptSalt$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptSalt$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptCostParam$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptCostParam$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getScryptBlockSize$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getScryptBlockSize$: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getPrimaryMasterKey$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getPrimaryMasterKey$: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$unwrap$byte$lp$$rp$_java.lang.String_int or fixed.javax.crypto.Cipher$unwrap$byte$lp$$rp$_java.lang.String_int: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.KeyFile$getHMacMasterKey$ or fixed.org.cryptomator.crypto.aes256.KeyFile$getHMacMasterKey$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptMasterKey$java.io.InputStream_java.lang.CharSequence and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptMasterKey$java.io.InputStream_java.lang.CharSequence
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptMasterKey$java.io.InputStream_java.lang.CharSequence_EQ_unsafe__xx__fixed
+  [0.137556 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1280ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1280ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1280	0	0	0	9914	13	
+Missing procedure for unsafe.org.cryptomator.crypto.exceptions.WrongPasswordException$$la$init$ra$$ or fixed.org.cryptomator.crypto.exceptions.WrongPasswordException$$la$init$ra$$: skipping...
+Missing procedure for unsafe.javax.security.auth.Destroyable$destroy$ or fixed.javax.security.auth.Destroyable$destroy$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$swipeSensitiveDataInternal$ and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$swipeSensitiveDataInternal$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$swipeSensitiveDataInternal$_EQ_unsafe__xx__fixed
+  [0.077654 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1203ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1203ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1203	0	0	0	11181	13	
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$destroyQuietly$javax.security.auth.Destroyable, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$destroyQuietly$javax.security.auth.Destroyable
+Missing procedure for unsafe.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$ or fixed.javax.crypto.spec.IvParameterSpec$$la$init$ra$$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec or fixed.javax.crypto.Cipher$init$int_java.security.Key_java.security.spec.AlgorithmParameterSpec: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$aesCtrCipher$javax.crypto.SecretKey_byte$lp$$rp$_int, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$aesCtrCipher$javax.crypto.SecretKey_byte$lp$$rp$_int
+Missing procedure for unsafe.java.lang.AssertionError$$la$init$ra$$java.lang.String_java.lang.Throwable or fixed.java.lang.AssertionError$$la$init$ra$$java.lang.String_java.lang.Throwable: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$aesEcbCipher$javax.crypto.SecretKey_int, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$aesEcbCipher$javax.crypto.SecretKey_int
+Missing procedure for unsafe.javax.crypto.Mac$getInstance$java.lang.String or fixed.javax.crypto.Mac$getInstance$java.lang.String: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$init$java.security.Key or fixed.javax.crypto.Mac$init$java.security.Key: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$hmacSha256$javax.crypto.SecretKey, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$hmacSha256$javax.crypto.SecretKey
+Missing procedure for unsafe.java.util.zip.CRC32$$la$init$ra$$ or fixed.java.util.zip.CRC32$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.util.zip.CRC32$update$byte$lp$$rp$ or fixed.java.util.zip.CRC32$update$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.util.zip.CRC32$getValue$ or fixed.java.util.zip.CRC32$getValue$: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$crc32Sum$byte$lp$$rp$, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$crc32Sum$byte$lp$$rp$
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$split$java.lang.String_char or fixed.org.apache.commons.lang3.StringUtils$split$java.lang.String_char: skipping...
+Missing procedure for unsafe.java.util.ArrayList$$la$init$ra$$int or fixed.java.util.ArrayList$$la$init$ra$$int: skipping...
+Missing procedure for unsafe.java.util.List$add$java.lang.Object or fixed.java.util.List$add$java.lang.Object: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$doFinal$byte$lp$$rp$ or fixed.javax.crypto.Mac$doFinal$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.ArrayUtils$subarray$byte$lp$$rp$_int_int or fixed.org.apache.commons.lang3.ArrayUtils$subarray$byte$lp$$rp$_int_int: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$allocate$int or fixed.java.nio.ByteBuffer$allocate$int: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$put$byte$lp$$rp$ or fixed.java.nio.ByteBuffer$put$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$array$ or fixed.java.nio.ByteBuffer$array$: skipping...
+Missing procedure for unsafe.java.lang.String$getBytes$java.nio.charset.Charset or fixed.java.lang.String$getBytes$java.nio.charset.Charset: skipping...
+Missing procedure for unsafe.javax.crypto.Cipher$doFinal$byte$lp$$rp$ or fixed.javax.crypto.Cipher$doFinal$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$$la$init$ra$$ or fixed.java.lang.StringBuilder$$la$init$ra$$: skipping...
+Missing procedure for unsafe.org.apache.commons.codec.binary.BaseNCodec$encodeAsString$byte$lp$$rp$ or fixed.org.apache.commons.codec.binary.BaseNCodec$encodeAsString$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.lang.StringBuilder$append$java.lang.String or fixed.java.lang.StringBuilder$append$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.Long$toHexString$long or fixed.java.lang.Long$toHexString$long: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.CryptorIOSupport$readPathSpecificMetadata$java.lang.String or fixed.org.cryptomator.crypto.CryptorIOSupport$readPathSpecificMetadata$java.lang.String: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$$la$init$ra$$ or fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$$la$init$ra$$: skipping...
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$readValue$byte$lp$$rp$_java.lang.Class or fixed.com.fasterxml.jackson.databind.ObjectMapper$readValue$byte$lp$$rp$_java.lang.Class: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$getOrCreateUuidForEncryptedFilename$java.lang.String or fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$getOrCreateUuidForEncryptedFilename$java.lang.String: skipping...
+Missing procedure for unsafe.java.util.UUID$toString$ or fixed.java.util.UUID$toString$: skipping...
+Missing procedure for unsafe.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object or fixed.com.fasterxml.jackson.databind.ObjectMapper$writeValueAsBytes$java.lang.Object: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.CryptorIOSupport$writePathSpecificMetadata$java.lang.String_byte$lp$$rp$ or fixed.org.cryptomator.crypto.CryptorIOSupport$writePathSpecificMetadata$java.lang.String_byte$lp$$rp$: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$join$java.lang.Iterable_char or fixed.org.apache.commons.lang3.StringUtils$join$java.lang.Iterable_char: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_EQ_unsafe__xx__fixed
+  [0.393793 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1757ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1757ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1757	0	0	0	13004	15	
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPathComponent$java.lang.String_javax.crypto.SecretKey_org.cryptomator.crypto.CryptorIOSupport, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPathComponent$java.lang.String_javax.crypto.SecretKey_org.cryptomator.crypto.CryptorIOSupport
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$getMetadata$org.cryptomator.crypto.CryptorIOSupport_java.lang.String, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$getMetadata$org.cryptomator.crypto.CryptorIOSupport_java.lang.String
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$storeMetadata$org.cryptomator.crypto.CryptorIOSupport_java.lang.String_org.cryptomator.crypto.aes256.LongFilenameMetadata, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$storeMetadata$org.cryptomator.crypto.CryptorIOSupport_java.lang.String_org.cryptomator.crypto.aes256.LongFilenameMetadata
+Missing procedure for unsafe.java.lang.String$$la$init$ra$$java.lang.String or fixed.java.lang.String$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.String$endsWith$java.lang.String or fixed.java.lang.String$endsWith$java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$removeEnd$java.lang.String_java.lang.String or fixed.org.apache.commons.lang3.StringUtils$removeEnd$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$substringBefore$java.lang.String_java.lang.String or fixed.org.apache.commons.lang3.StringUtils$substringBefore$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$substringAfter$java.lang.String_java.lang.String or fixed.org.apache.commons.lang3.StringUtils$substringAfter$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.java.util.UUID$fromString$java.lang.String or fixed.java.util.UUID$fromString$java.lang.String: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.LongFilenameMetadata$getEncryptedFilenameForUUID$java.util.UUID or fixed.org.cryptomator.crypto.aes256.LongFilenameMetadata$getEncryptedFilenameForUUID$java.util.UUID: skipping...
+Missing procedure for unsafe.org.apache.commons.codec.binary.BaseNCodec$decode$java.lang.String or fixed.org.apache.commons.codec.binary.BaseNCodec$decode$java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset or fixed.java.lang.String$$la$init$ra$$byte$lp$$rp$_java.nio.charset.Charset: skipping...
+Missing procedure for unsafe.org.apache.commons.lang3.StringUtils$removeEndIgnoreCase$java.lang.String_java.lang.String or fixed.org.apache.commons.lang3.StringUtils$removeEndIgnoreCase$java.lang.String_java.lang.String: skipping...
+Missing procedure for unsafe.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String or fixed.java.lang.IllegalArgumentException$$la$init$ra$$java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_EQ_unsafe__xx__fixed
+  [0.249454 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1555ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1555ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1555	0	0	0	14650	15	
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPathComponent$java.lang.String_javax.crypto.SecretKey_org.cryptomator.crypto.CryptorIOSupport, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPathComponent$java.lang.String_javax.crypto.SecretKey_org.cryptomator.crypto.CryptorIOSupport
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$authenticateContent$java.nio.channels.SeekableByteChannel_EQ_unsafe__xx__fixed
+  [0.914134 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 2063ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 2063ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	2063	0	0	0	16781	15	
+Missing procedure for unsafe.java.nio.channels.SeekableByteChannel$position$long or fixed.java.nio.channels.SeekableByteChannel$position$long: skipping...
+Missing procedure for unsafe.java.nio.channels.SeekableByteChannel$read$java.nio.ByteBuffer or fixed.java.nio.channels.SeekableByteChannel$read$java.nio.ByteBuffer: skipping...
+Missing procedure for unsafe.java.nio.Buffer$capacity$ or fixed.java.nio.Buffer$capacity$: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$wrap$byte$lp$$rp$ or fixed.java.nio.ByteBuffer$wrap$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$getLong$ or fixed.java.nio.ByteBuffer$getLong$: skipping...
+Missing procedure for unsafe.java.lang.Long$valueOf$long or fixed.java.lang.Long$valueOf$long: skipping...
+Missing procedure for unsafe.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable or fixed.java.lang.IllegalStateException$$la$init$ra$$java.lang.Throwable: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$getMacLength$ or fixed.javax.crypto.Mac$getMacLength$: skipping...
+Missing procedure for unsafe.java.io.IOException$$la$init$ra$$java.lang.String or fixed.java.io.IOException$$la$init$ra$$java.lang.String: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.io.SeekableByteChannelInputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel or fixed.org.cryptomator.crypto.io.SeekableByteChannelInputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.MacInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Mac or fixed.org.cryptomator.crypto.aes256.MacInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Mac: skipping...
+Missing procedure for unsafe.org.apache.commons.io.output.NullOutputStream$$la$init$ra$$ or fixed.org.apache.commons.io.output.NullOutputStream$$la$init$ra$$: skipping...
+Missing procedure for unsafe.java.lang.Long$longValue$ or fixed.java.lang.Long$longValue$: skipping...
+Missing procedure for unsafe.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream_long_long or fixed.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream_long_long: skipping...
+Missing procedure for unsafe.javax.crypto.Mac$doFinal$ or fixed.javax.crypto.Mac$doFinal$: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$authenticateContent_unsafe$java.nio.channels.SeekableByteChannel and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$authenticateContent_unsafe$java.nio.channels.SeekableByteChannel
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$authenticateContent_unsafe$java.nio.channels.SeekableByteChannel_EQ_unsafe__xx__fixed
+  [0.309159 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1663ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1663ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1663	0	0	0	18523	15	
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptedContentLength$java.nio.channels.SeekableByteChannel, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptedContentLength$java.nio.channels.SeekableByteChannel
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$
+Missing procedure for unsafe.javax.crypto.CipherInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Cipher or fixed.javax.crypto.CipherInputStream$$la$init$ra$$java.io.InputStream_javax.crypto.Cipher: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptedFile$java.nio.channels.SeekableByteChannel_java.io.OutputStream and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptedFile$java.nio.channels.SeekableByteChannel_java.io.OutputStream
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptedFile$java.nio.channels.SeekableByteChannel_java.io.OutputStream_EQ_unsafe__xx__fixed
+  [0.140679 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1367ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1367ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1367	0	0	0	19960	15	
+Missing procedure for unsafe.java.nio.ByteBuffer$putLong$int_long or fixed.java.nio.ByteBuffer$putLong$int_long: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptRange$java.nio.channels.SeekableByteChannel_java.io.OutputStream_long_long and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptRange$java.nio.channels.SeekableByteChannel_java.io.OutputStream_long_long
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptRange$java.nio.channels.SeekableByteChannel_java.io.OutputStream_long_long_EQ_unsafe__xx__fixed
+  [0.589196 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1805ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1805ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1805	0	0	0	21835	15	
+Missing procedure for unsafe.java.nio.channels.SeekableByteChannel$truncate$long or fixed.java.nio.channels.SeekableByteChannel$truncate$long: skipping...
+Missing procedure for unsafe.java.nio.Buffer$position$int or fixed.java.nio.Buffer$position$int: skipping...
+Missing procedure for unsafe.java.nio.channels.SeekableByteChannel$write$java.nio.ByteBuffer or fixed.java.nio.channels.SeekableByteChannel$write$java.nio.ByteBuffer: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.io.SeekableByteChannelOutputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel or fixed.org.cryptomator.crypto.io.SeekableByteChannelOutputStream$$la$init$ra$$java.nio.channels.SeekableByteChannel: skipping...
+Missing procedure for unsafe.org.cryptomator.crypto.aes256.MacOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Mac or fixed.org.cryptomator.crypto.aes256.MacOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Mac: skipping...
+Missing procedure for unsafe.javax.crypto.CipherOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Cipher or fixed.javax.crypto.CipherOutputStream$$la$init$ra$$java.io.OutputStream_javax.crypto.Cipher: skipping...
+Missing procedure for unsafe.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream or fixed.org.apache.commons.io.IOUtils$copyLarge$java.io.InputStream_java.io.OutputStream: skipping...
+Missing procedure for unsafe.java.lang.Math$random$ or fixed.java.lang.Math$random$: skipping...
+Missing procedure for unsafe.java.lang.Math$ceil$double or fixed.java.lang.Math$ceil$double: skipping...
+Missing procedure for unsafe.java.io.OutputStream$write$byte$lp$$rp$ or fixed.java.io.OutputStream$write$byte$lp$$rp$: skipping...
+Missing procedure for unsafe.java.io.OutputStream$flush$ or fixed.java.io.OutputStream$flush$: skipping...
+Missing procedure for unsafe.java.nio.ByteBuffer$putLong$long or fixed.java.nio.ByteBuffer$putLong$long: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptFile$java.io.InputStream_java.nio.channels.SeekableByteChannel and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptFile$java.io.InputStream_java.nio.channels.SeekableByteChannel
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptFile$java.io.InputStream_java.nio.channels.SeekableByteChannel_EQ_unsafe__xx__fixed
+  [0.191043 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1497ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1497ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1497	0	0	0	23401	15	
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$getPayloadFilesFilter$ and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$getPayloadFilesFilter$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$getPayloadFilesFilter$_EQ_unsafe__xx__fixed
+  [0.136363 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1378ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1378ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1378	0	0	0	24849	15	
+Missing procedure for unsafe.java.security.SecureRandom$getInstance$java.lang.String or fixed.java.security.SecureRandom$getInstance$java.lang.String: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$clinit$ra$$ and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$clinit$ra$$
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.org.cryptomator.crypto.aes256.Aes256Cryptor$$la$clinit$ra$$_EQ_unsafe__xx__fixed
+  [0.071967 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 1324ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 1324ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	1324	0	0	0	26242	15	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$valueOf$boolean, fixed.java.lang.Boolean$valueOf$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$booleanValue$, fixed.java.lang.Boolean$booleanValue$
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int_loop_block59, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int_loop_block59
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int_loop_block56, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$scrypt$java.lang.CharSequence_byte$lp$$rp$_int_int_int_loop_block56
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_loop_block65, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_loop_block65
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_loop_block73, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$decryptPath$java.lang.String_char_char_org.cryptomator.crypto.CryptorIOSupport_loop_block73
+ERROR: Failed to add postconditions to unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block92 and fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block92
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block92, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$jdkArraysEquals$byte$lp$$rp$_byte$lp$$rp$_loop_block92
+nonmodular mode: Skipping non-root nodes unsafe.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptFile$java.io.InputStream_java.nio.channels.SeekableByteChannel_loop_block105, fixed.org.cryptomator.crypto.aes256.Aes256Cryptor$encryptFile$java.io.InputStream_java.nio.channels.SeekableByteChannel_loop_block104
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (15,0,0,0,26244)

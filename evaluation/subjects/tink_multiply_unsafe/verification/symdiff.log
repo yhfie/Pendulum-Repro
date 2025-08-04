@@ -1,0 +1,98 @@
+Parsing config file
+Parsing programs
+Namespacing ASTs
+Resolving and typechecking
+Assuming unsafe.$new and fixed.$new are equivalent
+Assuming unsafe.java.lang.Object$java.lang.Object$clone$43 and fixed.java.lang.Object$java.lang.Object$clone$43 are equivalent
+Assuming unsafe.int$java.lang.String$compareTo$87 and fixed.int$java.lang.String$compareTo$87 are equivalent
+Resolving and typechecking
+Building callgraphs and computing read and write sets
+Writing writesets as modifies clauses
+Resolving and Typechecking again..
+Adding instrumented equality functions to program and generating verification tasks
+Missing procedure for unsafe.java.lang.Object$java.lang.Object$clone$43 or fixed.java.lang.Object$java.lang.Object$clone$43: skipping...
+Missing procedure for unsafe.int$java.lang.String$compareTo$87 or fixed.int$java.lang.String$compareTo$87: skipping...
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Boolean$$la$init$ra$$boolean, fixed.java.lang.Boolean$$la$init$ra$$boolean
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Object$$la$init$ra$$, fixed.java.lang.Object$$la$init$ra$$
+Missing procedure for unsafe.$new or fixed.$new: skipping...
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Boolean$valueOf$boolean and fixed.java.lang.Boolean$valueOf$boolean
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$valueOf$boolean_EQ_unsafe__xx__fixed
+  [0.15125 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 367ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 367ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	367	0	0	0	1016	6	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Boolean$booleanValue$_EQ_unsafe__xx__fixed
+  [0.021694 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 215ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 215ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	215	0	0	0	1245	6	
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$$la$init$ra$$int, fixed.java.lang.Integer$$la$init$ra$$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$valueOf$int, fixed.java.lang.Integer$valueOf$int
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$intValue$, fixed.java.lang.Integer$intValue$
+nonmodular mode: Skipping non-root nodes unsafe.java.lang.Integer$compareTo$java.lang.Integer, fixed.java.lang.Integer$compareTo$java.lang.Integer
+Automatically ignoring $objIndex and new heap allocation for unsafe.java.lang.Integer$compareTo$java.lang.Object and fixed.java.lang.Integer$compareTo$java.lang.Object
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.java.lang.Integer$compareTo$java.lang.Object_EQ_unsafe__xx__fixed
+  [0.029822 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 242ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 242ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	242	0	0	0	1500	7	
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.AesEaxJce$$la$init$ra$$_EQ_unsafe__xx__fixed
+  [0.018722 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 223ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 223ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	223	0	0	0	1737	7	
+nonmodular mode: Skipping non-root nodes unsafe.AesEaxJce$multiplyByX_unsafe$byte$lp$$rp$, fixed.AesEaxJce$multiplyByX_unsafe$byte$lp$$rp$
+Automatically ignoring $objIndex and new heap allocation for unsafe.AesEaxJce$multiplyByX_exp_unsafe$byte$lp$$rp$_int and fixed.AesEaxJce$multiplyByX_exp_unsafe$byte$lp$$rp$_int
+Resolving and Typechecking again..
+Verifier[0]: Preparing to verify 1 pairs
+Verifier[0]: Verifying PROC_.AesEaxJce$multiplyByX_exp_unsafe$byte$lp$$rp$_int_EQ_unsafe__xx__fixed
+  [0.119469 s]  
+Correct
+Verifier[0]: 0 counterexamples...
+Verifier[0]: Result: Verified
+Time[0]: 414ms
+Summary[0]: Checked 1 procedures.
+Summary[0]: Max elapsed: 414ms
+Summary[0]: Total Counterexamples: 0
+Summary[0]: Number of failed verifies: 0
+Summary[0]: Number of verifier failures: 0
+M[0]: 	1	414	0	0	0	2215	9	
+nonmodular mode: Skipping non-root nodes unsafe.AesEaxJce$multiplyByX_unsafe$byte$lp$$rp$_loop_block12, fixed.AesEaxJce$multiplyByX_unsafe$byte$lp$$rp$_loop_block12
+nonmodular mode: Skipping non-root nodes unsafe.AesEaxJce$multiplyByX_exp_unsafe$byte$lp$$rp$_int_loop_block17, fixed.AesEaxJce$multiplyByX_exp_unsafe$byte$lp$$rp$_int_loop_block15
+FinalStats: (#Procs, #Cex, #NotEq, #Crash, #Time) = (5,0,0,0,2216)

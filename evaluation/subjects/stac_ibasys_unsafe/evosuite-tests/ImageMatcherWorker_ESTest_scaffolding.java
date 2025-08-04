@@ -72,7 +72,7 @@ public class ImageMatcherWorker_ESTest_scaffolding {
  
     java.lang.System.setProperties((java.util.Properties) defaultProperties.clone()); 
     java.lang.System.setProperty("java.io.tmpdir", "/tmp"); 
-    java.lang.System.setProperty("user.dir", "/tmp/sc-fix/evaluation/subjects/stac_ibasys_unsafe"); 
+    java.lang.System.setProperty("user.dir", "/home/haifeng/files/sc-fix/evaluation/subjects/stac_ibasys_unsafe"); 
   }
 
   private static void initializeClasses() {

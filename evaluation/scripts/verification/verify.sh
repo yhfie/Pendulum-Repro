@@ -76,11 +76,17 @@ if [ -d stubs ]; then
     trans_command=trans
 fi
 
+if [ -f TRANS_OPTIONS ]; then
+    trans_options="$(cat TRANS_OPTIONS)"
+else
+    trans_options=""
+fi
+
 pushd "$ver" >&/dev/null && echo "=> Entering directory $ver/\n"
 
 echo "=> Translating bytecode to Boogie with jar2bpl"
-(set -x; bash -x $symdiff_sh "$trans_command" ../"$ver_bin_dir" "$rel_unsafe_bpl" >&unsafe2bpl.log)
-(set -x; bash -x $symdiff_sh "$trans_command" ../"$fix_ver_bin_dir" "$rel_fix_bpl" >&fixed2bpl.log)
+(set -x; bash -x $symdiff_sh "$trans_command" ../"$ver_bin_dir" "$rel_unsafe_bpl" $trans_options >&unsafe2bpl.log)
+(set -x; bash -x $symdiff_sh "$trans_command" ../"$fix_ver_bin_dir" "$rel_fix_bpl" $trans_options >&fixed2bpl.log)
 echo
 
 if [ -f ../precondition.json ]; then
@@ -88,7 +94,7 @@ if [ -f ../precondition.json ]; then
     while read -r line; do
         proc=$(awk -F@ '{print $1}' <<< "$line" )
         contract=$(awk -F@ '{print $2}' <<< "$line" )
-        (set -x; sed -i "/\<procedure $proc\>/{n;n;n;s#\$#$contract#}" "$rel_unsafe_bpl" "$rel_fix_bpl")
+        (set -x; sed -i "/\<procedure $proc\>/{:loop;n;/^[[:space:]]*$/s#\$#$contract#;t;b loop}" "$rel_unsafe_bpl" "$rel_fix_bpl")
     done <<< $(jq -r 'to_entries | map(.value |= (map(.) | add)) | map(.key + "@" + .value) | .[]' ../precondition.json)
     echo
 fi
@@ -98,7 +104,12 @@ echo "=> Inferring verification config using Symdiff"
 echo 
 
 echo "=> Diffing with Symdiff; results will be dumped to $rel_ver_log"
-options=""
+if [ -f DIFF_OPTIONS ]; then
+  options="$(cat DIFF_OPTIONS)"
+else
+  options=""
+fi
+
 if [ -f ../SYNTAX_EQ_PROCS ]; then
     options="${options} -synEq:../SYNTAX_EQ_PROCS"
 fi

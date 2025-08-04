@@ -1,0 +1,115 @@
+public class fakejava.lang.String extends java.lang.Object
+{
+    public char[] chars;
+
+    public void <init>(char[])
+    {
+        fakejava.lang.String r0;
+        char[] r1;
+
+        r0 := @this: fakejava.lang.String;
+
+        r1 := @parameter0: char[];
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        r0.<fakejava.lang.String: char[] chars> = r1;
+
+        return;
+    }
+
+    public char charAt(int)
+    {
+        fakejava.lang.String r0;
+        int i0;
+        char[] $r1;
+        char $c1;
+
+        r0 := @this: fakejava.lang.String;
+
+        i0 := @parameter0: int;
+
+        $r1 = r0.<fakejava.lang.String: char[] chars>;
+
+        $c1 = $r1[i0];
+
+        return $c1;
+    }
+
+    public boolean equals(java.lang.Object)
+    {
+        fakejava.lang.String r0, r2;
+        java.lang.Object r1;
+        java.lang.Class $r3, $r4;
+        char[] $r5, $r6, $r7, $r8, $r9;
+        int $i0, $i1, $i2, i5;
+        char $c3, $c4;
+
+        r0 := @this: fakejava.lang.String;
+
+        r1 := @parameter0: java.lang.Object;
+
+        if r0 != r1 goto label1;
+
+        return 1;
+
+     label1:
+        if r1 != null goto label2;
+
+        return 0;
+
+     label2:
+        $r3 = virtualinvoke r0.<java.lang.Object: java.lang.Class getClass()>();
+
+        $r4 = virtualinvoke r1.<java.lang.Object: java.lang.Class getClass()>();
+
+        if $r3 == $r4 goto label3;
+
+        return 0;
+
+     label3:
+        r2 = (fakejava.lang.String) r1;
+
+        $r5 = r0.<fakejava.lang.String: char[] chars>;
+
+        $i1 = lengthof $r5;
+
+        $r6 = r2.<fakejava.lang.String: char[] chars>;
+
+        $i0 = lengthof $r6;
+
+        if $i1 == $i0 goto label4;
+
+        return 0;
+
+     label4:
+        i5 = 0;
+
+     label5:
+        $r7 = r0.<fakejava.lang.String: char[] chars>;
+
+        $i2 = lengthof $r7;
+
+        if i5 >= $i2 goto label7;
+
+        $r8 = r0.<fakejava.lang.String: char[] chars>;
+
+        $c4 = $r8[i5];
+
+        $r9 = r2.<fakejava.lang.String: char[] chars>;
+
+        $c3 = $r9[i5];
+
+        if $c4 == $c3 goto label6;
+
+        return 0;
+
+     label6:
+        i5 = i5 + 1;
+
+        goto label5;
+
+     label7:
+        return 1;
+    }
+}

@@ -1,0 +1,44 @@
+public class fakejava.lang.Math extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        fakejava.lang.Math r0;
+
+        r0 := @this: fakejava.lang.Math;
+
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+
+        return;
+    }
+
+    public static int min(int, int)
+    {
+        int i0, i1, $i2;
+
+        i0 := @parameter0: int;
+
+        i1 := @parameter1: int;
+
+        if i0 >= i1 goto label1;
+
+        $i2 = i0;
+
+        goto label2;
+
+     label1:
+        $i2 = i1;
+
+     label2:
+        return $i2;
+    }
+
+    public static double log(double)
+    {
+        double d0;
+
+        d0 := @parameter0: double;
+
+        return 1.0;
+    }
+}
