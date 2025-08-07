@@ -24,7 +24,7 @@ fuzz_out_dir := fuzzer-out
 fuzz_out_dir_fixed := fuzzer-out_fixed
 
 kelinci_class := edu.cmu.sv.kelinci.Kelinci
-drivermain_class := sg.edu.nus.comp.tsunami.DriverMain
+drivermain_class := pendulum.DriverMain
 driver_class := QDriver
 driver_stem := $(subst .,/,$(driver_class))
 
@@ -41,8 +41,8 @@ javac := javac
 java := java
 
 instrumentor_class := edu.cmu.sv.kelinci.instrumentor.Instrumentor
-pendulum_class := sg.edu.nus.comp.tsunami.Pendulum
-helper_class := sg.edu.nus.comp.tsunami.safe.Safe
+pendulum_class := pendulum.Pendulum
+helper_class := pendulum.safe.Safe
 
 #### Help
 .DEFAULT_GOAL := help
