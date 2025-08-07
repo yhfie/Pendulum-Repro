@@ -18,7 +18,7 @@
  */
 package org.apache.shiro.authc.credential;
 
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 
 

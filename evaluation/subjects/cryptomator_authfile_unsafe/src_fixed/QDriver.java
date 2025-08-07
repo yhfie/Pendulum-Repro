@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.AbstractQDriver;
+import pendulum.AbstractQDriver;
 
 import org.cryptomator.crypto.aes256.Aes256Cryptor;
 import org.cryptomator.crypto.Cryptor;

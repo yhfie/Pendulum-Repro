@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 import java.math.BigInteger;
 import java.util.Random;

@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 import org.apache.ws.security.WSSecurityException;
 import org.apache.wss4j.binding.wss10.PasswordString;

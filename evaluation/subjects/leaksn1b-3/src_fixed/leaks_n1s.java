@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 //This program leaks number of set bits in secret (n clusters: n is number of bits to represent secret)
 public class leaks_n1s {

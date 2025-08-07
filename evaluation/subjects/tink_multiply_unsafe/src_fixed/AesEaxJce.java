@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 /* adapted from https://github.com/google/tink/commit/89859790844186aa578bcea0323998d57f73290c */
 public class AesEaxJce {

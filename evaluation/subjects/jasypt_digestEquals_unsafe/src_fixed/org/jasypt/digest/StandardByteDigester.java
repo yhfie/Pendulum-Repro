@@ -19,7 +19,7 @@
  */
 package org.jasypt.digest;
 
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 
 

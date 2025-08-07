@@ -3,7 +3,7 @@ import java.io.FileInputStream;
 import org.apache.ftpserver.usermanager.ClearTextPasswordEncryptor;
 import org.apache.ftpserver.usermanager.PasswordEncryptor;
 
-import sg.edu.nus.comp.tsunami.AbstractQDriver;
+import pendulum.AbstractQDriver;
 
 public class QDriver extends AbstractQDriver {
 

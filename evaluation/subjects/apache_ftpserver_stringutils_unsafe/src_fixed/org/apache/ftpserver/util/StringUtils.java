@@ -19,7 +19,7 @@
 
 package org.apache.ftpserver.util;
 
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 
 

@@ -8,7 +8,7 @@
  ******************************************************************************/
 package org.cryptomator.crypto.aes256;
 
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 
 

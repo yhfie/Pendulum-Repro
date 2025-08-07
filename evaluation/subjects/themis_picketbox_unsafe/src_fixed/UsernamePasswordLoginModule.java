@@ -21,7 +21,7 @@
 */
 //package org.jboss.security.auth.spi;
 
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 
 

@@ -1,4 +1,4 @@
-import sg.edu.nus.comp.tsunami.safe.Safe;
+import pendulum.safe.Safe;
 
 public class PWCheck {
     public static boolean pwcheck1_unsafe(byte[] guess, byte[] pw) {
