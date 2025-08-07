@@ -87,9 +87,9 @@ do
   else
 	  input=/dev/null
   fi
-  java -cp "bin:src:../../../tool/pendulum/build/libs/pendulum.jar:../../../tool/instrumentor/build/libs/kelinci.jar:lib/*" ${flag} sg.edu.nus.comp.tsunami.Pendulum -f $max_file -o src_fixed < $input >/dev/null \
-      && mkdir -p src_fixed/sg/edu/nus/comp/tsunami/safe \
-      && cp ../../../tool/pendulum/src/main/java/sg/edu/nus/comp/tsunami/safe/Safe.java src_fixed/sg/edu/nus/comp/tsunami/safe \
+  java -cp "bin:src:../../../tool/pendulum/build/libs/pendulum.jar:../../../tool/instrumentor/build/libs/kelinci.jar:lib/*" ${flag} pendulum.Pendulum -f $max_file -o src_fixed < $input >/dev/null \
+      && mkdir -p src_fixed/pendulum/safe \
+      && cp ../../../tool/pendulum/src/main/java/sg/edu/nus/comp/pendulum/safe/Safe.java src_fixed/sg/edu/nus/comp/pendulum/safe \
       && rsync -a -v --ignore-existing src/* src_fixed >/dev/null
 
   echo "${space}* compiling patched source"

@@ -4,9 +4,9 @@ number_of_runs=3 # 3 repetitions for each subject
 time_bound=1800 # 1800 sec = 30 min
 
 kValue=100
-driver="sg.edu.nus.comp.tsunami.DriverMain"
+driver="pendulum.DriverMain"
 
-n_cores=`nproc`  # maximum allowed parallelism
+n_cores=8  # maximum allowed parallelism
 
 port=7006
 free_port_beyond() { # find a free port beyond $1
