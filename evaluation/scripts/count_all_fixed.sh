@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-number_of_runs=3 # 3 repetitions for each subject
+number_of_runs=1 # 1 repetitions for each subject
 
 get_max_partitions() {
 	log_file=$1
@@ -55,7 +55,7 @@ tink_multiply_unsafe
 
 #themis_pac4j_unsafe  # no running fix
 #themis_pac4j_unsafe_ext  # no running fix
-themis_tomcat_unsafe
+# themis_tomcat_unsafe
 )
 
 out_dir="fuzzer-out_fixed"

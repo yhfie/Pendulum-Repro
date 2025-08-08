@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-number_of_runs=3 # 3 repetitions for each subject
+number_of_runs=1 # 1 repetitions for each subject
 
 get_max_partitions() {
 	log_file=$1
@@ -51,9 +51,9 @@ tink_multiply_unsafe
 # pac4j and tomcat use a database. No two instances 
 # of pac4j can be fuzzed simultaneously. Ditto tomcat.
 # Fuzz these lastly.
-themis_pac4j_unsafe
-themis_pac4j_unsafe_ext
-themis_tomcat_unsafe
+# themis_pac4j_unsafe
+# themis_pac4j_unsafe_ext
+# themis_tomcat_unsafe
 )
 
 out_dir="fuzzer-out"
