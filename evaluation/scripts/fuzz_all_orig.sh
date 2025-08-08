@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-number_of_runs=3 # 3 repetitions for each subject
-time_bound=1800 # 1800 sec = 30 min
+number_of_runs=1 # 3 repetitions for each subject
+time_bound=60 # 1800 sec = 30 min
 
 kValue=100
 driver="pendulum.DriverMain"
@@ -35,35 +35,35 @@ blazer_modpow2_unsafe
 blazer_passwordEq_unsafe
 blazer_sanity_unsafe
 blazer_straightline_unsafe
-#blazer_unixlogin_unsafe
-#Eclipse_jetty_1
-#Eclipse_jetty_2
-#Eclipse_jetty_3
-#Eclipse_jetty_4
-#example_PWCheck_unsafe
-#github_authmreloaded_unsafe
-#rsa_modpow_1717
-#rsa_modpow_1964903306
-#rsa_modpow_834443
-#stac_ibasys_unsafe
-#themis_boot-stateless-auth_unsafe
-#themis_jdk_unsafe
-#themis_jetty_unsafe
-#themis_oacc_unsafe
-#themis_openmrs-core_unsafe
-#themis_orientdb_unsafe
-#themis_picketbox_unsafe
-#themis_spring-security_unsafe
-#cryptomator_authfile_unsafe
-#jasypt_digestEquals_unsafe
-#shiro_hashEquals_unsafe
-#tink_multiply_unsafe
-# pac4j and tomcat use a database. No two instances 
-# of pac4j can be fuzzed simultaneously. Ditto tomcat.
-# Fuzz these lastly.
-#themis_pac4j_unsafe
-#themis_pac4j_unsafe_ext
-#themis_tomcat_unsafe
+blazer_unixlogin_unsafe
+Eclipse_jetty_1
+Eclipse_jetty_2
+Eclipse_jetty_3
+Eclipse_jetty_4
+example_PWCheck_unsafe
+github_authmreloaded_unsafe
+rsa_modpow_1717
+rsa_modpow_1964903306
+rsa_modpow_834443
+stac_ibasys_unsafe
+themis_boot-stateless-auth_unsafe
+themis_jdk_unsafe
+themis_jetty_unsafe
+themis_oacc_unsafe
+themis_openmrs-core_unsafe
+themis_orientdb_unsafe
+themis_picketbox_unsafe
+themis_spring-security_unsafe
+cryptomator_authfile_unsafe
+jasypt_digestEquals_unsafe
+shiro_hashEquals_unsafe
+tink_multiply_unsafe
+pac4j and tomcat use a database. No two instances 
+of pac4j can be fuzzed simultaneously. Ditto tomcat.
+Fuzz these lastly.
+themis_pac4j_unsafe
+themis_pac4j_unsafe_ext
+themis_tomcat_unsafe
 )
 
 run_counter=0
