@@ -50,9 +50,9 @@ apache_ftpserver_salted_encrypt_unsafe
 # pac4j and tomcat use a database. No two instances 
 # of pac4j can be fuzzed simultaneously. Ditto tomcat.
 # Fuzz these lastly.
-themis_pac4j_unsafe
-themis_pac4j_unsafe_ext
-themis_tomcat_unsafe
+# themis_pac4j_unsafe
+# themis_pac4j_unsafe_ext
+# themis_tomcat_unsafe
 )
 
 run_counter=0

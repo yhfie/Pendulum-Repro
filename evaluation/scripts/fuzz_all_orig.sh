@@ -58,12 +58,12 @@ cryptomator_authfile_unsafe
 jasypt_digestEquals_unsafe
 shiro_hashEquals_unsafe
 tink_multiply_unsafe
-pac4j and tomcat use a database. No two instances 
-of pac4j can be fuzzed simultaneously. Ditto tomcat.
-Fuzz these lastly.
-themis_pac4j_unsafe
-themis_pac4j_unsafe_ext
-themis_tomcat_unsafe
+# pac4j and tomcat use a database. No two instances 
+# of pac4j can be fuzzed simultaneously. Ditto tomcat.
+# Fuzz these lastly.
+# themis_pac4j_unsafe
+# themis_pac4j_unsafe_ext
+# themis_tomcat_unsafe
 )
 
 run_counter=0

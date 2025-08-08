@@ -39,7 +39,7 @@ themis_orientdb_unsafe
 #themis_pac4j_unsafe_ext  # no running fix
 themis_picketbox_unsafe
 themis_spring-security_unsafe
-themis_tomcat_unsafe
+# themis_tomcat_unsafe
 cryptomator_authfile_unsafe
 jasypt_digestEquals_unsafe
 shiro_hashEquals_unsafe
@@ -73,7 +73,7 @@ do
   echo "${space}* fixing source"
   max_clusters=0
   max_file=""
-  for j in $(seq 1 3); do
+  for j in $(seq 1 1); do
 	  file=fuzzer-out-$j/server-log.txt
 	  tmp=$(get_max_clusters $file)
 	  if [ "$tmp" -gt "$max_clusters" ]; then
@@ -87,16 +87,16 @@ do
   else
 	  input=/dev/null
   fi
-  java -cp "bin:src:../../../tool/pendulum/build/libs/pendulum.jar:../../../tool/instrumentor/build/libs/kelinci.jar:lib/*" ${flag} pendulum.Pendulum -f $max_file -o src_fixed < $input >/dev/null \
+  java -cp "bin:src:../../../../tool/pendulum/build/libs/pendulum.jar:../../../../tool/instrumentor/build/libs/kelinci.jar:lib/*" ${flag} pendulum.Pendulum -f $max_file -o src_fixed < $input >/dev/null \
       && mkdir -p src_fixed/pendulum/safe \
-      && cp ../../../tool/pendulum/src/main/java/sg/edu/nus/comp/pendulum/safe/Safe.java src_fixed/sg/edu/nus/comp/pendulum/safe \
+      && cp ../../../tool/pendulum/src/main/java/pendulum/safe/Safe.java src_fixed/sg/pendulum/safe \
       && rsync -a -v --ignore-existing src/* src_fixed >/dev/null
 
   echo "${space}* compiling patched source"
   rm -rf bin_fixed
   mkdir bin_fixed
   cd src_fixed
-  javac -cp ".:../../../../tool/instrumentor/build/libs/kelinci.jar:../../../../tool/pendulum/build/libs/pendulum.jar:../lib/*" QDriver.java -d ../bin_fixed
+  javac -cp ".:../../../../tool/instrumentor/build/libs/kelinci.jar:../../../../tool/pendulum/build/libs/pendulum.jar:../lib/*" *.java -d ../bin_fixed
 
   echo "${space}* instrumenting patched binary"
   cd ..

@@ -65,7 +65,7 @@ tink_multiply_unsafe
 
 #themis_pac4j_unsafe  # no running fix
 #themis_pac4j_unsafe_ext  # no running fix
-themis_tomcat_unsafe
+# themis_tomcat_unsafe
 )
 
 run_counter=0
