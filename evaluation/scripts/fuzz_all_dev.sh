@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 number_of_runs=3 # 3 repetitions for each subject
-time_bound=900 # 1800 sec = 30 min
+time_bound=1800 # 1800 sec = 30 min
 
 kValue=100
 driver="pendulum.DriverMain"
