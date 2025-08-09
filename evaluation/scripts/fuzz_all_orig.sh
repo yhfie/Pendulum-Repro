@@ -6,7 +6,7 @@ time_bound=900 # 1800 sec = 30 min
 kValue=100
 driver="pendulum.DriverMain"
 
-n_cores=8  # maximum allowed parallelism
+n_cores=`nproc`  # maximum allowed parallelism
 
 port=7006
 free_port_beyond() { # find a free port beyond $1
