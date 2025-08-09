@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-number_of_runs=1 # 1 repetitions for each subject
+number_of_runs=3 # 1 repetitions for each subject
 
 get_max_partitions() {
 	log_file=$1

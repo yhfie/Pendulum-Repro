@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+number_of_runs=3 # 3 repetitions for each subject
+
 #all subjects that have a running fix
 declare -a subjects=(
 apache_ftpserver_clear_unsafe
@@ -73,7 +75,7 @@ do
   echo "${space}* fixing source"
   max_clusters=0
   max_file=""
-  for j in $(seq 1 1); do
+  for j in $(seq 1 $number_of_runs); do
 	  file=fuzzer-out-$j/server-log.txt
 	  tmp=$(get_max_clusters $file)
 	  if [ "$tmp" -gt "$max_clusters" ]; then

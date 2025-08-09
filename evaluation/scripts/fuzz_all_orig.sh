@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-number_of_runs=1 # 3 repetitions for each subject
+number_of_runs=3 # 3 repetitions for each subject
 time_bound=60 # 1800 sec = 30 min
 
 kValue=100
