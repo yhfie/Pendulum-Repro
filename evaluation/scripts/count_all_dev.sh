@@ -11,30 +11,31 @@ get_max_partitions() {
 declare -a subjects=(
 apache_ftpserver_clear_unsafe
 apache_ftpserver_md5_unsafe
-blazer_login_unsafe
-blazer_sanity_unsafe
-blazer_straightline_unsafe
-example_PWCheck_unsafe
-github_authmreloaded_unsafe
-themis_jdk_unsafe
-themis_orientdb_unsafe
-themis_picketbox_unsafe
-themis_spring-security_unsafe
-cryptomator_authfile_unsafe
-jasypt_digestEquals_unsafe
-shiro_hashEquals_unsafe
-tink_multiply_unsafe
-blazer_array_unsafe
-blazer_loopandbranch_unsafe
-blazer_unixlogin_unsafe
-themis_boot-stateless-auth_unsafe
+# blazer_login_unsafe
+# blazer_sanity_unsafe
+# blazer_straightline_unsafe
+# example_PWCheck_unsafe
+# github_authmreloaded_unsafe
+# themis_jdk_unsafe
+# themis_orientdb_unsafe
+# themis_picketbox_unsafe
+# themis_spring-security_unsafe
+# cryptomator_authfile_unsafe
+# jasypt_digestEquals_unsafe
+# shiro_hashEquals_unsafe
+# tink_multiply_unsafe
+# blazer_array_unsafe
+# blazer_loopandbranch_unsafe
+# blazer_unixlogin_unsafe
+# themis_boot-stateless-auth_unsafe
 apache_ftpserver_stringutils_unsafe
-blazer_passwordEq_unsafe
-blazer_k96_unsafe
-blazer_modpow1_unsafe
-blazer_modpow2_unsafe
-blazer_gpt14_unsafe
-themis_jetty_unsafe
+stac-ibasys
+# blazer_passwordEq_unsafe
+# blazer_k96_unsafe
+# blazer_modpow1_unsafe
+# blazer_modpow2_unsafe
+# blazer_gpt14_unsafe
+# themis_jetty_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
 # pac4j and tomcat use a database. No two instances 
