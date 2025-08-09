@@ -24,7 +24,7 @@ apache_ftpserver_md5_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
 #apache_ftpserver_stringutils_unsafe  # no running fix
-# apache_wss4j
+apache_wss4j
 # blazer_array_unsafe
 # blazer_gpt14_unsafe
 # blazer_k96_unsafe
