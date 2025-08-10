@@ -93,7 +93,7 @@ repair:  ## Repair the timing side channel vulnerability in the original source 
 	if [ "$$(make -f $(firstword $(MAKEFILE_LIST)) -q instr)" -ne 0 ]; then \
         echo "WARNING: the binaries and instrumented binaries are not up to date."; \
     fi
-	$(java) -cp "$(bin):$(src):$(pendulum):$(kelinci):$(extra_cp)" -DANTLR_USE_DIRECT_CLASS_LOADING=true $(pendulum_class) -o $(src_fixed) -f $(fuzz_log)
+	$(java) -cp "$(bin):$(src):$(pendulum):$(kelinci):$(extra_cp)" -DANTLR_USE_DIRECT_CLASS_LOADING=true $(pendulum_class) -o $(src_fixed)/ -f $(fuzz_log)
 	mkdir -p $(src_fixed)/$(helper_dir)
 	cp $(tools)/pendulum/src/main/java/$(helper_stem).java $(src_fixed)/$(helper_dir)
 	rsync -av --ignore-existing $(src)/* $(src_fixed) >/dev/null
