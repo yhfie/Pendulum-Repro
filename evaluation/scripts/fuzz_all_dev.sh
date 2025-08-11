@@ -94,7 +94,7 @@ do
     # Start modified AFL
 	export AFL_SKIP_CPUFREQ=1
 	export AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1 
-    taskset $cpu_mask nohup timeout $time_bound ../../../tool/afl-2.51b-qfuzz/afl-fuzz -i in_dir -o ${out_dir}-$j -c quantify -K ${kValue} -S afl -t 999999999 ../../../tool/fuzzerside/interface -p $port -K ${kValue} @@ > ${out_dir}-$j/afl-log.txt 2>&1 &
+    taskset $cpu_mask nohup timeout $time_bound ../../../tool/afl-2.51b-qfuzz/afl-fuzz -m none -i in_dir -o ${out_dir}-$j -c quantify -K ${kValue} -S afl -t 999999999 ../../../tool/fuzzerside/interface -p $port -K ${kValue} @@ > ${out_dir}-$j/afl-log.txt 2>&1 &
 	afl_pid=$!  # ditto
 	unset AFL_SKIP_CPUFREQ
 	unset AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES
