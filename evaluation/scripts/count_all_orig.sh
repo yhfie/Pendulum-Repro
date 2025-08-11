@@ -13,16 +13,16 @@ apache_ftpserver_clear_unsafe
 apache_ftpserver_md5_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
-apache_ftpserver_stringutils_unsafe
+# apache_ftpserver_stringutils_unsafe
 apache_wss4j
-# blazer_array_unsafe
-# blazer_gpt14_unsafe
-# blazer_k96_unsafe
-# blazer_login_unsafe
+blazer_array_unsafe
+blazer_gpt14_unsafe
+blazer_k96_unsafe
+blazer_login_unsafe
 # blazer_loopandbranch_unsafe
-# blazer_modpow1_unsafe
-# blazer_modpow2_unsafe
-# blazer_passwordEq_unsafe
+blazer_modpow1_unsafe
+blazer_modpow2_unsafe
+blazer_passwordEq_unsafe
 # blazer_sanity_unsafe
 # blazer_straightline_unsafe
 # blazer_unixlogin_unsafe

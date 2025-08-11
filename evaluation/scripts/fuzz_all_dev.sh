@@ -21,8 +21,8 @@ free_port_beyond() { # find a free port beyond $1
 declare -a subjects=(
 apache_ftpserver_clear_unsafe
 apache_ftpserver_md5_unsafe
-# blazer_login_unsafe
-# blazer_sanity_unsafe
+blazer_login_unsafe
+blazer_sanity_unsafe
 # blazer_straightline_unsafe
 # example_PWCheck_unsafe
 # github_authmreloaded_unsafe
@@ -34,16 +34,16 @@ apache_ftpserver_md5_unsafe
 # jasypt_digestEquals_unsafe
 # shiro_hashEquals_unsafe
 # tink_multiply_unsafe
-# blazer_array_unsafe
+blazer_array_unsafe
 # blazer_loopandbranch_unsafe
-# blazer_unixlogin_unsafe
+blazer_unixlogin_unsafe
 # themis_boot-stateless-auth_unsafe
-apache_ftpserver_stringutils_unsafe
-# blazer_passwordEq_unsafe
-# blazer_k96_unsafe
-# blazer_modpow1_unsafe
-# blazer_modpow2_unsafe
-# blazer_gpt14_unsafe
+# apache_ftpserver_stringutils_unsafe
+blazer_passwordEq_unsafe
+blazer_k96_unsafe
+blazer_modpow1_unsafe
+blazer_modpow2_unsafe
+blazer_gpt14_unsafe
 # themis_jetty_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
@@ -59,6 +59,7 @@ stac-ibasys
 run_counter=0
 total_number_subjects=${#subjects[@]}
 total_number_experiments=$(( $total_number_subjects * $number_of_runs ))
+pids=()
 
 echo "Run QFuzz on all DEVELOPER FIXES..."
 
@@ -100,6 +101,8 @@ do
 
 	echo "$(echo $number | sed 's/./ /g') Kelinci pgid $kelinci_pid, AFL pgid $afl_pid (kill with \`kill -9 -$kelinci_pid -$afl_pid\`)"
 
+	pids+=($kelinci_pid $afl_pid)
+
 	with_db=$((echo ${subjects[i]} | grep -E 'themis_pac4j|themis_tomcat' >/dev/null) && echo with_db || echo without_db)
 	if [ "$with_db" = with_db ]; then
 		echo
@@ -125,3 +128,12 @@ do
 
 done
 
+echo "All fuzzing campaigns launched. Waiting for completion..."
+remaining=$time_bound
+while [ $remaining -gt 0 ]; do
+    printf "\rTime remaining: %02d:%02d" $((remaining/60)) $((remaining%60))
+    sleep 1
+    remaining=$((remaining - 1))
+done
+wait "${pids[@]}"
+echo -e "\nAll fuzzing campaigns finished."

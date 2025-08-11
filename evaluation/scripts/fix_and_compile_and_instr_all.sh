@@ -9,15 +9,15 @@ apache_ftpserver_md5_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
 #apache_ftpserver_stringutils_unsafe  # no running fix
-# apache_wss4j
-# blazer_array_unsafe
-# blazer_gpt14_unsafe
-# blazer_k96_unsafe
-# blazer_login_unsafe
+apache_wss4j
+blazer_array_unsafe
+blazer_gpt14_unsafe
+blazer_k96_unsafe
+blazer_login_unsafe
 #blazer_loopandbranch_unsafe  # no running fix
-# blazer_modpow1_unsafe
-# blazer_modpow2_unsafe
-# blazer_passwordEq_unsafe
+blazer_modpow1_unsafe
+blazer_modpow2_unsafe
+blazer_passwordEq_unsafe
 #blazer_sanity_unsafe  # no running fix
 # blazer_straightline_unsafe
 # blazer_unixlogin_unsafe
