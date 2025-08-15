@@ -46,7 +46,7 @@ apache_ftpserver_salted_encrypt_unsafe
 # themis_tomcat_unsafe
 )
 
-out_dir="fuzzer-out"
+out_dir="fuzzer-out_dev"
 total_number_subjects=${#subjects[@]}
 
 out_csv="count_all_dev.csv"

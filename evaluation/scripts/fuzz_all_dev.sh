@@ -82,7 +82,7 @@ do
 	number=[$run_counter/$total_number_experiments]
 	echo "${number} Launch fuzzing for $subject, round $j (port $port, cpu mask $cpu_mask) .."
 
-	out_dir="fuzzer-out"
+	out_dir="fuzzer-out_dev"
     mkdir -p ${out_dir}-$j/
 
     # Start Kelinci server
