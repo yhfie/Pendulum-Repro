@@ -65,7 +65,7 @@ out_csv="count_all_fixed.csv"
 if [ -f ../"$out_csv" ]; then
   rm -f ../"$out_csv"
 fi
-printf "subject,max_clusters_fixed\n" > $out_csv
+printf "subject,max_clusters_fixed\n" > "../$out_csv"
 
 cd ../subjects
 

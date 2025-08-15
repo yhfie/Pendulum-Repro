@@ -53,7 +53,7 @@ out_csv="count_all_dev.csv"
 if [ -f ../"$out_csv" ]; then
   rm -f ../"$out_csv"
 fi
-printf "subject, max_clusters_dev\n" > $out_csv
+printf "subject, max_clusters_dev\n" > "../$out_csv"
 
 cd ../subjects
 
