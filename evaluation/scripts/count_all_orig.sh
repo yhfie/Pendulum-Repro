@@ -61,7 +61,7 @@ total_number_subjects=${#subjects[@]}
 
 out_csv="count_all_orig.csv"
 if [ -f "$out_csv" ]; then
-  rm -f "$out_csv"\
+  rm -f "$out_csv"
 fi
 printf "subject, max_clusters_orig\n" > $out_csv
 
@@ -79,7 +79,7 @@ do
 	  fi
   done
   echo ${subjects[i]} $max_clusters
-  printf "%s, %s\n" "${subjects[i]}" "$max_clusters" >> $out_csv
+  printf "%s, %s\n" "${subjects[i]}" "$max_clusters" >> "../$out_csv"
   cd ../
 done
 
