@@ -49,6 +49,10 @@ apache_ftpserver_salted_encrypt_unsafe
 out_dir="fuzzer-out"
 total_number_subjects=${#subjects[@]}
 
+out_csv="count_all_dev.csv"
+rm -f $out_csv
+printf "subject, max_clusters_dev\n" > $out_csv
+
 cd ../subjects
 
 for (( i=0; i<=$(( $total_number_subjects - 1 )); i++ ))
@@ -63,6 +67,8 @@ do
 	  fi
   done
   echo ${subjects[i]} $max_clusters
+  printf "%s, %s\n" ${subjects[i]} $max_clusters >> $out_csv
   cd ../
 done
 
+echo "Results written to ${out_csv}"
