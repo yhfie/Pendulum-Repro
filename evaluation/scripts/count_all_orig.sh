@@ -62,6 +62,7 @@ total_number_subjects=${#subjects[@]}
 out_csv="count_all_orig.csv"
 if [ -f "$out_csv" ]; then
   rm -f "$out_csv"\
+fi
 printf "subject, max_clusters_orig\n" > $out_csv
 
 cd ../subjects
