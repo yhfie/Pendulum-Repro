@@ -67,7 +67,7 @@ do
 	  fi
   done
   echo ${subjects[i]} $max_clusters
-  printf "%s, %s\n" ${subjects[i]} $max_clusters >> $out_csv
+  printf "%s, %s\n" "${subjects[i]}" "$max_clusters" >> $out_csv
   cd ../
 done
 
