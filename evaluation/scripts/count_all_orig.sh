@@ -60,7 +60,8 @@ out_dir="fuzzer-out"
 total_number_subjects=${#subjects[@]}
 
 out_csv="count_all_orig.csv"
-rm -f out_csv
+if [ -f "$out_csv" ]; then
+  rm -f "$out_csv"\
 printf "subject, max_clusters_orig\n" > $out_csv
 
 cd ../subjects
@@ -77,7 +78,7 @@ do
 	  fi
   done
   echo ${subjects[i]} $max_clusters
-  echo "%s, %s\n" "${subjects[i]}" "$max_clusters" >> $out_csv
+  printf "%s, %s\n" "${subjects[i]}" "$max_clusters" >> $out_csv
   cd ../
 done
 
