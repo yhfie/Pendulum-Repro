@@ -11,8 +11,8 @@ get_max_partitions() {
 declare -a subjects=(
 apache_ftpserver_clear_unsafe
 apache_ftpserver_md5_unsafe
-# blazer_login_unsafe
-# blazer_sanity_unsafe
+blazer_login_unsafe
+blazer_sanity_unsafe
 # blazer_straightline_unsafe
 # example_PWCheck_unsafe
 # github_authmreloaded_unsafe
@@ -24,17 +24,17 @@ apache_ftpserver_md5_unsafe
 # jasypt_digestEquals_unsafe
 # shiro_hashEquals_unsafe
 # tink_multiply_unsafe
-# blazer_array_unsafe
+blazer_array_unsafe
 # blazer_loopandbranch_unsafe
-# blazer_unixlogin_unsafe
+blazer_unixlogin_unsafe
 # themis_boot-stateless-auth_unsafe
-apache_ftpserver_stringutils_unsafe
-stac-ibasys
-# blazer_passwordEq_unsafe
-# blazer_k96_unsafe
-# blazer_modpow1_unsafe
-# blazer_modpow2_unsafe
-# blazer_gpt14_unsafe
+# apache_ftpserver_stringutils_unsafe
+# stac-ibasys
+blazer_passwordEq_unsafe
+blazer_k96_unsafe
+blazer_modpow1_unsafe
+blazer_modpow2_unsafe
+blazer_gpt14_unsafe
 # themis_jetty_unsafe
 apache_ftpserver_salted_unsafe
 apache_ftpserver_salted_encrypt_unsafe
@@ -59,7 +59,9 @@ cd ../subjects
 
 for (( i=0; i<=$(( $total_number_subjects - 1 )); i++ ))
 do
-  cd ./${subjects[i]}/
+  subject=$(echo ${subjects[i]} | sed 's/_unsafe/_dev/')
+  cd ./$subject/
+  # cd ./${subjects[i]}/
   max_clusters=-1
   for j in `seq 1 $number_of_runs`
   do
